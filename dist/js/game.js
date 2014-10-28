@@ -10,12 +10,13 @@ window.onload = function () {
   game.state.add('gameover', require('./states/gameover'));
   game.state.add('menu', require('./states/menu'));
   game.state.add('play', require('./states/play'));
+  game.state.add('playroom', require('./states/playroom'));
   game.state.add('preload', require('./states/preload'));
   
 
   game.state.start('boot');
 };
-},{"./states/boot":2,"./states/gameover":3,"./states/menu":4,"./states/play":5,"./states/preload":6}],2:[function(require,module,exports){
+},{"./states/boot":2,"./states/gameover":3,"./states/menu":4,"./states/play":5,"./states/playroom":6,"./states/preload":7}],2:[function(require,module,exports){
 
 'use strict';
 
@@ -122,6 +123,33 @@ module.exports = Menu;
   
   module.exports = Play;
 },{}],6:[function(require,module,exports){
+'use strict';
+  function Playroom() {}
+  Playroom.prototype = {
+    preload: function() {
+      // Override this method to add some load operations. 
+      // If you need to use the loader, you may need to use them here.
+    },
+    create: function() {
+      this.sprite = this.game.add.sprite(0, 0, 'playroom_bg');
+    },
+    update: function() {
+      // state update code
+    },
+    paused: function() {
+      // This method will be called when game paused.
+    },
+    render: function() {
+      // Put render operations here.
+    },
+    shutdown: function() {
+      // This method will be called when the state is shut down 
+      // (i.e. you switch to another state from this one).
+    }
+  };
+module.exports = Playroom;
+
+},{}],7:[function(require,module,exports){
 
 'use strict';
 function Preload() {
@@ -136,7 +164,7 @@ Preload.prototype = {
 
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     this.load.setPreloadSprite(this.asset);
-    this.load.image('yeoman', 'assets/yeoman-logo.png');
+    this.load.image('playroom_bg', 'assets/img/playroom/background.png');
 
   },
   create: function() {
@@ -144,7 +172,7 @@ Preload.prototype = {
   },
   update: function() {
     if(!!this.ready) {
-      this.game.state.start('menu');
+      this.game.state.start('playroom');
     }
   },
   onLoadComplete: function() {

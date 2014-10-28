@@ -12,7 +12,7 @@ Preload.prototype = {
 
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     this.load.setPreloadSprite(this.asset);
-    this.load.image('yeoman', 'assets/yeoman-logo.png');
+    this.load.image('playroom_bg', 'assets/img/playroom/background.png');
 
   },
   create: function() {
@@ -20,7 +20,7 @@ Preload.prototype = {
   },
   update: function() {
     if(!!this.ready) {
-      this.game.state.start('menu');
+      this.game.state.start('playroom');
     }
   },
   onLoadComplete: function() {
