@@ -19,7 +19,36 @@ window.onload = function () {
 
   game.state.start('boot');
 };
-},{"./states/beachScene":2,"./states/boot":3,"./states/eatingScene":4,"./states/gameover":5,"./states/menu":6,"./states/play":7,"./states/playroom":8,"./states/preload":9,"./states/spaceScene":10}],2:[function(require,module,exports){
+},{"./states/beachScene":3,"./states/boot":4,"./states/eatingScene":5,"./states/gameover":6,"./states/menu":7,"./states/play":8,"./states/playroom":9,"./states/preload":10,"./states/spaceScene":11}],2:[function(require,module,exports){
+'use strict';
+
+var EatObject = function(game, x, y, frame) {
+	Phaser.Sprite.call(this, game, x, y, 'eatobject', frame);
+
+  	this.game.physics.arcade.enableBody(this);
+	this.body.allowGravity = false;
+  	this.body.velocity.x = 100;
+
+};
+
+EatObject.prototype = Object.create(Phaser.Sprite.prototype);
+EatObject.prototype.constructor = EatObject;
+
+EatObject.prototype.update = function() {
+  
+  // write your prefab's specific update code here
+  
+},
+
+EatObject.prototype.drop = function(){
+	this.body.allowGravity = true;
+	this.body.velocity.y = -200;
+	this.body.velocity.x = 50;
+};
+
+module.exports = EatObject;
+
+},{}],3:[function(require,module,exports){
 'use strict';
   function BeachScene() {}
   BeachScene.prototype = {
@@ -47,7 +76,7 @@ window.onload = function () {
   };
 module.exports = BeachScene;
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 
 'use strict';
 
@@ -66,8 +95,10 @@ Boot.prototype = {
 
 module.exports = Boot;
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 'use strict';
+var eatObject = require('../prefabs/eatObject');  
+
   function EatingScene() {}
   EatingScene.prototype = {
     preload: function() {
@@ -75,11 +106,28 @@ module.exports = Boot;
       // If you need to use the loader, you may need to use them here.
     },
     create: function() {
-      // This method is called after the game engine successfully switches states. 
-      // Feel free to add any setup code here (do not load anything here, override preload() instead).
+        this.game.physics.startSystem(Phaser.Physics.ARCADE);
+        this.game.physics.arcade.gravity.y = 500;
+
+        this.sprite = this.game.add.sprite(0, 0, 'playroom_bg');
+
+
+        this.objectGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.generateObjects, this);
+        this.objectGenerator.timer.start();
+
+    },
+    generateObjects: function() {
+
+      this.eatObject = new eatObject(this.game, -50, 300);
+
+      this.game.add.existing(this.eatObject);
+
+      this.input.onDown.add(this.eatObject.drop, this.eatObject);
+
     },
     update: function() {
       // state update code
+
     },
     paused: function() {
       // This method will be called when game paused.
@@ -94,7 +142,7 @@ module.exports = Boot;
   };
 module.exports = EatingScene;
 
-},{}],5:[function(require,module,exports){
+},{"../prefabs/eatObject":2}],6:[function(require,module,exports){
 
 'use strict';
 function GameOver() {}
@@ -122,7 +170,7 @@ GameOver.prototype = {
 };
 module.exports = GameOver;
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 
 'use strict';
 function Menu() {}
@@ -154,7 +202,7 @@ Menu.prototype = {
 
 module.exports = Menu;
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 
   'use strict';
   function Play() {}
@@ -181,7 +229,7 @@ module.exports = Menu;
   };
   
   module.exports = Play;
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
   function Playroom() {}
   Playroom.prototype = {
@@ -227,7 +275,7 @@ module.exports = Menu;
   };
 module.exports = Playroom;
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 
 'use strict';
 function Preload() {
@@ -246,14 +294,14 @@ Preload.prototype = {
     this.load.image('rectangle_blue', 'assets/img/playroom/rectangle_blue.png');
     this.load.image('rectangle_green', 'assets/img/playroom/rectangle_green.png');
     this.load.image('rectangle_red', 'assets/img/playroom/rectangle_red.png');
-
+    this.load.image('eatobject', 'assets/img/eating/rectangle_purple.png');
   },
   create: function() {
     this.asset.cropEnabled = false;
   },
   update: function() {
     if(!!this.ready) {
-      this.game.state.start('playroom');
+      this.game.state.start('eatingScene');
     }
   },
   onLoadComplete: function() {
@@ -263,7 +311,7 @@ Preload.prototype = {
 
 module.exports = Preload;
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
   function SpaceScene() {}
   SpaceScene.prototype = {
