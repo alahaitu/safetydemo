@@ -13,6 +13,9 @@ Preload.prototype = {
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     this.load.setPreloadSprite(this.asset);
     this.load.image('playroom_bg', 'assets/img/playroom/background.png');
+    this.load.image('rectangle_blue', 'assets/img/playroom/rectangle_blue.png');
+    this.load.image('rectangle_green', 'assets/img/playroom/rectangle_green.png');
+    this.load.image('rectangle_red', 'assets/img/playroom/rectangle_red.png');
 
   },
   create: function() {

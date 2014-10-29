@@ -6,17 +6,48 @@ window.onload = function () {
   var game = new Phaser.Game(1024, 688, Phaser.AUTO, 'safety-demo');
 
   // Game States
+  game.state.add('beachScene', require('./states/beachScene'));
   game.state.add('boot', require('./states/boot'));
+  game.state.add('eatingScene', require('./states/eatingScene'));
   game.state.add('gameover', require('./states/gameover'));
   game.state.add('menu', require('./states/menu'));
   game.state.add('play', require('./states/play'));
   game.state.add('playroom', require('./states/playroom'));
   game.state.add('preload', require('./states/preload'));
+  game.state.add('spaceScene', require('./states/spaceScene'));
   
 
   game.state.start('boot');
 };
-},{"./states/boot":2,"./states/gameover":3,"./states/menu":4,"./states/play":5,"./states/playroom":6,"./states/preload":7}],2:[function(require,module,exports){
+},{"./states/beachScene":2,"./states/boot":3,"./states/eatingScene":4,"./states/gameover":5,"./states/menu":6,"./states/play":7,"./states/playroom":8,"./states/preload":9,"./states/spaceScene":10}],2:[function(require,module,exports){
+'use strict';
+  function BeachScene() {}
+  BeachScene.prototype = {
+    preload: function() {
+      // Override this method to add some load operations. 
+      // If you need to use the loader, you may need to use them here.
+    },
+    create: function() {
+      // This method is called after the game engine successfully switches states. 
+      // Feel free to add any setup code here (do not load anything here, override preload() instead).
+    },
+    update: function() {
+      // state update code
+    },
+    paused: function() {
+      // This method will be called when game paused.
+    },
+    render: function() {
+      // Put render operations here.
+    },
+    shutdown: function() {
+      // This method will be called when the state is shut down 
+      // (i.e. you switch to another state from this one).
+    }
+  };
+module.exports = BeachScene;
+
+},{}],3:[function(require,module,exports){
 
 'use strict';
 
@@ -35,7 +66,35 @@ Boot.prototype = {
 
 module.exports = Boot;
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
+'use strict';
+  function EatingScene() {}
+  EatingScene.prototype = {
+    preload: function() {
+      // Override this method to add some load operations. 
+      // If you need to use the loader, you may need to use them here.
+    },
+    create: function() {
+      // This method is called after the game engine successfully switches states. 
+      // Feel free to add any setup code here (do not load anything here, override preload() instead).
+    },
+    update: function() {
+      // state update code
+    },
+    paused: function() {
+      // This method will be called when game paused.
+    },
+    render: function() {
+      // Put render operations here.
+    },
+    shutdown: function() {
+      // This method will be called when the state is shut down 
+      // (i.e. you switch to another state from this one).
+    }
+  };
+module.exports = EatingScene;
+
+},{}],5:[function(require,module,exports){
 
 'use strict';
 function GameOver() {}
@@ -63,7 +122,7 @@ GameOver.prototype = {
 };
 module.exports = GameOver;
 
-},{}],4:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 
 'use strict';
 function Menu() {}
@@ -95,7 +154,7 @@ Menu.prototype = {
 
 module.exports = Menu;
 
-},{}],5:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 
   'use strict';
   function Play() {}
@@ -122,7 +181,7 @@ module.exports = Menu;
   };
   
   module.exports = Play;
-},{}],6:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
   function Playroom() {}
   Playroom.prototype = {
@@ -132,6 +191,25 @@ module.exports = Menu;
     },
     create: function() {
       this.sprite = this.game.add.sprite(0, 0, 'playroom_bg');
+
+      this.eatingSceneStartButton = this.game.add.button(this.game.width/2, 550, 'rectangle_blue', this.eatingSceneStartClick, this);
+      this.beachSceneStartButton = this.game.add.button(200, 540, 'rectangle_green', this.beachSceneStartClick, this);
+      this.spaceSceneStartButton = this.game.add.button(850, 600, 'rectangle_red', this.spaceSceneStartClick, this);
+
+      this.eatingSceneStartButton.anchor.setTo(0.5,0.5);
+      this.beachSceneStartButton.anchor.setTo(0.5,0.5);
+      this.spaceSceneStartButton.anchor.setTo(0.5,0.5);
+
+
+    },
+    eatingSceneStartClick: function() {
+      this.game.state.start('eatingScene');
+    },
+    beachSceneStartClick: function() {
+      this.game.state.start('beachScene');
+    },
+    spaceSceneStartClick: function() {
+      this.game.state.start('spaceScene');
     },
     update: function() {
       // state update code
@@ -149,7 +227,7 @@ module.exports = Menu;
   };
 module.exports = Playroom;
 
-},{}],7:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 
 'use strict';
 function Preload() {
@@ -165,6 +243,9 @@ Preload.prototype = {
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     this.load.setPreloadSprite(this.asset);
     this.load.image('playroom_bg', 'assets/img/playroom/background.png');
+    this.load.image('rectangle_blue', 'assets/img/playroom/rectangle_blue.png');
+    this.load.image('rectangle_green', 'assets/img/playroom/rectangle_green.png');
+    this.load.image('rectangle_red', 'assets/img/playroom/rectangle_red.png');
 
   },
   create: function() {
@@ -181,5 +262,33 @@ Preload.prototype = {
 };
 
 module.exports = Preload;
+
+},{}],10:[function(require,module,exports){
+'use strict';
+  function SpaceScene() {}
+  SpaceScene.prototype = {
+    preload: function() {
+      // Override this method to add some load operations. 
+      // If you need to use the loader, you may need to use them here.
+    },
+    create: function() {
+      // This method is called after the game engine successfully switches states. 
+      // Feel free to add any setup code here (do not load anything here, override preload() instead).
+    },
+    update: function() {
+      // state update code
+    },
+    paused: function() {
+      // This method will be called when game paused.
+    },
+    render: function() {
+      // Put render operations here.
+    },
+    shutdown: function() {
+      // This method will be called when the state is shut down 
+      // (i.e. you switch to another state from this one).
+    }
+  };
+module.exports = SpaceScene;
 
 },{}]},{},[1])
