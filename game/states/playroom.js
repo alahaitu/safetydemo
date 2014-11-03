@@ -2,7 +2,7 @@
   function Playroom() {}
   Playroom.prototype = {
     create: function() {
-      this.sprite = this.game.add.sprite(0, 0, 'playroom_bg');
+      this.playroom_background = this.game.add.sprite(0, 0, 'playroom_bg');
 
       this.eatingSceneStartButton = this.game.add.button(715, 225, 'playr_button_eat', this.eatingSceneStartClick, this);
       this.beachSceneStartButton = this.game.add.button(210, 460, 'playr_button_duck', this.beachSceneStartClick, this);
@@ -24,6 +24,9 @@
     },
     spaceSceneStartClick: function() {
       this.game.state.start('spaceScene');
+    },
+    startPlayroom: function() {
+      this.game.state.start('playroom');
     }
   };
 module.exports = Playroom;

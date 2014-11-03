@@ -25,9 +25,9 @@ window.onload = function () {
 var EatObject = function(game, x, y, sprite, frame) {
 	Phaser.Sprite.call(this, game, x, y, sprite, frame);
 
-  	this.game.physics.arcade.enableBody(this);
+  this.game.physics.arcade.enableBody(this);
 	this.body.allowGravity = false;
-  	this.body.velocity.x = 100;
+  this.body.velocity.x = 100;
 
 };
 
@@ -106,35 +106,26 @@ var eatObject = require('../prefabs/eatObject');
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.physics.arcade.gravity.y = 500;
 
-        this.sprite = this.game.add.sprite(0, 0, 'eating_bg');
+        this.eating_background = this.game.add.sprite(0, 0, 'eating_bg');
+        this.backButton = this.add.button(899, 23, 'exit_btn' , this.startPlayroom, this);
+        this.backButton = this.add.button(899, 23, 'pointer' , this.startPlayroom, this);
+        this.backButton = this.add.button(899, 23, 'score_meter' , this.startPlayroom, this);
 
-
-        this.objectGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.generateObjects, this);
+        this.objectGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * this.game.rnd.integerInRange(3, 4.5), this.generateObjects, this);
         this.objectGenerator.timer.start();
 
     },
     generateObjects: function() {
 
-      this.eatObject = new eatObject(this.game, -50, 400, 'eating_x1');
+      this.eatObject = new eatObject(this.game, -201, 400, 'eating_x' + this.game.rnd.integerInRange(1, 8));
 
       this.game.add.existing(this.eatObject);
 
       this.input.onDown.add(this.eatObject.drop, this.eatObject);
 
     },
-    update: function() {
-      // state update code
-
-    },
-    paused: function() {
-      // This method will be called when game paused.
-    },
-    render: function() {
-      // Put render operations here.
-    },
-    shutdown: function() {
-      // This method will be called when the state is shut down 
-      // (i.e. you switch to another state from this one).
+    startPlayroom: function() {
+      this.game.state.start('playroom');
     }
   };
 module.exports = EatingScene;
@@ -231,7 +222,7 @@ module.exports = Menu;
   function Playroom() {}
   Playroom.prototype = {
     create: function() {
-      this.sprite = this.game.add.sprite(0, 0, 'playroom_bg');
+      this.playroom_background = this.game.add.sprite(0, 0, 'playroom_bg');
 
       this.eatingSceneStartButton = this.game.add.button(715, 225, 'playr_button_eat', this.eatingSceneStartClick, this);
       this.beachSceneStartButton = this.game.add.button(210, 460, 'playr_button_duck', this.beachSceneStartClick, this);
@@ -253,6 +244,9 @@ module.exports = Menu;
     },
     spaceSceneStartClick: function() {
       this.game.state.start('spaceScene');
+    },
+    startPlayroom: function() {
+      this.game.state.start('playroom');
     }
   };
 module.exports = Playroom;
@@ -273,6 +267,11 @@ Preload.prototype = {
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     this.load.setPreloadSprite(this.asset);
 
+    // Shared assets
+    this.load.image('exit_btn', 'assets/img/Shared/ExitButton.png');
+    this.load.image('score_meter', 'assets/img/Shared/VeggieP_ScoreMeter.png');
+    this.load.image('pointer', 'assets/img/Shared/VeggieP_ScorePointer.png');    
+
     // Playroom assets
     this.load.image('playroom_bg', 'assets/img/Playroom/playr_bg.png');
     this.load.image('playr_button_ball', 'assets/img/Playroom/playr_button_ball.png');
@@ -282,10 +281,10 @@ Preload.prototype = {
 
     // Eating game assets
     this.load.image('eating_bg', 'assets/img/EatingGame/kitchen.png');
-    this.load.image('eating_carrot', 'assets/img/EatingGame/EatingGame_Carrot.png');
-    this.load.image('eating_potato', 'assets/img/EatingGame/EatingGame_Potato.png');
-    this.load.image('eating_strawberry', 'assets/img/EatingGame/EatingGame_Strawberry.png');
-    this.load.image('eating_tomato', 'assets/img/EatingGame/EatingGame_Tomato.png');
+    this.load.image('eating_x5', 'assets/img/EatingGame/EatingGame_Carrot.png');
+    this.load.image('eating_x6', 'assets/img/EatingGame/EatingGame_Potato.png');
+    this.load.image('eating_x7', 'assets/img/EatingGame/EatingGame_Strawberry.png');
+    this.load.image('eating_x8', 'assets/img/EatingGame/EatingGame_Tomato.png');
     this.load.image('eating_x1', 'assets/img/EatingGame/EatingGame_X1.png');
     this.load.image('eating_x2', 'assets/img/EatingGame/EatingGame_X2.png');
     this.load.image('eating_x3', 'assets/img/EatingGame/EatingGame_X3.png');
