@@ -3,15 +3,12 @@ var eatObject = require('../prefabs/eatObject');
 
   function EatingScene() {}
   EatingScene.prototype = {
-    preload: function() {
-      // Override this method to add some load operations. 
-      // If you need to use the loader, you may need to use them here.
-    },
+
     create: function() {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.physics.arcade.gravity.y = 500;
 
-        this.sprite = this.game.add.sprite(0, 0, 'playroom_bg');
+        this.sprite = this.game.add.sprite(0, 0, 'eating_bg');
 
 
         this.objectGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.generateObjects, this);
@@ -20,7 +17,7 @@ var eatObject = require('../prefabs/eatObject');
     },
     generateObjects: function() {
 
-      this.eatObject = new eatObject(this.game, -50, 300);
+      this.eatObject = new eatObject(this.game, -50, 400, 'eating_x1');
 
       this.game.add.existing(this.eatObject);
 

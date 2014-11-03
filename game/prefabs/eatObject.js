@@ -1,7 +1,7 @@
 'use strict';
 
-var EatObject = function(game, x, y, frame) {
-	Phaser.Sprite.call(this, game, x, y, 'eatobject', frame);
+var EatObject = function(game, x, y, sprite, frame) {
+	Phaser.Sprite.call(this, game, x, y, sprite, frame);
 
   	this.game.physics.arcade.enableBody(this);
 	this.body.allowGravity = false;

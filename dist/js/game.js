@@ -22,8 +22,8 @@ window.onload = function () {
 },{"./states/beachScene":3,"./states/boot":4,"./states/eatingScene":5,"./states/gameover":6,"./states/menu":7,"./states/play":8,"./states/playroom":9,"./states/preload":10,"./states/spaceScene":11}],2:[function(require,module,exports){
 'use strict';
 
-var EatObject = function(game, x, y, frame) {
-	Phaser.Sprite.call(this, game, x, y, 'eatobject', frame);
+var EatObject = function(game, x, y, sprite, frame) {
+	Phaser.Sprite.call(this, game, x, y, sprite, frame);
 
   	this.game.physics.arcade.enableBody(this);
 	this.body.allowGravity = false;
@@ -101,15 +101,12 @@ var eatObject = require('../prefabs/eatObject');
 
   function EatingScene() {}
   EatingScene.prototype = {
-    preload: function() {
-      // Override this method to add some load operations. 
-      // If you need to use the loader, you may need to use them here.
-    },
+
     create: function() {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.physics.arcade.gravity.y = 500;
 
-        this.sprite = this.game.add.sprite(0, 0, 'playroom_bg');
+        this.sprite = this.game.add.sprite(0, 0, 'eating_bg');
 
 
         this.objectGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 3, this.generateObjects, this);
@@ -118,7 +115,7 @@ var eatObject = require('../prefabs/eatObject');
     },
     generateObjects: function() {
 
-      this.eatObject = new eatObject(this.game, -50, 300);
+      this.eatObject = new eatObject(this.game, -50, 400, 'eating_x1');
 
       this.game.add.existing(this.eatObject);
 
@@ -233,20 +230,18 @@ module.exports = Menu;
 'use strict';
   function Playroom() {}
   Playroom.prototype = {
-    preload: function() {
-      // Override this method to add some load operations. 
-      // If you need to use the loader, you may need to use them here.
-    },
     create: function() {
       this.sprite = this.game.add.sprite(0, 0, 'playroom_bg');
 
-      this.eatingSceneStartButton = this.game.add.button(this.game.width/2, 550, 'rectangle_blue', this.eatingSceneStartClick, this);
-      this.beachSceneStartButton = this.game.add.button(200, 540, 'rectangle_green', this.beachSceneStartClick, this);
-      this.spaceSceneStartButton = this.game.add.button(850, 600, 'rectangle_red', this.spaceSceneStartClick, this);
+      this.eatingSceneStartButton = this.game.add.button(715, 225, 'playr_button_eat', this.eatingSceneStartClick, this);
+      this.beachSceneStartButton = this.game.add.button(210, 460, 'playr_button_duck', this.beachSceneStartClick, this);
+      this.spaceSceneStartButton = this.game.add.button(835, 500, 'playr_button_ball', this.spaceSceneStartClick, this);
+      this.spaceSceneStartButton = this.game.add.button(45, 160, 'playr_button_plant', this.spaceSceneStartClick, this);
 
-      this.eatingSceneStartButton.anchor.setTo(0.5,0.5);
-      this.beachSceneStartButton.anchor.setTo(0.5,0.5);
-      this.spaceSceneStartButton.anchor.setTo(0.5,0.5);
+
+      //this.eatingSceneStartButton.anchor.setTo(0.5,0.5);
+      //this.beachSceneStartButton.anchor.setTo(0.5,0.5);
+      //this.spaceSceneStartButton.anchor.setTo(0.5,0.5);
 
 
     },
@@ -258,19 +253,6 @@ module.exports = Menu;
     },
     spaceSceneStartClick: function() {
       this.game.state.start('spaceScene');
-    },
-    update: function() {
-      // state update code
-    },
-    paused: function() {
-      // This method will be called when game paused.
-    },
-    render: function() {
-      // Put render operations here.
-    },
-    shutdown: function() {
-      // This method will be called when the state is shut down 
-      // (i.e. you switch to another state from this one).
     }
   };
 module.exports = Playroom;
@@ -290,10 +272,26 @@ Preload.prototype = {
 
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     this.load.setPreloadSprite(this.asset);
-    this.load.image('playroom_bg', 'assets/img/playroom/background.png');
-    this.load.image('rectangle_blue', 'assets/img/playroom/rectangle_blue.png');
-    this.load.image('rectangle_green', 'assets/img/playroom/rectangle_green.png');
-    this.load.image('rectangle_red', 'assets/img/playroom/rectangle_red.png');
+
+    // Playroom assets
+    this.load.image('playroom_bg', 'assets/img/Playroom/playr_bg.png');
+    this.load.image('playr_button_ball', 'assets/img/Playroom/playr_button_ball.png');
+    this.load.image('playr_button_duck', 'assets/img/Playroom/playr_button_duck.png');
+    this.load.image('playr_button_eat', 'assets/img/Playroom/playr_button_eat.png');
+    this.load.image('playr_button_plant', 'assets/img/Playroom/playr_button_plant.png');
+
+    // Eating game assets
+    this.load.image('eating_bg', 'assets/img/EatingGame/kitchen.png');
+    this.load.image('eating_carrot', 'assets/img/EatingGame/EatingGame_Carrot.png');
+    this.load.image('eating_potato', 'assets/img/EatingGame/EatingGame_Potato.png');
+    this.load.image('eating_strawberry', 'assets/img/EatingGame/EatingGame_Strawberry.png');
+    this.load.image('eating_tomato', 'assets/img/EatingGame/EatingGame_Tomato.png');
+    this.load.image('eating_x1', 'assets/img/EatingGame/EatingGame_X1.png');
+    this.load.image('eating_x2', 'assets/img/EatingGame/EatingGame_X2.png');
+    this.load.image('eating_x3', 'assets/img/EatingGame/EatingGame_X3.png');
+    this.load.image('eating_x4', 'assets/img/EatingGame/EatingGame_X4.png');
+
+
     this.load.image('eatobject', 'assets/img/eating/rectangle_purple.png');
   },
   create: function() {
@@ -301,7 +299,7 @@ Preload.prototype = {
   },
   update: function() {
     if(!!this.ready) {
-      this.game.state.start('eatingScene');
+      this.game.state.start('playroom');
     }
   },
   onLoadComplete: function() {
