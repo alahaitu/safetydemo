@@ -14,6 +14,9 @@ window.onload = function () {
   game.state.add('playroom', require('./states/playroom'));
   game.state.add('preload', require('./states/preload'));
   game.state.add('spaceScene', require('./states/spaceScene'));
+  game.state.add('trampoline', require('./states/trampoline'));
+  game.state.add('trampolineCutscene', require('./states/trampolineCutscene'));
+  game.state.add('trampolineGameWin', require('./states/trampolineGameWin'));
   
 
   game.state.start('boot');

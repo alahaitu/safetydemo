@@ -15,19 +15,25 @@ window.onload = function () {
   game.state.add('playroom', require('./states/playroom'));
   game.state.add('preload', require('./states/preload'));
   game.state.add('spaceScene', require('./states/spaceScene'));
+  game.state.add('trampoline', require('./states/trampoline'));
+  game.state.add('trampolineCutscene', require('./states/trampolineCutscene'));
+  game.state.add('trampolineGameWin', require('./states/trampolineGameWin'));
   
 
   game.state.start('boot');
 };
-},{"./states/beachScene":3,"./states/boot":4,"./states/eatingScene":5,"./states/gameover":6,"./states/menu":7,"./states/play":8,"./states/playroom":9,"./states/preload":10,"./states/spaceScene":11}],2:[function(require,module,exports){
+},{"./states/beachScene":3,"./states/boot":4,"./states/eatingScene":5,"./states/gameover":6,"./states/menu":7,"./states/play":8,"./states/playroom":9,"./states/preload":10,"./states/spaceScene":11,"./states/trampoline":12,"./states/trampolineCutscene":13,"./states/trampolineGameWin":14}],2:[function(require,module,exports){
 'use strict';
 
 var EatObject = function(game, x, y, sprite, frame) {
 	Phaser.Sprite.call(this, game, x, y, sprite, frame);
 
-  this.game.physics.arcade.enableBody(this);
+ 	this.game.physics.arcade.enableBody(this);
 	this.body.allowGravity = false;
-  this.body.velocity.x = 100;
+  	this.body.velocity.x = 100;
+
+	this.checkWorldBounds = true;	
+	this.outOfBoundsKill = true;
 
 };
 
@@ -112,6 +118,7 @@ var eatObject = require('../prefabs/eatObject');
         this.backButton = this.add.button(899, 23, 'score_meter' , this.startPlayroom, this);
 
         this.objectGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * this.game.rnd.integerInRange(3, 4.5), this.generateObjects, this);
+
         this.objectGenerator.timer.start();
 
     },
@@ -335,5 +342,153 @@ module.exports = Preload;
     }
   };
 module.exports = SpaceScene;
+
+},{}],12:[function(require,module,exports){
+'use strict';
+  function Trampoline() {}
+  Trampoline.prototype = {
+    create: function() {
+      this.add.sprite(0, 0, 'trampoline_game_bg');
+      this.cherry = this.add.sprite(400, 140, 'trampoline_game_cherry');
+      this.strawberry = this.add.sprite(600, 140, 'trampoline_game_strawberry');
+      this.grape = this.add.sprite(800, 140, 'trampoline_game_grape');
+      this.player = this.add.sprite(426, 502, 'trampoline_game_alien');
+      this.bee = this.add.sprite(1024, 80, 'trampoline_game_bee');
+      this.add.sprite(119, 38, 'score_meter');
+      this.scorePointer = this.add.sprite(114, 21, 'score_pointer');
+      this.add.sprite(40, 35, 'score_basket');
+      this.add.button(850, 590, 'trampoline_game_jump_button', this.playerJump, this);
+      this.add.button(25, 590, 'trampoline_lbutton', this.playerLeft, this);
+      this.add.button(220, 590, 'trampoline_rbutton', this.playerRight, this);
+      this.add.button(899, 23, 'exit_btn', this.exitScene, this);    
+
+      this.beeSound = this.add.audio('bee_sound');
+      this.popSound = this.add.audio('helmet_on_sound');
+
+      this.game.physics.startSystem(Phaser.Physics.ARCADE);
+      this.game.physics.enable([this.player, this.bee, this.cherry, this.strawberry, this.grape]);
+      this.player.body.velocity.setTo(200, 200);
+      this.player.body.collideWorldBounds = true;
+      this.player.body.bounce.set(0.8);
+      this.player.body.gravity.set(0, 180);
+
+      this.player.body.immovable = true;
+      this.bee.body.immovable = true;
+
+    },
+    update: function() {
+      if (this.bee.x > 0-this.bee.width) {
+        this.bee.x -= 3;
+      }
+      else {
+        this.game.time.events.add(Phaser.Timer.SECOND * this.game.rnd.integerInRange(0.5, 1.5), this.resetBee, this);
+      }
+
+      this.game.physics.arcade.collide(this.player, this.bee, this.beeCollision, null, this);
+      this.game.physics.arcade.collide(this.player, this.cherry, this.pickCherry, null, this);
+      this.game.physics.arcade.collide(this.player, this.strawberry, this.pickStrawberry, null, this);
+      this.game.physics.arcade.collide(this.player, this.grape, this.pickGrape, null, this);
+
+      if (this.scorePointer.x > 672) {
+         this.game.state.start('trampolineGameWin');
+      }
+
+    },
+    pickCherry: function() {
+      this.popSound.play();
+      this.scorePointer.x += 28;
+      this.cherry.kill();
+      this.game.time.events.add(Phaser.Timer.SECOND * 3, this.resetCherry, this);
+    },
+    pickStrawberry: function() {
+      this.popSound.play();
+      this.scorePointer.x += 28;
+      this.strawberry.kill();
+      this.game.time.events.add(Phaser.Timer.SECOND * 3, this.resetStrawberry, this);
+    },
+    pickGrape: function() {
+      this.popSound.play();
+      this.scorePointer.x += 28;
+      this.grape.kill();
+      this.game.time.events.add(Phaser.Timer.SECOND * 3, this.resetGrape, this);
+    },
+    resetCherry: function() {
+      this.cherry.reset(this.game.rnd.integerInRange(0, 1024-this.cherry.body.width), this.game.rnd.integerInRange(140, 400));
+    },
+    resetStrawberry: function() {
+      this.strawberry.reset(this.game.rnd.integerInRange(0, 1024-this.strawberry.body.width), 140);
+    },
+    resetGrape: function() {
+      this.grape.reset(this.game.rnd.integerInRange(0, 1024-this.grape.body.width), 140);
+    },
+    beeCollision: function() {
+      console.log("sting!");
+      //this.beeSound.play();
+    },
+    resetBee: function() {
+      this.bee.reset(1024, this.game.rnd.integerInRange(100, 400));
+      //this.beeSound.play();
+    },
+    playerJump: function() {
+      this.player.body.velocity.y = 600;
+    },
+    playerLeft: function() {
+      if (this.player.body.velocity.x > 0)
+        this.player.body.velocity.x = -(this.player.body.velocity.x)
+    },
+    playerRight: function() {
+      if (this.player.body.velocity.x < 0)
+      this.player.body.velocity.x = -(this.player.body.velocity.x);
+    },
+    exitScene: function() {
+      this.game.state.start('playground');
+    }
+  };
+module.exports = Trampoline;
+
+},{}],13:[function(require,module,exports){
+'use strict';
+  function TrampolineCutscene() {}
+  TrampolineCutscene.prototype = {
+    create: function() {
+      this.add.sprite(0, 0, 'trampoline_bg');
+      this.add.sprite(93, 110, 'trampoline_back');
+      this.jumping = this.add.sprite(250, 0, 'trampoline_jumping', 1);
+      this.add.sprite(93, 100, 'trampoline_front');
+      this.add.button(850, 600, 'fwd_button', this.startTrampoline, this);
+      this.game.time.events.add(Phaser.Timer.SECOND * 0.5, this.trampolineKidSay, this);
+
+      this.trampolineKidSound = this.add.audio('youre_next_fi');
+
+      this.jumpingAnim = this.jumping.animations.add('jumps');
+      this.jumpingAnimation();
+    },
+    trampolineKidSay: function() {
+      this.trampolineKidSound.play();
+    },
+    jumpingAnimation: function(){
+      this.jumpingAnim.play(16, true);
+    },
+    startTrampoline: function() {
+      this.game.state.start('trampoline');
+    }
+  };
+module.exports = TrampolineCutscene;
+
+},{}],14:[function(require,module,exports){
+'use strict';
+  function TrampolineGameWin() {}
+  TrampolineGameWin.prototype = {
+    create: function() {
+      this.add.sprite(0, 0, 'trampoline_game_win');
+      this.applauseSound = this.add.audio('applause_sound');
+      this.game.time.events.add(Phaser.Timer.SECOND * 3, this.startPlayground, this);
+      this.applauseSound.play();
+    },
+    startPlayground: function() {
+      this.game.state.start('playground');
+    }
+  };
+module.exports = TrampolineGameWin;
 
 },{}]},{},[1])

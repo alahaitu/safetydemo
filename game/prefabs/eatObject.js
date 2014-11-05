@@ -3,9 +3,12 @@
 var EatObject = function(game, x, y, sprite, frame) {
 	Phaser.Sprite.call(this, game, x, y, sprite, frame);
 
-  this.game.physics.arcade.enableBody(this);
+ 	this.game.physics.arcade.enableBody(this);
 	this.body.allowGravity = false;
-  this.body.velocity.x = 100;
+  	this.body.velocity.x = 100;
+
+	this.checkWorldBounds = true;	
+	this.outOfBoundsKill = true;
 
 };
 
