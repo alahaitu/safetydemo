@@ -1,6 +1,6 @@
 'use strict';
 
-var EatObject = function(game, x, y, sprite, frame) {
+var GoodEatObject = function(game, x, y, sprite, frame) {
 	Phaser.Sprite.call(this, game, x, y, sprite, frame);
 
  	this.game.physics.arcade.enableBody(this);
@@ -12,19 +12,19 @@ var EatObject = function(game, x, y, sprite, frame) {
 
 };
 
-EatObject.prototype = Object.create(Phaser.Sprite.prototype);
-EatObject.prototype.constructor = EatObject;
+GoodEatObject.prototype = Object.create(Phaser.Sprite.prototype);
+GoodEatObject.prototype.constructor = GoodEatObject;
 
-EatObject.prototype.update = function() {
+GoodEatObject.prototype.update = function() {
   
   // write your prefab's specific update code here
   
 },
 
-EatObject.prototype.drop = function(){
+GoodEatObject.prototype.drop = function(){
 	this.body.allowGravity = true;
 	this.body.velocity.y = -200;
 	this.body.velocity.x = 50;
 };
 
-module.exports = EatObject;
+module.exports = GoodEatObject;

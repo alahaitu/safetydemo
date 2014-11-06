@@ -22,10 +22,42 @@ window.onload = function () {
 
   game.state.start('boot');
 };
-},{"./states/beachScene":3,"./states/boot":4,"./states/eatingScene":5,"./states/gameover":6,"./states/menu":7,"./states/play":8,"./states/playroom":9,"./states/preload":10,"./states/spaceScene":11,"./states/trampoline":12,"./states/trampolineCutscene":13,"./states/trampolineGameWin":14}],2:[function(require,module,exports){
+},{"./states/beachScene":4,"./states/boot":5,"./states/eatingScene":6,"./states/gameover":7,"./states/menu":8,"./states/play":9,"./states/playroom":10,"./states/preload":11,"./states/spaceScene":12,"./states/trampoline":13,"./states/trampolineCutscene":14,"./states/trampolineGameWin":15}],2:[function(require,module,exports){
 'use strict';
 
-var EatObject = function(game, x, y, sprite, frame) {
+var BadEatObject = function(game, x, y, sprite, frame) {
+	Phaser.Sprite.call(this, game, x, y, sprite, frame);
+
+	this.game.physics.arcade.enableBody(this);
+	this.body.allowGravity = false;
+  	this.body.velocity.x = 100;
+
+	this.checkWorldBounds = true;	
+	this.outOfBoundsKill = true;
+  
+};
+
+BadEatObject.prototype = Object.create(Phaser.Sprite.prototype);
+BadEatObject.prototype.constructor = BadEatObject;
+
+BadEatObject.prototype.update = function() {
+  
+  // write your prefab's specific update code here
+  
+};
+
+BadEatObject.prototype.drop = function(){
+	this.body.allowGravity = true;
+	this.body.velocity.y = -200;
+	this.body.velocity.x = 50;
+};
+
+module.exports = BadEatObject;
+
+},{}],3:[function(require,module,exports){
+'use strict';
+
+var GoodEatObject = function(game, x, y, sprite, frame) {
 	Phaser.Sprite.call(this, game, x, y, sprite, frame);
 
  	this.game.physics.arcade.enableBody(this);
@@ -37,24 +69,24 @@ var EatObject = function(game, x, y, sprite, frame) {
 
 };
 
-EatObject.prototype = Object.create(Phaser.Sprite.prototype);
-EatObject.prototype.constructor = EatObject;
+GoodEatObject.prototype = Object.create(Phaser.Sprite.prototype);
+GoodEatObject.prototype.constructor = GoodEatObject;
 
-EatObject.prototype.update = function() {
+GoodEatObject.prototype.update = function() {
   
   // write your prefab's specific update code here
   
 },
 
-EatObject.prototype.drop = function(){
+GoodEatObject.prototype.drop = function(){
 	this.body.allowGravity = true;
 	this.body.velocity.y = -200;
 	this.body.velocity.x = 50;
 };
 
-module.exports = EatObject;
+module.exports = GoodEatObject;
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 'use strict';
   function BeachScene() {}
   BeachScene.prototype = {
@@ -82,7 +114,7 @@ module.exports = EatObject;
   };
 module.exports = BeachScene;
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 
 'use strict';
 
@@ -101,9 +133,10 @@ Boot.prototype = {
 
 module.exports = Boot;
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
-var eatObject = require('../prefabs/eatObject');  
+var goodEatObject = require('../prefabs/goodEatObject');  
+var badEatObject = require('../prefabs/badEatObject');  
 
   function EatingScene() {}
   EatingScene.prototype = {
@@ -124,11 +157,27 @@ var eatObject = require('../prefabs/eatObject');
     },
     generateObjects: function() {
 
-      this.eatObject = new eatObject(this.game, -201, 400, 'eating_x' + this.game.rnd.integerInRange(1, 8));
+      var goodOrBad = this.game.rnd.integerInRange(0,1);
 
-      this.game.add.existing(this.eatObject);
+      // Good object
+      if (goodOrBad == 0) {
+          this.goodEatObject = new goodEatObject(this.game, -201, 400, 'eating_x' + this.game.rnd.integerInRange(5, 8));
 
-      this.input.onDown.add(this.eatObject.drop, this.eatObject);
+          this.game.add.existing(this.goodEatObject);
+
+          this.input.onDown.add(this.goodEatObject.drop, this.goodEatObject);
+      }
+
+      // Bad object
+      else if (goodOrBad == 1) {
+          this.badEatObject = new badEatObject(this.game, -201, 400, 'eating_x' + this.game.rnd.integerInRange(1, 4));
+
+          this.game.add.existing(this.badEatObject);
+
+          this.input.onDown.add(this.badEatObject.drop, this.badEatObject);
+      }
+
+
 
     },
     startPlayroom: function() {
@@ -137,7 +186,7 @@ var eatObject = require('../prefabs/eatObject');
   };
 module.exports = EatingScene;
 
-},{"../prefabs/eatObject":2}],6:[function(require,module,exports){
+},{"../prefabs/badEatObject":2,"../prefabs/goodEatObject":3}],7:[function(require,module,exports){
 
 'use strict';
 function GameOver() {}
@@ -165,7 +214,7 @@ GameOver.prototype = {
 };
 module.exports = GameOver;
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 
 'use strict';
 function Menu() {}
@@ -197,7 +246,7 @@ Menu.prototype = {
 
 module.exports = Menu;
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 
   'use strict';
   function Play() {}
@@ -224,7 +273,7 @@ module.exports = Menu;
   };
   
   module.exports = Play;
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 'use strict';
   function Playroom() {}
   Playroom.prototype = {
@@ -258,7 +307,7 @@ module.exports = Menu;
   };
 module.exports = Playroom;
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 
 'use strict';
 function Preload() {
@@ -315,7 +364,7 @@ Preload.prototype = {
 
 module.exports = Preload;
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
   function SpaceScene() {}
   SpaceScene.prototype = {
@@ -343,7 +392,7 @@ module.exports = Preload;
   };
 module.exports = SpaceScene;
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
   function Trampoline() {}
   Trampoline.prototype = {
@@ -446,7 +495,7 @@ module.exports = SpaceScene;
   };
 module.exports = Trampoline;
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
   function TrampolineCutscene() {}
   TrampolineCutscene.prototype = {
@@ -475,7 +524,7 @@ module.exports = Trampoline;
   };
 module.exports = TrampolineCutscene;
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
   function TrampolineGameWin() {}
   TrampolineGameWin.prototype = {

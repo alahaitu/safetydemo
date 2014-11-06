@@ -1,5 +1,6 @@
 'use strict';
-var eatObject = require('../prefabs/eatObject');  
+var goodEatObject = require('../prefabs/goodEatObject');  
+var badEatObject = require('../prefabs/badEatObject');  
 
   function EatingScene() {}
   EatingScene.prototype = {
@@ -20,11 +21,27 @@ var eatObject = require('../prefabs/eatObject');
     },
     generateObjects: function() {
 
-      this.eatObject = new eatObject(this.game, -201, 400, 'eating_x' + this.game.rnd.integerInRange(1, 8));
+      var goodOrBad = this.game.rnd.integerInRange(0,1);
 
-      this.game.add.existing(this.eatObject);
+      // Good object
+      if (goodOrBad == 0) {
+          this.goodEatObject = new goodEatObject(this.game, -201, 400, 'eating_x' + this.game.rnd.integerInRange(5, 8));
 
-      this.input.onDown.add(this.eatObject.drop, this.eatObject);
+          this.game.add.existing(this.goodEatObject);
+
+          this.input.onDown.add(this.goodEatObject.drop, this.goodEatObject);
+      }
+
+      // Bad object
+      else if (goodOrBad == 1) {
+          this.badEatObject = new badEatObject(this.game, -201, 400, 'eating_x' + this.game.rnd.integerInRange(1, 4));
+
+          this.game.add.existing(this.badEatObject);
+
+          this.input.onDown.add(this.badEatObject.drop, this.badEatObject);
+      }
+
+
 
     },
     startPlayroom: function() {
