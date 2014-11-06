@@ -22,7 +22,30 @@ window.onload = function () {
 
   game.state.start('boot');
 };
-},{"./states/beachScene":4,"./states/boot":5,"./states/eatingScene":6,"./states/gameover":7,"./states/menu":8,"./states/play":9,"./states/playroom":10,"./states/preload":11,"./states/spaceScene":12,"./states/trampoline":13,"./states/trampolineCutscene":14,"./states/trampolineGameWin":15}],2:[function(require,module,exports){
+},{"./states/beachScene":5,"./states/boot":6,"./states/eatingScene":7,"./states/gameover":8,"./states/menu":9,"./states/play":10,"./states/playroom":11,"./states/preload":12,"./states/spaceScene":13,"./states/trampoline":14,"./states/trampolineCutscene":15,"./states/trampolineGameWin":16}],2:[function(require,module,exports){
+'use strict';
+
+var Alien = function(game, x, y, sprite, frame) {
+  Phaser.Sprite.call(this, game, x, y, sprite, frame);
+
+ 	this.game.physics.arcade.enableBody(this);
+	this.body.allowGravity = false;
+	this.body.immovable = true;  
+
+};
+
+Alien.prototype = Object.create(Phaser.Sprite.prototype);
+Alien.prototype.constructor = Alien;
+
+Alien.prototype.update = function() {
+  
+  // write your prefab's specific update code here
+  
+};
+
+module.exports = Alien;
+
+},{}],3:[function(require,module,exports){
 'use strict';
 
 var BadEatObject = function(game, x, y, sprite, frame) {
@@ -54,7 +77,7 @@ BadEatObject.prototype.drop = function(){
 
 module.exports = BadEatObject;
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 'use strict';
 
 var GoodEatObject = function(game, x, y, sprite, frame) {
@@ -86,7 +109,7 @@ GoodEatObject.prototype.drop = function(){
 
 module.exports = GoodEatObject;
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 'use strict';
   function BeachScene() {}
   BeachScene.prototype = {
@@ -114,7 +137,7 @@ module.exports = GoodEatObject;
   };
 module.exports = BeachScene;
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 
 'use strict';
 
@@ -133,10 +156,11 @@ Boot.prototype = {
 
 module.exports = Boot;
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 'use strict';
 var goodEatObject = require('../prefabs/goodEatObject');  
 var badEatObject = require('../prefabs/badEatObject');  
+var alien = require('../prefabs/alien');  
 
   function EatingScene() {}
   EatingScene.prototype = {
@@ -148,13 +172,34 @@ var badEatObject = require('../prefabs/badEatObject');
         this.eating_background = this.game.add.sprite(0, 0, 'eating_bg');
         this.backButton = this.add.button(899, 23, 'exit_btn' , this.startPlayroom, this);
         this.scoreMeter = this.game.add.sprite(200, 35, 'score_meter');
-        this.pointer = this.game.add.sprite(215, 37, 'pointer');
+        this.pointer = this.game.add.sprite(315, 37, 'pointer');
+
+        this.alien = new alien(this.game, 300,520, 'alien');
+        this.game.add.existing(this.alien);
 
         this.objectGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * this.game.rnd.integerInRange(3, 4.5), this.generateObjects, this);
 
         this.objectGenerator.timer.start();
 
     },
+    update: function() {
+          this.game.physics.arcade.collide(this.alien, this.goodEatObject, this.goodCollision, null, this);
+          this.game.physics.arcade.collide(this.alien, this.badEatObject, this.badCollision, null, this);
+    },
+
+    goodCollision: function(){
+      //this.goodEatObject.destroy();
+      if (this.pointer.x < this.scoreMeter.width + this.scoreMeter.x -50){
+        this.pointer.x = this.pointer.x + 40;
+      }
+    },
+    badCollision: function(){
+      //this.badEatObject.destroy();
+      if (this.pointer.x > this.scoreMeter.x){
+        this.pointer.x = this.pointer.x - 40;
+      }
+    },
+
     generateObjects: function() {
 
       var goodOrBad = this.game.rnd.integerInRange(0,1);
@@ -186,7 +231,7 @@ var badEatObject = require('../prefabs/badEatObject');
   };
 module.exports = EatingScene;
 
-},{"../prefabs/badEatObject":2,"../prefabs/goodEatObject":3}],7:[function(require,module,exports){
+},{"../prefabs/alien":2,"../prefabs/badEatObject":3,"../prefabs/goodEatObject":4}],8:[function(require,module,exports){
 
 'use strict';
 function GameOver() {}
@@ -214,7 +259,7 @@ GameOver.prototype = {
 };
 module.exports = GameOver;
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 
 'use strict';
 function Menu() {}
@@ -246,7 +291,7 @@ Menu.prototype = {
 
 module.exports = Menu;
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 
   'use strict';
   function Play() {}
@@ -273,7 +318,7 @@ module.exports = Menu;
   };
   
   module.exports = Play;
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
   function Playroom() {}
   Playroom.prototype = {
@@ -307,7 +352,7 @@ module.exports = Menu;
   };
 module.exports = Playroom;
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 
 'use strict';
 function Preload() {
@@ -347,7 +392,7 @@ Preload.prototype = {
     this.load.image('eating_x4', 'assets/img/EatingGame/EatingGame_X4.png');
 
 
-    this.load.image('eatobject', 'assets/img/eating/rectangle_purple.png');
+    this.load.image('alien', 'assets/img/eating/rectangle_purple.png');
   },
   create: function() {
     this.asset.cropEnabled = false;
@@ -364,7 +409,7 @@ Preload.prototype = {
 
 module.exports = Preload;
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
   function SpaceScene() {}
   SpaceScene.prototype = {
@@ -392,7 +437,7 @@ module.exports = Preload;
   };
 module.exports = SpaceScene;
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
   function Trampoline() {}
   Trampoline.prototype = {
@@ -495,7 +540,7 @@ module.exports = SpaceScene;
   };
 module.exports = Trampoline;
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
   function TrampolineCutscene() {}
   TrampolineCutscene.prototype = {
@@ -524,7 +569,7 @@ module.exports = Trampoline;
   };
 module.exports = TrampolineCutscene;
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 'use strict';
   function TrampolineGameWin() {}
   TrampolineGameWin.prototype = {
