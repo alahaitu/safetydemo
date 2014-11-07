@@ -37,7 +37,7 @@ Preload.prototype = {
     this.load.image('eating_x4', 'assets/img/EatingGame/EatingGame_X4.png');
 
 
-    this.load.image('eatobject', 'assets/img/eating/rectangle_purple.png');
+    this.load.image('alien', 'assets/img/eating/rectangle_purple.png');
   },
   create: function() {
     this.asset.cropEnabled = false;
