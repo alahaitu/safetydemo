@@ -5,7 +5,7 @@ var BadEatObject = function(game, x, y, sprite, frame) {
 
 	this.game.physics.arcade.enableBody(this);
 	this.body.allowGravity = false;
-  	this.body.velocity.x = 100;
+  this.body.velocity.x = 100;
 
 	this.checkWorldBounds = true;	
 	this.outOfBoundsKill = true;
@@ -25,6 +25,7 @@ BadEatObject.prototype.drop = function(){
 	this.body.allowGravity = true;
 	this.body.velocity.y = -200;
 	this.body.velocity.x = 50;
+	this.inputEnabled = false;
 };
 
 module.exports = BadEatObject;
