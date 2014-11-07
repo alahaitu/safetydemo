@@ -26,6 +26,7 @@ GoodEatObject.prototype.drop = function(){
 	this.body.velocity.y = -200;
 	this.body.velocity.x = 50;
   this.inputEnabled = false;
+  console.log("Good food dropped.");
 };
 
 module.exports = GoodEatObject;
