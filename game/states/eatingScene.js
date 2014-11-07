@@ -55,9 +55,7 @@ var alien = require('../prefabs/alien');
         // Good object
         if (goodOrBad == 0) {
             this.goodEatObject = new goodEatObject(this.game, -201, 400, 'eating_g' + this.game.rnd.integerInRange(1, 4));
-
             this.game.add.existing(this.goodEatObject);
-
             this.goodEatObject.inputEnabled = true;
             this.goodEatObject.events.onInputDown.add(this.goodEatObject.drop, this.goodEatObject);
             console.log("Good food generated.")
@@ -66,9 +64,7 @@ var alien = require('../prefabs/alien');
         // Bad object
         else if (goodOrBad == 1) {
             this.badEatObject = new badEatObject(this.game, -201, 400, 'eating_b' + this.game.rnd.integerInRange(1, 4));
-
             this.game.add.existing(this.badEatObject);
-
             this.badEatObject.inputEnabled = true;
             this.badEatObject.events.onInputDown.add(this.badEatObject.drop, this.badEatObject);
             console.log("Bad food generated.")
