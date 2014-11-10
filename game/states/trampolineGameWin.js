@@ -8,7 +8,7 @@
       this.applauseSound.play();
     },
     startPlayground: function() {
-      this.game.state.start('playground');
+      this.game.state.start('playroom');
     }
   };
 module.exports = TrampolineGameWin;

@@ -24,7 +24,7 @@ Preload.prototype = {
     this.load.image('score_pointer', 'assets/img/Shared/VeggieP_ScorePointer.png');
     this.load.image('score_basket', 'assets/img/Shared/TrampolineG_ScoreBasket.png');
     this.load.audio('helmet_on_sound', 'assets/sounds/helmet_on.wav');
-
+    this.load.audio('applause_sound', 'assets/sounds/applause.wav');
 
     // Playroom assets
     this.load.image('playroom_bg', 'assets/img/Playroom/playr_bg.png');
