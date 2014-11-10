@@ -13,7 +13,9 @@ var alien = require('../prefabs/alien');
         this.eating_background = this.game.add.sprite(0, 0, 'eating_bg');
         this.backButton = this.add.button(899, 23, 'exit_btn' , this.startPlayroom, this);
         this.scoreMeter = this.game.add.sprite(119, 38, 'score_meter');
-        this.pointer = this.game.add.sprite(114, 21, 'pointer');
+        this.pointer = this.game.add.sprite(114, 21, 'score_pointer');
+        this.add.sprite(40, 35, 'score_basket');
+
 
         this.alien = new alien(this.game, 300, 520, 'alien');
         this.game.add.existing(this.alien);
@@ -51,10 +53,10 @@ var alien = require('../prefabs/alien');
     generateObjects: function() {
 
         var goodOrBad = this.game.rnd.integerInRange(0,1);
-
+        
         // Good object
         if (goodOrBad == 0) {
-            this.goodEatObject = new goodEatObject(this.game, -201, 400, 'eating_g' + this.game.rnd.integerInRange(1, 4));
+            this.goodEatObject = new goodEatObject(this.game, -201, 400, 'eating_g' + this.game.rnd.integerInRange(1, 6));
             this.game.add.existing(this.goodEatObject);
             this.goodEatObject.inputEnabled = true;
             this.goodEatObject.events.onInputDown.add(this.goodEatObject.drop, this.goodEatObject);
@@ -63,7 +65,7 @@ var alien = require('../prefabs/alien');
 
         // Bad object
         else if (goodOrBad == 1) {
-            this.badEatObject = new badEatObject(this.game, -201, 400, 'eating_b' + this.game.rnd.integerInRange(1, 4));
+            this.badEatObject = new badEatObject(this.game, -201, 400, 'eating_b' + this.game.rnd.integerInRange(1, 6));
             this.game.add.existing(this.badEatObject);
             this.badEatObject.inputEnabled = true;
             this.badEatObject.events.onInputDown.add(this.badEatObject.drop, this.badEatObject);

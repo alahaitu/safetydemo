@@ -11,12 +11,12 @@
       this.add.sprite(119, 38, 'score_meter');
       this.scorePointer = this.add.sprite(114, 21, 'score_pointer');
       this.add.sprite(40, 35, 'score_basket');
-      this.add.button(850, 590, 'trampoline_game_jump_button', this.playerJump, this);
-      this.add.button(25, 590, 'trampoline_lbutton', this.playerLeft, this);
-      this.add.button(220, 590, 'trampoline_rbutton', this.playerRight, this);
+      this.add.button(850, 535, 'trampoline_game_jump_button', this.playerJump, this);
+      this.add.button(25, 535, 'trampoline_lbutton', this.playerLeft, this);
+      this.add.button(220, 535, 'trampoline_rbutton', this.playerRight, this);
       this.add.button(899, 23, 'exit_btn', this.exitScene, this);    
 
-      this.beeSound = this.add.audio('bee_sound');
+      //this.beeSound = this.add.audio('bee_sound');
       this.popSound = this.add.audio('helmet_on_sound');
 
       this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -31,12 +31,12 @@
 
     },
     update: function() {
-      if (this.bee.x > 0-this.bee.width) {
+      /*if (this.bee.x > 0-this.bee.width) {
         this.bee.x -= 3;
       }
       else {
         this.game.time.events.add(Phaser.Timer.SECOND * this.game.rnd.integerInRange(0.5, 1.5), this.resetBee, this);
-      }
+      }*/
 
       this.game.physics.arcade.collide(this.player, this.bee, this.beeCollision, null, this);
       this.game.physics.arcade.collide(this.player, this.cherry, this.pickCherry, null, this);
@@ -95,7 +95,7 @@
       this.player.body.velocity.x = -(this.player.body.velocity.x);
     },
     exitScene: function() {
-      this.game.state.start('playground');
+      this.game.state.start('playroom');
     }
   };
 module.exports = Trampoline;
