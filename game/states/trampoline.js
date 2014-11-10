@@ -10,7 +10,7 @@
       this.bee = this.add.sprite(1024, 80, 'trampoline_game_bee');
       this.add.sprite(119, 38, 'score_meter');
       this.scorePointer = this.add.sprite(114, 21, 'score_pointer');
-      this.add.sprite(40, 35, 'score_basket');
+      this.add.sprite(40, 35, 'reflectors_icon');
       this.add.button(850, 535, 'trampoline_game_jump_button', this.playerJump, this);
       this.add.button(25, 535, 'trampoline_lbutton', this.playerLeft, this);
       this.add.button(220, 535, 'trampoline_rbutton', this.playerRight, this);

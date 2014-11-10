@@ -14,9 +14,8 @@ Preload.prototype = {
     this.load.setPreloadSprite(this.asset);
 
     // Placeholder assets
-    this.load.image('alien', 'assets/img/eating/rectangle_purple.png');
+    this.load.image('alien', 'assets/img/EatingGame/rectangle_purple.png');
     this.load.audio('bg_music', 'assets/sounds/bg_music.mp3');
-
 
     // Shared assets
     this.load.image('exit_btn', 'assets/img/Shared/SpaceJump_home.png');
@@ -57,7 +56,7 @@ Preload.prototype = {
 
     this.load.image('trampoline_game_bg', 'assets/img//Trampoline/SpaceJump_bg.png');
     this.load.image('trampoline_game_alien', 'assets/img/Trampoline/SpaceJump_alien.png');
-    //this.load.image('trampoline_game_bee', 'assets/img/Trampoline/TrampolineG_Bee.png');
+    this.load.image('trampoline_game_bee', 'assets/img/Trampoline/TrampolineG_Bee.png');
     this.load.image('trampoline_game_cherry', 'assets/img/Trampoline/SpaceJump_ref1.png');
     this.load.image('trampoline_game_grape', 'assets/img/Trampoline/SpaceJump_ref2.png');
     this.load.image('trampoline_game_strawberry', 'assets/img/Trampoline/SpaceJump_ref3.png');
@@ -66,6 +65,8 @@ Preload.prototype = {
     this.load.image('trampoline_game_win', 'assets/img/Trampoline/TrampolineG_Win.png');
     this.load.image('trampoline_rbutton', 'assets/img/Trampoline/TrampolineG_RightButton.png');
     this.load.image('trampoline_lbutton', 'assets/img/Trampoline/TrampolineG_LeftButton.png');
+    this.load.image('reflectors_icon', 'assets/img/Trampoline/SpaceJump_iconref.png');
+
 
     this.music = this.add.audio('bg_music');
     this.music.play('',0,1,true);
