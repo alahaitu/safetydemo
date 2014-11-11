@@ -14,8 +14,13 @@ Preload.prototype = {
     this.load.setPreloadSprite(this.asset);
 
     // Placeholder assets
+<<<<<<< HEAD
     this.load.image('alien', 'assets/img/EatingGame/rectangle_transparent.png');
     this.load.audio('bg_music', 'assets/sounds/bg_music.mp3');
+=======
+    this.load.image('alien', 'assets/img/EatingGame/rectangle_purple.png');
+    this.load.audio('bg_music', 'assets/sounds/tunnari-14-11-10.mp3');
+>>>>>>> origin/master
 
     // Shared assets
     this.load.image('exit_btn', 'assets/img/Shared/SpaceJump_home.png');
@@ -60,22 +65,22 @@ Preload.prototype = {
     this.load.image('trampoline_game_bg', 'assets/img//Trampoline/SpaceJump_bg.png');
     this.load.image('trampoline_game_alien', 'assets/img/Trampoline/SpaceJump_alien.png');
     this.load.image('trampoline_game_bee', 'assets/img/Trampoline/TrampolineG_Bee.png');
-    this.load.image('trampoline_game_cherry', 'assets/img/Trampoline/SpaceJump_ref1.png');
-    this.load.image('trampoline_game_grape', 'assets/img/Trampoline/SpaceJump_ref2.png');
-    this.load.image('trampoline_game_strawberry', 'assets/img/Trampoline/SpaceJump_ref3.png');
+    this.load.image('trampoline_game_bear_ref', 'assets/img/Trampoline/SpaceJump_ref1.png');
+    this.load.image('trampoline_game_heart_ref', 'assets/img/Trampoline/SpaceJump_ref2.png');
+    this.load.image('trampoline_game_two_ref', 'assets/img/Trampoline/SpaceJump_ref3.png');
     this.load.image('trampoline_game_jump_button', 'assets/img/Trampoline/TrampolineG_JumpButton.png');  
     //this.load.audio('bee_sound', 'assets/sounds/Tukes_bee_sfx.mp3');
-    this.load.image('trampoline_game_win', 'assets/img/Trampoline/TrampolineG_Win.png');
+    this.load.image('trampoline_game_win', 'assets/img/Trampoline/SpJumpWin_bg.png');
+    this.load.image('trampoline_game_win_alien', 'assets/img/Trampoline/SpJumpWin_alien.png');
+    this.load.spritesheet('trampoline_game_win_glow', 'assets/img/Trampoline/SpJumpWin_sprite.png', 670, 688, 2);
     this.load.image('trampoline_rbutton', 'assets/img/Trampoline/TrampolineG_RightButton.png');
     this.load.image('trampoline_lbutton', 'assets/img/Trampoline/TrampolineG_LeftButton.png');
     this.load.image('reflectors_icon', 'assets/img/Trampoline/SpaceJump_iconref.png');
 
-
-    this.music = this.add.audio('bg_music');
-    this.music.play('',0,1,true);
-
   },
   create: function() {
+    this.music = this.add.audio('bg_music');
+    this.music.play('',0,1,true);
     this.asset.cropEnabled = false;
   },
   update: function() {

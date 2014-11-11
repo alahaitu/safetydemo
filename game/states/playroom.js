@@ -15,7 +15,7 @@
       this.game.state.start('eatingScene');
     },
     beachSceneStartClick: function() {
-      //this.game.state.start('beachScene');
+      //this.game.state.start('trampolineGameWin');
     },
     spaceSceneStartClick: function() {
       this.game.state.start('trampoline');

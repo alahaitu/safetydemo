@@ -1,3 +1,5 @@
 node_modules
 *.log
 dist/*
+game/states/preload.js
+game/states/preload.js
