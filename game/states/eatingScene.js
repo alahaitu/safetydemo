@@ -26,7 +26,7 @@ var lastSpawn = null;
         this.alien = new alien(this.game, 730, 520, 'alien');
         this.game.add.existing(this.alien);
 
-        this.objectGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 4, this.generateObjects, this);
+        this.objectGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 3.2, this.generateObjects, this);
 
         this.objectGenerator.timer.start();
 
@@ -38,9 +38,10 @@ var lastSpawn = null;
           this.game.physics.arcade.collide(this.goodEatObject, this.table, null, this.dropCheckGoodObject, this);
           this.game.physics.arcade.collide(this.badEatObject, this.table, null, this.dropCheckBadObject, this);
 
-          if (this.scoreMeter.x > 672) {
+          if (this.pointer.x > 650) {
             console.log("You win the game!")
           }
+          console.log(this.pointer.x);
     },
 
     dropCheckGoodObject: function(){
@@ -56,8 +57,8 @@ var lastSpawn = null;
     goodCollision: function(){
       this.popSound.play();
       this.goodEatObject.destroy();
-      if (this.pointer.x < this.scoreMeter.width + this.scoreMeter.x -50){
-        this.pointer.x = this.pointer.x + 28;
+      if (this.pointer.x < this.scoreMeter.width + this.scoreMeter.x - 90){
+        this.pointer.x = this.pointer.x + 90; // 28
       }
       console.log("Yam! Good food!");
     },
@@ -65,7 +66,7 @@ var lastSpawn = null;
       this.popSound.play();
       this.badEatObject.destroy();
       if (this.pointer.x > this.scoreMeter.x){
-        this.pointer.x = this.pointer.x - 28;
+        this.pointer.x = this.pointer.x - 90;
       }
 
       console.log("Yuck! Bad food!");
