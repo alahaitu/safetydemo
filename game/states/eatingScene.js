@@ -35,24 +35,10 @@ var lastSpawn = null;
           this.game.physics.arcade.collide(this.alien, this.goodEatObject, this.goodCollision, null, this);
           this.game.physics.arcade.collide(this.alien, this.badEatObject, this.badCollision, null, this);
 
-          this.game.physics.arcade.collide(this.goodEatObject, this.table, null, this.dropCheckGoodObject, this);
-          this.game.physics.arcade.collide(this.badEatObject, this.table, null, this.dropCheckBadObject, this);
-
           if (this.pointer.x > 650) {
             console.log("You win the game!")
           }
-          console.log(this.pointer.x);
     },
-
-    dropCheckGoodObject: function(){
-        var r = this.goodEatObject.dropCheck();
-        return r;
-      },
-
-    dropCheckBadObject: function(){
-        var r = this.badEatObject.dropCheck();
-        return r;
-      },
 
     goodCollision: function(){
       this.popSound.play();
@@ -78,8 +64,9 @@ var lastSpawn = null;
 
         // Good object
         if (lastSpawn != "good") {
-            this.goodEatObject = new goodEatObject(this.game, 0, 0, 'eating_g' + this.game.rnd.integerInRange(1, 6));
+            this.goodEatObject = new goodEatObject(this.game, -40, 520, 'eating_g' + this.game.rnd.integerInRange(1, 6));
             this.game.add.existing(this.goodEatObject);
+            this.goodEatObject.anchor.setTo(0.5,0.5);
             this.goodEatObject.inputEnabled = true;
             this.goodEatObject.events.onInputDown.add(this.goodEatObject.drop, this.goodEatObject);
             console.log("Good food generated.")
@@ -88,8 +75,9 @@ var lastSpawn = null;
 
         // Bad object
         else if (lastSpawn != "bad") {
-            this.badEatObject = new badEatObject(this.game, 0, 0, 'eating_b' + this.game.rnd.integerInRange(1, 6));
+            this.badEatObject = new badEatObject(this.game, -40, 520, 'eating_b' + this.game.rnd.integerInRange(1, 6));
             this.game.add.existing(this.badEatObject);
+            this.badEatObject.anchor.setTo(0.5,0.5)
             this.badEatObject.inputEnabled = true;
             this.badEatObject.events.onInputDown.add(this.badEatObject.drop, this.badEatObject);
             console.log("Bad food generated.")
