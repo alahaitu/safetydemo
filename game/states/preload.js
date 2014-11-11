@@ -14,13 +14,10 @@ Preload.prototype = {
     this.load.setPreloadSprite(this.asset);
 
     // Placeholder assets
-<<<<<<< HEAD
     this.load.image('alien', 'assets/img/EatingGame/rectangle_transparent.png');
     this.load.audio('bg_music', 'assets/sounds/bg_music.mp3');
-=======
     this.load.image('alien', 'assets/img/EatingGame/rectangle_purple.png');
     this.load.audio('bg_music', 'assets/sounds/tunnari-14-11-10.mp3');
->>>>>>> origin/master
 
     // Shared assets
     this.load.image('exit_btn', 'assets/img/Shared/SpaceJump_home.png');

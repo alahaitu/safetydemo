@@ -17,7 +17,7 @@ GoodEatObject.prototype.constructor = GoodEatObject;
 
 GoodEatObject.prototype.update = function() {
   
-  // write your prefab's specific update code here
+  // write your prefab's specific update code here 
   
 },
 
