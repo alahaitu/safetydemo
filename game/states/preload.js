@@ -34,9 +34,11 @@ Preload.prototype = {
     this.load.image('playr_button_space', 'assets/img/Playroom/playr_button_space.png');    
 
     // Eating game assets
+    this.load.image('eating_bg', 'assets/img/EatingGame/kitchen.png');
+    this.load.image('eating_table', 'assets/img/EatingGame/EatingGame_kitchen table.png');
 
     // Good food
-    this.load.image('eating_bg', 'assets/img/EatingGame/kitchen.png');
+    this.load.image('eating_alien_gf', 'assets/img/EatingGame/EatingGame_good_food sprite.png');
     this.load.image('eating_g1', 'assets/img/EatingGame/EatingGame_1.png');
     this.load.image('eating_g2', 'assets/img/EatingGame/EatingGame_2.png');
     this.load.image('eating_g3', 'assets/img/EatingGame/EatingGame_3.png');
@@ -45,6 +47,7 @@ Preload.prototype = {
     this.load.image('eating_g6', 'assets/img/EatingGame/EatingGame_6.png');    
 
     // Bad good
+    this.load.image('eating_alien_bf', 'assets/img/EatingGame/EatingGame_bad_food sprite.png');
     this.load.image('eating_b1', 'assets/img/EatingGame/EatingGame_X1.png');
     this.load.image('eating_b2', 'assets/img/EatingGame/EatingGame_X2.png');
     this.load.image('eating_b3', 'assets/img/EatingGame/EatingGame_X3.png');
