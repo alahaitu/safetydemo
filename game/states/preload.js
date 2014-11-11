@@ -14,7 +14,7 @@ Preload.prototype = {
     this.load.setPreloadSprite(this.asset);
 
     // Placeholder assets
-    this.load.image('alien', 'assets/img/EatingGame/rectangle_purple.png');
+    this.load.image('alien', 'assets/img/EatingGame/rectangle_transparent.png');
     this.load.audio('bg_music', 'assets/sounds/bg_music.mp3');
 
     // Shared assets
@@ -38,7 +38,7 @@ Preload.prototype = {
     this.load.image('eating_table', 'assets/img/EatingGame/EatingGame_kitchen table.png');
 
     // Good food
-    this.load.image('eating_alien_gf', 'assets/img/EatingGame/EatingGame_good_food sprite.png');
+    this.load.spritesheet('eating_alien_gf', 'assets/img/EatingGame/EatingGame_good_food sprite.png', 222, 349);
     this.load.image('eating_g1', 'assets/img/EatingGame/EatingGame_1.png');
     this.load.image('eating_g2', 'assets/img/EatingGame/EatingGame_2.png');
     this.load.image('eating_g3', 'assets/img/EatingGame/EatingGame_3.png');
@@ -47,7 +47,7 @@ Preload.prototype = {
     this.load.image('eating_g6', 'assets/img/EatingGame/EatingGame_6.png');    
 
     // Bad good
-    this.load.image('eating_alien_bf', 'assets/img/EatingGame/EatingGame_bad_food sprite.png');
+    this.load.spritesheet('eating_alien_bf', 'assets/img/EatingGame/EatingGame_bad_food sprite.png', 222, 317);
     this.load.image('eating_b1', 'assets/img/EatingGame/EatingGame_X1.png');
     this.load.image('eating_b2', 'assets/img/EatingGame/EatingGame_X2.png');
     this.load.image('eating_b3', 'assets/img/EatingGame/EatingGame_X3.png');
@@ -56,7 +56,7 @@ Preload.prototype = {
     this.load.image('eating_b6', 'assets/img/EatingGame/EatingGame_X6.png');
 
     // Trampoline game assets
-
+ 
     this.load.image('trampoline_game_bg', 'assets/img//Trampoline/SpaceJump_bg.png');
     this.load.image('trampoline_game_alien', 'assets/img/Trampoline/SpaceJump_alien.png');
     this.load.image('trampoline_game_bee', 'assets/img/Trampoline/TrampolineG_Bee.png');

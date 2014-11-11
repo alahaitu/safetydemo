@@ -17,7 +17,10 @@ var lastSpawn = null;
         this.scoreMeter = this.game.add.sprite(119, 38, 'score_meter');
         this.pointer = this.game.add.sprite(114, 21, 'score_pointer');
 
-        this.table = new table(this.game, 0, 561, "eating_table");
+        this.alienSprite = this.game.add.sprite(630,220, 'eating_alien_gf');
+        this.alienSprite.animations.add('eat');
+
+        this.table = new table(this.game, 0, 561, 'eating_table');
         this.game.add.existing(this.table);
 
         this.add.sprite(40, 35, 'score_basket');
@@ -46,6 +49,8 @@ var lastSpawn = null;
       if (this.pointer.x < this.scoreMeter.width + this.scoreMeter.x - 90){
         this.pointer.x = this.pointer.x + 90; // 28
       }
+      this.alienSprite.loadTexture('eating_alien_gf');
+      this.alienSprite.play('eat', 8, false);
       console.log("Yam! Good food!");
     },
     badCollision: function(){
@@ -54,6 +59,8 @@ var lastSpawn = null;
       if (this.pointer.x > this.scoreMeter.x){
         this.pointer.x = this.pointer.x - 90;
       }
+      this.alienSprite.loadTexture('eating_alien_bf');
+      this.alienSprite.play('eat', 8, false);
 
       console.log("Yuck! Bad food!");
     },
