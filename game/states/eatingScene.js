@@ -12,18 +12,16 @@ var lastSpawn = null;
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.physics.arcade.gravity.y = 500;
 
+        // Graphics
         this.eating_background = this.game.add.sprite(0, 0, 'eating_bg');
+        this.alienSprite = this.game.add.sprite(560,80, 'eating_alien_gf');
+        this.alienSprite.animations.add('eat');
+        this.table = new table(this.game, 0, 561, 'eating_table');
+        this.game.add.existing(this.table);
+        this.add.sprite(40, 35, 'score_basket');
         this.backButton = this.add.button(899, 23, 'exit_btn' , this.startPlayroom, this);
         this.scoreMeter = this.game.add.sprite(119, 38, 'score_meter');
         this.pointer = this.game.add.sprite(114, 21, 'score_pointer');
-
-        this.alienSprite = this.game.add.sprite(560,80, 'eating_alien_gf');
-        this.alienSprite.animations.add('eat');
-
-        this.table = new table(this.game, 0, 561, 'eating_table');
-        this.game.add.existing(this.table);
-
-        this.add.sprite(40, 35, 'score_basket');
         
         // Sounds
         this.eatingSoundGood1 = this.add.audio('rousk1');
@@ -31,7 +29,6 @@ var lastSpawn = null;
         this.eatingSoundGood3 = this.add.audio('rousk3');
         this.eatingSoundGood4 = this.add.audio('rousk4');
         this.eatingSoundGood5 = this.add.audio('rousk5');
-
         this.eatingSoundBad = this.add.audio('rousk2');
 
         this.alien = new alien(this.game, 820, 520, 'alien');
