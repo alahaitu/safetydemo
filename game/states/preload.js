@@ -36,6 +36,7 @@ Preload.prototype = {
     this.load.image('playr_button_space', 'assets/img/Playroom/playr_button_space.png');    
 
     // Eating game assets
+    this.load.image('eating_game_win', 'assets/img/EatingGame/kitchen_winscreen.png');
     this.load.image('eating_bg', 'assets/img/EatingGame/kitchen.png');
     this.load.image('eating_table', 'assets/img/EatingGame/EatingGame_kitchen table.png');
     this.load.audio('rousk1', 'assets/sounds/rousk01.wav');

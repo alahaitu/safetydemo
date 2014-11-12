@@ -42,7 +42,7 @@ var lastSpawn = null;
           this.game.physics.arcade.collide(this.alien, this.badEatObject, this.badCollision, null, this);
 
           if (this.pointer.x > 650) {
-            console.log("You win the game!")
+           this.game.state.start('eatingGameWin');
           }
     },
 
