@@ -37,7 +37,7 @@ var lastSpawn = null;
         this.alien = new alien(this.game, 820, 520, 'alien');
         this.game.add.existing(this.alien);
 
-        this.objectGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 3.2, this.generateObjects, this);
+        this.objectGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 3.3, this.generateObjects, this);
 
         this.objectGenerator.timer.start();
 
@@ -102,7 +102,7 @@ var lastSpawn = null;
 
         // Good object
         if (lastSpawn != "good") {
-            this.goodEatObject = new goodEatObject(this.game, -40, 520, 'eating_g' + this.game.rnd.integerInRange(1, 6));
+            this.goodEatObject = new goodEatObject(this.game, -40, 520, 'eating_g' + this.game.rnd.integerInRange(1, 8));
             this.game.add.existing(this.goodEatObject);
             this.goodEatObject.anchor.setTo(0.5,0.5);
             this.goodEatObject.inputEnabled = true;

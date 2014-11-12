@@ -53,6 +53,8 @@ Preload.prototype = {
     this.load.image('eating_g4', 'assets/img/EatingGame/EatingGame_4.png');
     this.load.image('eating_g5', 'assets/img/EatingGame/EatingGame_5.png');
     this.load.image('eating_g6', 'assets/img/EatingGame/EatingGame_6.png');    
+    this.load.image('eating_g7', 'assets/img/EatingGame/EatingGame_7.png');    
+    this.load.image('eating_g8', 'assets/img/EatingGame/EatingGame_8.png');    
 
     // Bad good
     this.load.spritesheet('eating_alien_bf', 'assets/img/EatingGame/EatingGame_bad_food sprite.png', 500, 610);
