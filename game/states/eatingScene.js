@@ -26,7 +26,12 @@ var lastSpawn = null;
         this.add.sprite(40, 35, 'score_basket');
         
         // Sounds
-        this.eatingSoundGood = this.add.audio('rousk1');
+        this.eatingSoundGood1 = this.add.audio('rousk1');
+        this.eatingSoundGood2 = this.add.audio('rousk2');
+        this.eatingSoundGood3 = this.add.audio('rousk3');
+        this.eatingSoundGood4 = this.add.audio('rousk4');
+        this.eatingSoundGood5 = this.add.audio('rousk5');
+
         this.eatingSoundBad = this.add.audio('rousk2');
 
         this.alien = new alien(this.game, 820, 520, 'alien');
@@ -53,7 +58,7 @@ var lastSpawn = null;
       }
       this.alienSprite.loadTexture('eating_alien_gf');
       this.alienSprite.play('eat', 8, false);
-      this.eatingSoundGood.play();
+      this.randomEatingSoundGood();
 
       console.log("Yam! Good food!");
     },
@@ -67,6 +72,28 @@ var lastSpawn = null;
       this.eatingSoundBad.play();
 
       console.log("Yuck! Bad food!");
+    },
+
+    randomEatingSoundGood: function(){
+        var rand = this.game.rnd.integerInRange(1, 5);
+
+        switch (rand){
+          case 1:
+            this.eatingSoundGood1.play();
+            break;
+          case 2:
+            this.eatingSoundGood2.play();
+            break;
+          case 3:
+            this.eatingSoundGood3.play();
+            break;
+          case 4:
+            this.eatingSoundGood4.play();
+            break;
+          case 5:
+            this.eatingSoundGood5.play();
+            break;
+        }
     },
 
     generateObjects: function() {
