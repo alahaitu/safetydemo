@@ -17,7 +17,7 @@ var lastSpawn = null;
         this.scoreMeter = this.game.add.sprite(119, 38, 'score_meter');
         this.pointer = this.game.add.sprite(114, 21, 'score_pointer');
 
-        this.alienSprite = this.game.add.sprite(630,220, 'eating_alien_gf');
+        this.alienSprite = this.game.add.sprite(560,80, 'eating_alien_gf');
         this.alienSprite.animations.add('eat');
 
         this.table = new table(this.game, 0, 561, 'eating_table');
@@ -29,7 +29,7 @@ var lastSpawn = null;
         this.eatingSoundGood = this.add.audio('rousk1');
         this.eatingSoundBad = this.add.audio('rousk2');
 
-        this.alien = new alien(this.game, 730, 520, 'alien');
+        this.alien = new alien(this.game, 820, 520, 'alien');
         this.game.add.existing(this.alien);
 
         this.objectGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 3.2, this.generateObjects, this);

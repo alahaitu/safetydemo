@@ -45,7 +45,7 @@ Preload.prototype = {
     this.load.audio('rousk5', 'assets/sounds/rousk05.wav');
 
     // Good food
-    this.load.spritesheet('eating_alien_gf', 'assets/img/EatingGame/EatingGame_good_food sprite.png', 222, 349);
+    this.load.spritesheet('eating_alien_gf', 'assets/img/EatingGame/EatingGame_good_food sprite.png', 440, 610);
     this.load.image('eating_g1', 'assets/img/EatingGame/EatingGame_1.png');
     this.load.image('eating_g2', 'assets/img/EatingGame/EatingGame_2.png');
     this.load.image('eating_g3', 'assets/img/EatingGame/EatingGame_3.png');
@@ -54,7 +54,7 @@ Preload.prototype = {
     this.load.image('eating_g6', 'assets/img/EatingGame/EatingGame_6.png');    
 
     // Bad good
-    this.load.spritesheet('eating_alien_bf', 'assets/img/EatingGame/EatingGame_bad_food sprite.png', 222, 317);
+    this.load.spritesheet('eating_alien_bf', 'assets/img/EatingGame/EatingGame_bad_food sprite.png', 500, 610);
     this.load.image('eating_b1', 'assets/img/EatingGame/EatingGame_X1.png');
     this.load.image('eating_b2', 'assets/img/EatingGame/EatingGame_X2.png');
     this.load.image('eating_b3', 'assets/img/EatingGame/EatingGame_X3.png');
