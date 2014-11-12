@@ -8,6 +8,7 @@ window.onload = function () {
   // Game States
   game.state.add('beachScene', require('./states/beachScene'));
   game.state.add('boot', require('./states/boot'));
+  game.state.add('eatingGameWin', require('./states/eatingGameWin'));
   game.state.add('eatingScene', require('./states/eatingScene'));
   game.state.add('gameover', require('./states/gameover'));
   game.state.add('menu', require('./states/menu'));
@@ -22,7 +23,7 @@ window.onload = function () {
 
   game.state.start('boot');
 };
-},{"./states/beachScene":6,"./states/boot":7,"./states/eatingScene":8,"./states/gameover":9,"./states/menu":10,"./states/play":11,"./states/playroom":12,"./states/preload":13,"./states/spaceScene":14,"./states/trampoline":15,"./states/trampolineCutscene":16,"./states/trampolineGameWin":17}],2:[function(require,module,exports){
+},{"./states/beachScene":6,"./states/boot":7,"./states/eatingGameWin":8,"./states/eatingScene":9,"./states/gameover":10,"./states/menu":11,"./states/play":12,"./states/playroom":13,"./states/preload":14,"./states/spaceScene":15,"./states/trampoline":16,"./states/trampolineCutscene":17,"./states/trampolineGameWin":18}],2:[function(require,module,exports){
 'use strict';
 
 var Alien = function(game, x, y, sprite, frame) {
@@ -186,6 +187,40 @@ module.exports = Boot;
 
 },{}],8:[function(require,module,exports){
 'use strict';
+  function EatingGameWin() {}
+  EatingGameWin.prototype = {
+    preload: function() {
+      // Override this method to add some load operations. 
+      // If you need to use the loader, you may need to use them here.
+    },
+    create: function() {
+      this.add.sprite(0, 0, 'eating_game_win');
+      this.applauseSound = this.add.audio('applause_sound');
+      this.game.time.events.add(Phaser.Timer.SECOND * 4, this.startPlayground, this);
+      this.applauseSound.play();
+    },
+    startPlayground: function() {
+      this.game.state.start('playroom');
+    },
+
+    update: function() {
+      // state update code
+    },
+    paused: function() {
+      // This method will be called when game paused.
+    },
+    render: function() {
+      // Put render operations here.
+    },
+    shutdown: function() {
+      // This method will be called when the state is shut down 
+      // (i.e. you switch to another state from this one).
+    }
+  };
+module.exports = EatingGameWin;
+
+},{}],9:[function(require,module,exports){
+'use strict';
 var goodEatObject = require('../prefabs/goodEatObject');  
 var badEatObject = require('../prefabs/badEatObject');  
 var alien = require('../prefabs/alien');  
@@ -199,27 +234,29 @@ var lastSpawn = null;
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.physics.arcade.gravity.y = 500;
 
+        // Graphics
         this.eating_background = this.game.add.sprite(0, 0, 'eating_bg');
+        this.alienSprite = this.game.add.sprite(560,80, 'eating_alien_gf');
+        this.alienSprite.animations.add('eat');
+        this.table = new table(this.game, 0, 561, 'eating_table');
+        this.game.add.existing(this.table);
+        this.add.sprite(40, 35, 'score_basket');
         this.backButton = this.add.button(899, 23, 'exit_btn' , this.startPlayroom, this);
         this.scoreMeter = this.game.add.sprite(119, 38, 'score_meter');
         this.pointer = this.game.add.sprite(114, 21, 'score_pointer');
-
-        this.alienSprite = this.game.add.sprite(630,220, 'eating_alien_gf');
-        this.alienSprite.animations.add('eat');
-
-        this.table = new table(this.game, 0, 561, 'eating_table');
-        this.game.add.existing(this.table);
-
-        this.add.sprite(40, 35, 'score_basket');
         
         // Sounds
-        this.eatingSoundGood = this.add.audio('rousk1');
+        this.eatingSoundGood1 = this.add.audio('rousk1');
+        this.eatingSoundGood2 = this.add.audio('rousk2');
+        this.eatingSoundGood3 = this.add.audio('rousk3');
+        this.eatingSoundGood4 = this.add.audio('rousk4');
+        this.eatingSoundGood5 = this.add.audio('rousk5');
         this.eatingSoundBad = this.add.audio('rousk2');
 
-        this.alien = new alien(this.game, 730, 520, 'alien');
+        this.alien = new alien(this.game, 820, 520, 'alien');
         this.game.add.existing(this.alien);
 
-        this.objectGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 3.2, this.generateObjects, this);
+        this.objectGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 3.3, this.generateObjects, this);
 
         this.objectGenerator.timer.start();
 
@@ -229,7 +266,7 @@ var lastSpawn = null;
           this.game.physics.arcade.collide(this.alien, this.badEatObject, this.badCollision, null, this);
 
           if (this.pointer.x > 650) {
-            console.log("You win the game!")
+           this.game.state.start('eatingGameWin');
           }
     },
 
@@ -240,7 +277,7 @@ var lastSpawn = null;
       }
       this.alienSprite.loadTexture('eating_alien_gf');
       this.alienSprite.play('eat', 8, false);
-      this.eatingSoundGood.play();
+      this.randomEatingSoundGood();
 
       console.log("Yam! Good food!");
     },
@@ -256,13 +293,35 @@ var lastSpawn = null;
       console.log("Yuck! Bad food!");
     },
 
+    randomEatingSoundGood: function(){
+        var rand = this.game.rnd.integerInRange(1, 5);
+
+        switch (rand){
+          case 1:
+            this.eatingSoundGood1.play();
+            break;
+          case 2:
+            this.eatingSoundGood2.play();
+            break;
+          case 3:
+            this.eatingSoundGood3.play();
+            break;
+          case 4:
+            this.eatingSoundGood4.play();
+            break;
+          case 5:
+            this.eatingSoundGood5.play();
+            break;
+        }
+    },
+
     generateObjects: function() {
 
         //var goodOrBad = this.game.rnd.integerInRange(0,1);
 
         // Good object
         if (lastSpawn != "good") {
-            this.goodEatObject = new goodEatObject(this.game, -40, 520, 'eating_g' + this.game.rnd.integerInRange(1, 6));
+            this.goodEatObject = new goodEatObject(this.game, -40, 520, 'eating_g' + this.game.rnd.integerInRange(1, 8));
             this.game.add.existing(this.goodEatObject);
             this.goodEatObject.anchor.setTo(0.5,0.5);
             this.goodEatObject.inputEnabled = true;
@@ -289,7 +348,7 @@ var lastSpawn = null;
   };
 module.exports = EatingScene;
 
-},{"../prefabs/alien":2,"../prefabs/badEatObject":3,"../prefabs/goodEatObject":4,"../prefabs/table":5}],9:[function(require,module,exports){
+},{"../prefabs/alien":2,"../prefabs/badEatObject":3,"../prefabs/goodEatObject":4,"../prefabs/table":5}],10:[function(require,module,exports){
 
 'use strict';
 function GameOver() {}
@@ -317,7 +376,7 @@ GameOver.prototype = {
 };
 module.exports = GameOver;
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 
 'use strict';
 function Menu() {}
@@ -349,7 +408,7 @@ Menu.prototype = {
 
 module.exports = Menu;
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 
   'use strict';
   function Play() {}
@@ -376,7 +435,7 @@ module.exports = Menu;
   };
   
   module.exports = Play;
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
   function Playroom() {}
   Playroom.prototype = {
@@ -410,7 +469,7 @@ module.exports = Menu;
   };
 module.exports = Playroom;
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 
 'use strict';
 function Preload() {
@@ -449,6 +508,7 @@ Preload.prototype = {
     this.load.image('playr_button_space', 'assets/img/Playroom/playr_button_space.png');    
 
     // Eating game assets
+    this.load.image('eating_game_win', 'assets/img/EatingGame/kitchen_winscreen.png');
     this.load.image('eating_bg', 'assets/img/EatingGame/kitchen.png');
     this.load.image('eating_table', 'assets/img/EatingGame/EatingGame_kitchen table.png');
     this.load.audio('rousk1', 'assets/sounds/rousk01.wav');
@@ -458,16 +518,18 @@ Preload.prototype = {
     this.load.audio('rousk5', 'assets/sounds/rousk05.wav');
 
     // Good food
-    this.load.spritesheet('eating_alien_gf', 'assets/img/EatingGame/EatingGame_good_food sprite.png', 222, 349);
+    this.load.spritesheet('eating_alien_gf', 'assets/img/EatingGame/EatingGame_good_food sprite.png', 440, 610);
     this.load.image('eating_g1', 'assets/img/EatingGame/EatingGame_1.png');
     this.load.image('eating_g2', 'assets/img/EatingGame/EatingGame_2.png');
     this.load.image('eating_g3', 'assets/img/EatingGame/EatingGame_3.png');
     this.load.image('eating_g4', 'assets/img/EatingGame/EatingGame_4.png');
     this.load.image('eating_g5', 'assets/img/EatingGame/EatingGame_5.png');
     this.load.image('eating_g6', 'assets/img/EatingGame/EatingGame_6.png');    
+    this.load.image('eating_g7', 'assets/img/EatingGame/EatingGame_7.png');    
+    this.load.image('eating_g8', 'assets/img/EatingGame/EatingGame_8.png');    
 
     // Bad good
-    this.load.spritesheet('eating_alien_bf', 'assets/img/EatingGame/EatingGame_bad_food sprite.png', 222, 317);
+    this.load.spritesheet('eating_alien_bf', 'assets/img/EatingGame/EatingGame_bad_food sprite.png', 500, 610);
     this.load.image('eating_b1', 'assets/img/EatingGame/EatingGame_X1.png');
     this.load.image('eating_b2', 'assets/img/EatingGame/EatingGame_X2.png');
     this.load.image('eating_b3', 'assets/img/EatingGame/EatingGame_X3.png');
@@ -510,7 +572,7 @@ Preload.prototype = {
 
 module.exports = Preload;
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
   function SpaceScene() {}
   SpaceScene.prototype = {
@@ -538,7 +600,7 @@ module.exports = Preload;
   };
 module.exports = SpaceScene;
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 'use strict';
   function Trampoline() {}
   Trampoline.prototype = {
@@ -644,7 +706,7 @@ module.exports = SpaceScene;
   };
 module.exports = Trampoline;
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
   function TrampolineCutscene() {}
   TrampolineCutscene.prototype = {
@@ -673,7 +735,7 @@ module.exports = Trampoline;
   };
 module.exports = TrampolineCutscene;
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 'use strict';
   function TrampolineGameWin() {}
   TrampolineGameWin.prototype = {
