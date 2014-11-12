@@ -24,7 +24,10 @@ var lastSpawn = null;
         this.game.add.existing(this.table);
 
         this.add.sprite(40, 35, 'score_basket');
-        this.popSound = this.add.audio('helmet_on_sound');
+        
+        // Sounds
+        this.eatingSoundGood = this.add.audio('rousk1');
+        this.eatingSoundBad = this.add.audio('rousk2');
 
         this.alien = new alien(this.game, 730, 520, 'alien');
         this.game.add.existing(this.alien);
@@ -44,23 +47,24 @@ var lastSpawn = null;
     },
 
     goodCollision: function(){
-      this.popSound.play();
       this.goodEatObject.destroy();
       if (this.pointer.x < this.scoreMeter.width + this.scoreMeter.x - 90){
         this.pointer.x = this.pointer.x + 90; // 28
       }
       this.alienSprite.loadTexture('eating_alien_gf');
       this.alienSprite.play('eat', 8, false);
+      this.eatingSoundGood.play();
+
       console.log("Yam! Good food!");
     },
     badCollision: function(){
-      this.popSound.play();
       this.badEatObject.destroy();
       if (this.pointer.x > this.scoreMeter.x){
         this.pointer.x = this.pointer.x - 90;
       }
       this.alienSprite.loadTexture('eating_alien_bf');
       this.alienSprite.play('eat', 8, false);
+      this.eatingSoundBad.play();
 
       console.log("Yuck! Bad food!");
     },

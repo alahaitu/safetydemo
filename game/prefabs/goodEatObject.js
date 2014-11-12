@@ -14,7 +14,7 @@ var GoodEatObject = function(game, x, y, sprite, frame) {
 
 GoodEatObject.prototype = Object.create(Phaser.Sprite.prototype);
 GoodEatObject.prototype.constructor = GoodEatObject;
-
+GoodEatObject.prototype.create = function(){}
 GoodEatObject.prototype.update = function() {
   
   // write your prefab's specific update code here 
@@ -26,6 +26,7 @@ GoodEatObject.prototype.drop = function(){
 	this.body.velocity.y = -200;
 	this.body.velocity.x = 50;
 	this.inputEnabled = false;
+	//this.popSound.play();
 	console.log("Good food dropped.");
 };
 

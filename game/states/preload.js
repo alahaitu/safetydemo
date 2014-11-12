@@ -38,6 +38,11 @@ Preload.prototype = {
     // Eating game assets
     this.load.image('eating_bg', 'assets/img/EatingGame/kitchen.png');
     this.load.image('eating_table', 'assets/img/EatingGame/EatingGame_kitchen table.png');
+    this.load.audio('rousk1', 'assets/sounds/rousk01.wav');
+    this.load.audio('rousk2', 'assets/sounds/rousk02.wav');
+    this.load.audio('rousk3', 'assets/sounds/rousk03.wav');
+    this.load.audio('rousk4', 'assets/sounds/rousk04.wav');
+    this.load.audio('rousk5', 'assets/sounds/rousk05.wav');
 
     // Good food
     this.load.spritesheet('eating_alien_gf', 'assets/img/EatingGame/EatingGame_good_food sprite.png', 222, 349);
