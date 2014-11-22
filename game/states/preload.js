@@ -82,6 +82,14 @@ Preload.prototype = {
     this.load.image('trampoline_lbutton', 'assets/img/Trampoline/TrampolineG_LeftButton.png');
     this.load.image('reflectors_icon', 'assets/img/Trampoline/SpaceJump_iconref.png');
 
+    // Beach game assets
+    this.load.image('beach_bg', 'assets/img/BeachGame/LifeSaver_bg.png');
+    this.load.image('beach_lsaver', 'assets/img/BeachGame/LifeSaver_orangething.png');
+    this.load.image('beach_alien1', 'assets/img/BeachGame/LifeSaver_bluealien.png');
+    this.load.image('beach_alien1_saver', 'assets/img/BeachGame/LifeSaver_bluealien_wear.png');
+    this.load.image('beach_alien2', 'assets/img/BeachGame/LifeSaver_pinkalien.png');
+    this.load.image('beach_alien2_saver', 'assets/img/BeachGame/LifeSaver_pinkalien_wear.png');
+
   },
   create: function() {
     this.music = this.add.audio('bg_music');
