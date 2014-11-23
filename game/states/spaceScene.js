@@ -1,4 +1,6 @@
 'use strict';
+var spaceAlien = require('../prefabs/spaceAlien');  
+
   function SpaceScene() {}
   SpaceScene.prototype = {
     preload: function() {
@@ -6,21 +8,24 @@
       // If you need to use the loader, you may need to use them here.
     },
     create: function() {
-      // This method is called after the game engine successfully switches states. 
-      // Feel free to add any setup code here (do not load anything here, override preload() instead).
+      this.game.physics.startSystem(Phaser.Physics.ARCADE);
+      this.game.physics.arcade.gravity.y = 200;
+
+      this.add.sprite(0, 0, 'trampoline_game_bg');
+
+      this.spaceAlien = new spaceAlien(this.game, 100, 200, 'trampoline_game_alien');
+      this.game.add.existing(this.spaceAlien);
     },
     update: function() {
-      // state update code
+      if (this.game.input.activePointer.isDown){
+          this.spaceAlien.up();
+      }
     },
     paused: function() {
-      // This method will be called when game paused.
     },
     render: function() {
-      // Put render operations here.
     },
     shutdown: function() {
-      // This method will be called when the state is shut down 
-      // (i.e. you switch to another state from this one).
     }
   };
 module.exports = SpaceScene;

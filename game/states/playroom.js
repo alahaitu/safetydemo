@@ -23,7 +23,7 @@
     plantAnimationClick: function() {
     },
     ballAnimationClick: function() {
-
+      this.game.state.start('spaceScene');
     },
     startPlayroom: function() {
       this.game.state.start('playroom');
