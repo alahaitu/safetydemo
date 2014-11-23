@@ -31,7 +31,7 @@
 
       this.randomX = this.game.rnd.integerInRange(0, 1024-this.bear_ref.body.width);
       this.randomY = this.game.rnd.integerInRange(140, 400);
-
+      this.player.alpha = 0.2;
     },
     update: function() {
       /*if (this.bee.x > 0-this.bee.width) {
@@ -56,18 +56,27 @@
       this.scorePointer.x += 28;
       this.bear_ref.kill();
       this.game.time.events.add(Phaser.Timer.SECOND * 3, this.resetBear, this);
+      if (this.player.alpha < 1){
+        this.player.alpha = this.player.alpha  + 0.05;
+      }
     },
     pickHeart: function() {
       this.popSound.play();
       this.scorePointer.x += 28;
       this.heart_ref.kill();
       this.game.time.events.add(Phaser.Timer.SECOND * 3, this.resetHeart, this);
+      if (this.player.alpha < 1){
+        this.player.alpha = this.player.alpha  + 0.05;
+      }
     },
     pickTwo: function() {
       this.popSound.play();
       this.scorePointer.x += 28;
       this.two_ref.kill();
       this.game.time.events.add(Phaser.Timer.SECOND * 3, this.resetTwo, this);
+      if (this.player.alpha < 1){
+        this.player.alpha = this.player.alpha  + 0.05;
+      }
     },
     resetBear: function() {
       this.bear_ref.reset(this.game.rnd.integerInRange(0, 1024-this.bear_ref.body.width), 140);
