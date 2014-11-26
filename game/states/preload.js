@@ -14,7 +14,7 @@ Preload.prototype = {
     this.load.setPreloadSprite(this.asset);
 
     // Placeholder assets
-    this.load.image('alien', 'assets/img/EatingGame/rectangle_transparent.png');
+    this.load.image('transparentRectangle', 'assets/img/EatingGame/rectangle_transparent.png');
     this.load.audio('bg_music', 'assets/sounds/bg_music.mp3');
     this.load.image('alien', 'assets/img/EatingGame/rectangle_purple.png');
     this.load.audio('bg_music', 'assets/sounds/tunnari-14-11-10.mp3');
@@ -73,6 +73,8 @@ Preload.prototype = {
     this.load.image('trampoline_game_bear_ref', 'assets/img/Trampoline/SpaceJump_ref1.png');
     this.load.image('trampoline_game_heart_ref', 'assets/img/Trampoline/SpaceJump_ref2.png');
     this.load.image('trampoline_game_two_ref', 'assets/img/Trampoline/SpaceJump_ref3.png');
+    this.load.image('trampoline_game_dog_ref', 'assets/img/Trampoline/SpaceJump_ref4.png');
+    this.load.image('trampoline_game_star_ref', 'assets/img/Trampoline/SpaceJump_ref5.png');
     this.load.image('trampoline_game_jump_button', 'assets/img/Trampoline/TrampolineG_JumpButton.png');  
     //this.load.audio('bee_sound', 'assets/sounds/Tukes_bee_sfx.mp3');
     this.load.image('trampoline_game_win', 'assets/img/Trampoline/SpJumpWin_bg.png');

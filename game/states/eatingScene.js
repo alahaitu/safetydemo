@@ -31,7 +31,7 @@ var lastSpawn = null;
         this.eatingSoundGood5 = this.add.audio('rousk5');
         this.eatingSoundBad = this.add.audio('rousk2');
 
-        this.alien = new alien(this.game, 820, 520, 'alien');
+        this.alien = new alien(this.game, 820, 520, 'transparentRectangle');
         this.game.add.existing(this.alien);
 
         this.objectGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 3.3, this.generateObjects, this);
