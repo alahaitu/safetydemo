@@ -9,9 +9,12 @@ var stationAlien = require('../prefabs/stationAlien');
     },
     create: function() {
       this.add.sprite(0, 0, 'trampoline_game_bg');
+      this.add.sprite(420, 0, 'spacest_pipe');
 
       this.stationAlien = new stationAlien(this.game, 40, 150, 'spacest_alien');
       this.game.add.existing(this.stationAlien);
+
+      this.stationAlien.loadTexture('spacest_alien',0);
 
     },
     update: function() {
