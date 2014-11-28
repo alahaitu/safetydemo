@@ -21,6 +21,7 @@
       this.game.state.start('trampoline');
     },
     plantAnimationClick: function() {
+      this.game.state.start('spaceStation');
     },
     ballAnimationClick: function() {
       this.game.state.start('spaceScene');
