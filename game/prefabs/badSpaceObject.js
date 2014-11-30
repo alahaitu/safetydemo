@@ -7,7 +7,7 @@ var BadSpaceObject = function(game, x, y, sprite, frame) {
 
 	this.body.allowGravity = false;
 
-	var speed = this.game.rnd.integerInRange(100, 350);
+	var speed = this.game.rnd.integerInRange(200, 350);
 
  	this.body.velocity.x = -speed;
 
@@ -19,8 +19,6 @@ var BadSpaceObject = function(game, x, y, sprite, frame) {
 	if (this.body.y < 250){
 	 	this.body.velocity.y = angle;
  	}
-
-
 	this.checkWorldBounds = true;	
 	this.outOfBoundsKill = true;
 };

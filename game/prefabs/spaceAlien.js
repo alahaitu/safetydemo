@@ -14,13 +14,13 @@ SpaceAlien.prototype.constructor = SpaceAlien;
 SpaceAlien.prototype.update = function() {
 
 // Alien can't fall below screen
-if (this.body.y > 450){
+if (this.body.y > 485){
 		this.body.velocity.y = -100;
 }
 
 },
 SpaceAlien.prototype.up = function() { 
-	this.body.velocity.y = -200;
+	this.body.velocity.y = -330;
 };
 
 module.exports = SpaceAlien;

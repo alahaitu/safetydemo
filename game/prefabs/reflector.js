@@ -7,7 +7,19 @@ var Reflector = function(game, x, y, sprite, frame) {
 
 	this.body.allowGravity = false;
 
- 	this.body.velocity.x = -170;
+	var speed = this.game.rnd.integerInRange(170, 250);
+
+ 	this.body.velocity.x = -speed;
+
+	var angle = this.game.rnd.integerInRange(0, 40);
+
+ 	if (this.body.y >= 250){
+	 	this.body.velocity.y = -angle;
+ 	}
+	if (this.body.y < 250){
+	 	this.body.velocity.y = angle;
+ 	}
+
 
 	this.checkWorldBounds = true;	
 	this.outOfBoundsKill = true;

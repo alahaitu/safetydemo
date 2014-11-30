@@ -5,9 +5,10 @@ var badSpaceObject = require('../prefabs/badSpaceObject');
 
 var reflectorGroup;
 var badObjectGroup;
-var reflectorGeneratePace = 1.5;
+var reflectorGeneratePace = 2.5;
 var badObjectGeneratePace = 4.4;
 var score = 0;
+var streak = 0;
 
   function SpaceScene() {}
   SpaceScene.prototype = {
@@ -16,9 +17,10 @@ var score = 0;
     },
     create: function() {
       this.game.physics.startSystem(Phaser.Physics.ARCADE);
-      this.game.physics.arcade.gravity.y = 200;
+      this.game.physics.arcade.gravity.y = 400;
       this.game.input.enabled = true;
       score = 0;
+      streak = 0;
       this.popSound = this.add.audio('helmet_on_sound');
 
       this.add.sprite(0, 0, 'spacerun_bg');
@@ -92,7 +94,8 @@ var score = 0;
     if ( score >= 40){
         // Remove latest score sprite
         this.scoreSprite.destroy();
-        score = score - 40;
+        score = score - 30;
+        streak = 0;
     }
   },
 
@@ -101,7 +104,17 @@ var score = 0;
     this.popSound.play();
 
     this.scoreSprite = this.add.sprite(130 + score, 47, 'spacerun_yellow');
-    score = score + 40;
+    score = score + 30;
+    streak++;
+
+    // If player has collected 3 or more in a row, add a bit of extra challenge
+    if (streak >= 3){
+        // an ever increasing chance to spawn a bad object
+        var rand = this.game.rnd.integerInRange(1, streak + 1);
+        if (rand >= 4){
+          this.badObjectGenerator();
+        }
+    }
   },
 
     update: function() {
