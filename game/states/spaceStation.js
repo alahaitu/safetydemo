@@ -4,6 +4,7 @@ var goodStationObject = require('../prefabs/goodStationObject');
 var badStationObject = require('../prefabs/badStationObject');
 
 var badObjectGroup;
+var state = 0;
 
   function SpaceStation() {}
   SpaceStation.prototype = {
@@ -18,10 +19,10 @@ var badObjectGroup;
       this.add.sprite(0, 0, 'trampoline_game_bg');
       this.add.sprite(420, 0, 'spacest_pipe');
 
-      this.stationAlien = new stationAlien(this.game, 40, 150, 'spacest_alien');
+      this.stationAlien = new stationAlien(this.game, 120, 450, 'spacest_alienhitbox');
       this.game.add.existing(this.stationAlien);
 
-      this.stationAlien.loadTexture('spacest_alien',0);
+      this.alienSprite = this.game.add.sprite(40 ,150, 'spacest_alien');
 
      // this.objectGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 5, this.objectGenerator, this);
     //  this.objectGenerator.timer.start();
@@ -106,6 +107,22 @@ var badObjectGroup;
 
     update: function() {
 
+      // Change the sprite to match sate
+      switch(state){
+      case 0:
+          this.alienSprite.loadTexture('spacest_alien',0);
+      break;
+      case 1:
+          this.alienSprite.loadTexture('spacest_alien',4);
+      break;
+      case 2:
+          this.alienSprite.loadTexture('spacest_alien',5);
+      break;
+      case 3:
+          this.alienSprite.loadTexture('spacest_alien',6);
+      break;
+      }
+
     this.game.physics.arcade.collide(this.goodStationObject, this.stationAlien, this.goodCollide, null, this);
 
     badObjectGroup.forEach(function(badStationObject){
@@ -116,9 +133,33 @@ var badObjectGroup;
 
     badCollide: function() {
       console.log("bad");
+      switch(state){
+      case 0:
+          this.alienSprite.loadTexture('spacest_alien',1);
+      break;
+      case 1:
+          this.alienSprite.loadTexture('spacest_alien',2);
+      break;
+      case 2:
+          this.alienSprite.loadTexture('spacest_alien',3);
+      break;
+      }
     },
+
     goodCollide: function() {
       console.log("good");
+
+      // Destroy all objects
+      this.goodStationObject.destroy();
+      badObjectGroup.destroy();
+      badObjectGroup = this.game.add.group();
+
+      // Proceed to next state, Spawn new objects,
+      state++;
+      this.objectGenerator();
+
+
+
     },
     paused: function() {
       // This method will be called when game paused.

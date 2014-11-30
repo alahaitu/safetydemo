@@ -93,7 +93,8 @@ Preload.prototype = {
     this.load.image('beach_alien2_saver', 'assets/img/BeachGame/LifeSaver_pinkalien_wear.png');
 
     // Space station assets
-    this.load.spritesheet('spacest_alien', 'assets/img/spacestation/spacest_aliensprite.png', 350, 460, 10);
+    this.load.spritesheet('spacest_alien', 'assets/img/spacestation/spacest_sprite.png', 350, 460, 10);
+    this.load.image('spacest_alienhitbox', 'assets/img/spacestation/alienhitbox.png');
     this.load.image('spacest_crown', 'assets/img/spacestation/spacest_crown.png');
     this.load.image('spacest_hat', 'assets/img/spacestation/spacest_hat.png');
     this.load.image('spacest_helmet', 'assets/img/spacestation/spacest_helmet.png');
