@@ -104,6 +104,27 @@ Preload.prototype = {
     this.load.image('spacest_reflector', 'assets/img/spacestation/spacest_reflector.png');
     this.load.image('spacest_ribbon', 'assets/img/spacestation/spacest_ribbon.png');
     this.load.image('spacest_watch', 'assets/img/spacestation/spacest_watch.png');
+    this.load.image('spacest_flower', 'assets/img/spacestation/spacest_flower.png');
+
+
+    // Space run assets
+    this.load.image('spacerun_alien', 'assets/img/spacerun/spacerun_alien.png');
+    this.load.image('spacerun_bg', 'assets/img/spacerun/spacerun_bg.png');
+    this.load.image('spacerun_car', 'assets/img/spacerun/spacerun_car.png');
+    this.load.image('spacerun_iconref', 'assets/img/spacerun/spacerun_iconref.png');
+    this.load.image('spacerun_instruction', 'assets/img/spacerun/spacerun_instruction.png');
+    this.load.image('spacerun_meteorite', 'assets/img/spacerun/spacerun_meteorite.png');
+    this.load.image('spacerun_meteorite_small', 'assets/img/spacerun/spacerun_meteorite_small.png');
+    this.load.image('spacerun_meteorite_medium', 'assets/img/spacerun/spacerun_meteorite_medium.png');
+    this.load.image('spacerun_ref1', 'assets/img/spacerun/spacerun_ref1.png');
+    this.load.image('spacerun_ref2', 'assets/img/spacerun/spacerun_ref2.png');
+    this.load.image('spacerun_ref3', 'assets/img/spacerun/spacerun_ref3.png');
+    this.load.image('spacerun_ref4', 'assets/img/spacerun/spacerun_ref4.png');
+    this.load.image('spacerun_ref5', 'assets/img/spacerun/spacerun_ref5.png');
+    this.load.image('spacerun_scoremetre', 'assets/img/spacerun/spacerun_scoremetre.png');
+    this.load.image('spacerun_yellow', 'assets/img/spacerun/spacerun_yellow.png');
+
+
   },
   create: function() {
     this.music = this.add.audio('bg_music');

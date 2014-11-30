@@ -16,6 +16,7 @@ var state = 0;
       state = 0;
       this.game.physics.startSystem(Phaser.Physics.ARCADE);
       this.game.physics.arcade.gravity.y = 400;
+      this.popSound = this.add.audio('helmet_on_sound');
 
       this.add.sprite(0, 0, 'trampoline_game_bg');
       this.add.sprite(420, 0, 'spacest_pipe');
@@ -42,7 +43,7 @@ var state = 0;
       for (var i = 0; i < 2; i++)
       {
           var sprite;
-          var rand = this.game.rnd.integerInRange(1, 5);
+          var rand = this.game.rnd.integerInRange(1, 6);
 
           switch (rand){
             case 1:
@@ -59,6 +60,9 @@ var state = 0;
               break;
             case 5:
             sprite = 'spacest_watch';
+              break;
+            case 6:
+            sprite = 'spacest_flower';
               break;
           }
 
@@ -125,6 +129,9 @@ var state = 0;
           this.game.add.existing(this.goodStationObject);
           this.goodStationObject.inputEnabled = true;
           this.goodStationObject.input.enableDrag(true);
+
+          this.popSound.play();
+
     },
 
     update: function() {
@@ -184,13 +191,16 @@ var state = 0;
       if (state == 3)
       {
         this.applauseSound = this.add.audio('applause_sound');
-        this.game.time.events.add(Phaser.Timer.SECOND * 4, this.startSpaceScene, this);
+        this.game.time.events.add(Phaser.Timer.SECOND * 8, this.startSpaceScene, this);
+        this.game.time.events.add(Phaser.Timer.SECOND * 4, this.spaceSceneInstruction, this);
         this.applauseSound.play();
       }
     },
     startSpaceScene: function() {
       this.game.state.start('spaceScene');
-
+    },
+    spaceSceneInstruction: function() {
+      this.add.sprite(0, 0, 'spacerun_instruction');
     },
     paused: function() {
       // This method will be called when game paused.
