@@ -21,7 +21,8 @@ var streak = 0;
       this.game.input.enabled = true;
       score = 0;
       streak = 0;
-      this.popSound = this.add.audio('helmet_on_sound');
+      this.popSound = this.add.audio('plop_1');
+      this.sadSound = this.add.audio('hyi_3');
 
       this.add.sprite(0, 0, 'spacerun_bg');
       this.backButton = this.add.button(899, 23, 'exit_btn' , this.startPlayroom, this);
@@ -90,7 +91,8 @@ var streak = 0;
 
   alienBadObjectCollision: function(badSpaceObject){
     badSpaceObject.destroy();
-
+    this.sadSound.play()
+    
     if ( score >= 40){
         // Remove latest score sprite
         this.scoreSprite.destroy();

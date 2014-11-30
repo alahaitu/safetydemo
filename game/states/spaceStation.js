@@ -5,6 +5,7 @@ var badStationObject = require('../prefabs/badStationObject');
 
 var badObjectGroup;
 var state = 0;
+var soundCooldown = 0;
 
   function SpaceStation() {}
   SpaceStation.prototype = {
@@ -14,9 +15,13 @@ var state = 0;
     },
     create: function() {
       state = 0;
+      soundCooldown = 0;
       this.game.physics.startSystem(Phaser.Physics.ARCADE);
       this.game.physics.arcade.gravity.y = 400;
-      this.popSound = this.add.audio('helmet_on_sound');
+      this.popSound1 = this.add.audio('putkea_alas_1');
+      this.popSound2 = this.add.audio('putkea_alas_2');
+      this.noSound1 = this.add.audio('ei_kay_1');
+      this.noSound2 = this.add.audio('ei_kay_2');
 
       this.add.sprite(0, 0, 'trampoline_game_bg');
       this.add.sprite(420, 0, 'spacest_pipe');
@@ -130,7 +135,16 @@ var state = 0;
           this.goodStationObject.inputEnabled = true;
           this.goodStationObject.input.enableDrag(true);
 
-          this.popSound.play();
+          var rand = this.game.rnd.integerInRange(1, 2);
+
+          switch (rand){
+            case 1:
+                this.popSound1.play();
+              break;
+            case 2:
+                this.popSound2.play();
+              break;
+            }
 
     },
 
@@ -157,10 +171,27 @@ var state = 0;
     badObjectGroup.forEach(function(badStationObject){
           this.game.physics.arcade.collide(badStationObject, this.stationAlien, this.badCollide, null, this);
     }, this);
-
+    
+      if (soundCooldown != 0){
+        soundCooldown--;
+      }
     },
 
     badCollide: function() {
+
+      if ( soundCooldown == 0 ){
+          var rand = this.game.rnd.integerInRange(1, 2);
+          switch (rand){
+            case 1:
+            this.noSound1.play();
+              break;
+            case 2:
+            this.noSound2.play();
+              break;
+            }
+        soundCooldown = 100;
+      }
+
       switch(state){
       case 0:
           this.alienSprite.loadTexture('spacest_alien',1);
@@ -183,6 +214,9 @@ var state = 0;
 
       // Proceed to next state, Spawn new objects,
       state++;
+      if (state < 1){
+        soundCooldown++;
+      }
       if ( state < 3){
         this.objectGenerator();
       }

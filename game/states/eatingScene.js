@@ -29,7 +29,12 @@ var lastSpawn = null;
         this.eatingSoundGood3 = this.add.audio('rousk3');
         this.eatingSoundGood4 = this.add.audio('rousk4');
         this.eatingSoundGood5 = this.add.audio('rousk5');
-        this.eatingSoundBad = this.add.audio('rousk2');
+        this.eatingSoundBad1 = this.add.audio('hyi_1');
+        this.eatingSoundBad2 = this.add.audio('hyi_2');
+        this.eatingSoundBad3 = this.add.audio('hyi_3');
+        this.eatingSoundSurprised1 = this.add.audio('hammastys_1');
+        this.eatingSoundSurprised2 = this.add.audio('hammastys_2');
+        this.eatingSoundSurprised3 = this.add.audio('hammastys_3');
 
         this.alien = new alien(this.game, 820, 520, 'transparentRectangle');
         this.game.add.existing(this.alien);
@@ -57,7 +62,6 @@ var lastSpawn = null;
       this.alienSprite.play('eat', 8, false);
       this.randomEatingSoundGood();
 
-      console.log("Yam! Good food!");
     },
     badCollision: function(){
       this.badEatObject.destroy();
@@ -66,9 +70,8 @@ var lastSpawn = null;
       }
       this.alienSprite.loadTexture('eating_alien_bf');
       this.alienSprite.play('eat', 8, false);
-      this.eatingSoundBad.play();
+      this.randomEatingSoundBad();
 
-      console.log("Yuck! Bad food!");
     },
 
     randomEatingSoundGood: function(){
@@ -92,7 +95,21 @@ var lastSpawn = null;
             break;
         }
     },
+    randomEatingSoundBad: function(){
+        var rand = this.game.rnd.integerInRange(1, 3);
 
+        switch (rand){
+          case 1:
+            this.eatingSoundBad1.play();
+            break;
+          case 2:
+            this.eatingSoundBad2.play();
+            break;
+          case 3:
+            this.eatingSoundBad3.play();
+            break;
+        }
+    },
     generateObjects: function() {
 
         //var goodOrBad = this.game.rnd.integerInRange(0,1);
