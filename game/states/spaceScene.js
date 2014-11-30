@@ -24,9 +24,9 @@ var reflectorGeneratePace = 1.5;
       this.spaceAlien = new spaceAlien(this.game, 100, 200, 'trampoline_game_alien');
       this.game.add.existing(this.spaceAlien);
 
-      this.reflectorGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * reflectorGeneratePace, this.reflectorGenerator, this);
+      this.reflectorGeneratorTimer = this.game.time.events.loop(Phaser.Timer.SECOND * reflectorGeneratePace, this.reflectorGenerator, this);
 
-      this.reflectorGenerator.timer.start();
+      this.reflectorGeneratorTimer.timer.start();
 
     },
 
