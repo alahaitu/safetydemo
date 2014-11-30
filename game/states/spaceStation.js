@@ -13,19 +13,18 @@ var state = 0;
       // If you need to use the loader, you may need to use them here.
     },
     create: function() {
+      state = 0;
       this.game.physics.startSystem(Phaser.Physics.ARCADE);
-      this.game.physics.arcade.gravity.y = 200;
+      this.game.physics.arcade.gravity.y = 400;
 
       this.add.sprite(0, 0, 'trampoline_game_bg');
       this.add.sprite(420, 0, 'spacest_pipe');
+      this.backButton = this.add.button(899, 23, 'exit_btn' , this.startPlayroom, this);
 
       this.stationAlien = new stationAlien(this.game, 120, 450, 'spacest_alienhitbox');
       this.game.add.existing(this.stationAlien);
 
       this.alienSprite = this.game.add.sprite(40 ,150, 'spacest_alien');
-
-     // this.objectGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 5, this.objectGenerator, this);
-    //  this.objectGenerator.timer.start();
 
       badObjectGroup = this.game.add.group();
 
@@ -202,6 +201,9 @@ var state = 0;
     shutdown: function() {
       // This method will be called when the state is shut down 
       // (i.e. you switch to another state from this one).
+    },
+    startPlayroom: function() {
+      this.game.state.start('playroom');
     }
   };
 module.exports = SpaceStation;
