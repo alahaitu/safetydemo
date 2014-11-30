@@ -177,7 +177,20 @@ var state = 0;
 
       // Proceed to next state, Spawn new objects,
       state++;
-      this.objectGenerator();
+      if ( state < 3){
+        this.objectGenerator();
+      }
+
+      // Victory, proceed to next game
+      if (state == 3)
+      {
+        this.applauseSound = this.add.audio('applause_sound');
+        this.game.time.events.add(Phaser.Timer.SECOND * 4, this.startSpaceScene, this);
+        this.applauseSound.play();
+      }
+    },
+    startSpaceScene: function() {
+      this.game.state.start('spaceScene');
 
     },
     paused: function() {
