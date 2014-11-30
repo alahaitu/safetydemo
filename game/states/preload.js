@@ -100,8 +100,10 @@ Preload.prototype = {
     this.load.image('spacest_helmet', 'assets/img/spacestation/spacest_helmet.png');
     this.load.image('spacest_pipe', 'assets/img/spacestation/spacest_pipe.png');
     this.load.image('spacest_vest', 'assets/img/spacestation/spacest_vest.png');
-
-
+    this.load.image('spacest_camera', 'assets/img/spacestation/spacest_camera.png');
+    this.load.image('spacest_reflector', 'assets/img/spacestation/spacest_reflector.png');
+    this.load.image('spacest_ribbon', 'assets/img/spacestation/spacest_ribbon.png');
+    this.load.image('spacest_watch', 'assets/img/spacestation/spacest_watch.png');
   },
   create: function() {
     this.music = this.add.audio('bg_music');

@@ -43,7 +43,7 @@ var state = 0;
       for (var i = 0; i < 2; i++)
       {
           var sprite;
-          var rand = this.game.rnd.integerInRange(1, 2);
+          var rand = this.game.rnd.integerInRange(1, 5);
 
           switch (rand){
             case 1:
@@ -51,6 +51,15 @@ var state = 0;
               break;
             case 2:
             sprite = 'spacest_crown';
+              break;
+            case 3:
+            sprite = 'spacest_camera';
+              break;
+            case 4:
+            sprite = 'spacest_ribbon';
+              break;
+            case 5:
+            sprite = 'spacest_watch';
               break;
           }
 
@@ -88,16 +97,30 @@ var state = 0;
             badObjectGroup.add(this.badStationObject);
         }
 
+      // Select good object sprite to match state
+      var goodSprite = 'spacest_vest';
+       switch (state){
+            case 0:
+            goodSprite = 'spacest_vest';
+              break;
+            case 1:
+            goodSprite = 'spacest_helmet';
+              break;
+            case 2:
+            goodSprite = 'spacest_reflector';
+              break;
+          }
+
         // Spawn the "Good" object
         switch(total){
           case 3:
-                this.goodStationObject = new goodStationObject(this.game, 700, 0, 'spacest_vest');
+                this.goodStationObject = new goodStationObject(this.game, 700, 0, goodSprite);
           break;
           case 4:
-                this.goodStationObject = new goodStationObject(this.game, 550, 0, 'spacest_vest');
+                this.goodStationObject = new goodStationObject(this.game, 550, 0, goodSprite);
           break;
           case 5:
-                this.goodStationObject = new goodStationObject(this.game, 400, 0, 'spacest_vest');
+                this.goodStationObject = new goodStationObject(this.game, 400, 0, goodSprite);
           break;
         }
           this.game.add.existing(this.goodStationObject);
@@ -132,7 +155,6 @@ var state = 0;
     },
 
     badCollide: function() {
-      console.log("bad");
       switch(state){
       case 0:
           this.alienSprite.loadTexture('spacest_alien',1);
@@ -147,7 +169,6 @@ var state = 0;
     },
 
     goodCollide: function() {
-      console.log("good");
 
       // Destroy all objects
       this.goodStationObject.destroy();
@@ -157,8 +178,6 @@ var state = 0;
       // Proceed to next state, Spawn new objects,
       state++;
       this.objectGenerator();
-
-
 
     },
     paused: function() {
