@@ -1,0 +1,2 @@
+Picture placement from upper left corner of sprite: 584 x 228 
+Picture placement from the middle of the sprite: 755 x 465

@@ -1,0 +1,3 @@
+frame sizes in bad_food sprites: 500 x 610
+
+frame sizes in good_food sprites: 442 x 610
