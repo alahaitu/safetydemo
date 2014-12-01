@@ -19,6 +19,10 @@ Preload.prototype = {
     this.load.image('alien', 'assets/img/EatingGame/rectangle_purple.png');
     this.load.audio('bg_music', 'assets/sounds/tunnari-14-11-10.mp3');
 
+    // Loading screen assets
+    this.load.image('loading_bg', 'assets/img/LoadScreen/loadscreen_bg.png');
+    this.load.spritesheet('loadscreen_aliensprite', 'assets/img/LoadScreen/loadscreen_aliensprite.png', 260, 350);
+
     // Shared assets
     this.load.image('exit_btn', 'assets/img/Shared/SpaceJump_home.png');
     this.load.image('score_meter', 'assets/img/Shared/VeggieP_ScoreMeter.png');
