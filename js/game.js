@@ -445,7 +445,7 @@ var lastSpawn = null;
         this.eating_background = this.game.add.sprite(0, 0, 'eating_bg');
         this.alienSprite = this.game.add.sprite(560,80, 'eating_alien_gf');
         this.alienSprite.animations.add('eat');
-        this.table = new table(this.game, 0, 561, 'eating_table');
+        this.table = new table(this.game, 0, 492, 'eating_table');
         this.game.add.existing(this.table);
         this.backButton = this.add.button(899, 23, 'exit_btn' , this.startPlayroom, this);
         
@@ -732,7 +732,7 @@ Preload.prototype = {
     // Eating game assets
     this.load.image('eating_game_win', 'assets/img/EatingGame/kitchen_winscreen.png');
     this.load.image('eating_bg', 'assets/img/EatingGame/kitchen.png');
-    this.load.image('eating_table', 'assets/img/EatingGame/EatingGame_kitchen table.png');
+    this.load.image('eating_table', 'assets/img/EatingGame/EatingGame_kitchen_table.png');
     this.load.audio('rousk1', 'assets/sounds/rousk01.wav');
     this.load.audio('rousk2', 'assets/sounds/rousk02.wav');
     this.load.audio('rousk3', 'assets/sounds/rousk03.wav');
@@ -746,7 +746,7 @@ Preload.prototype = {
     this.load.audio('hammastys_3', 'assets/sounds/hammastys_3.wav');
 
     // Good food
-    this.load.spritesheet('eating_alien_gf', 'assets/img/EatingGame/EatingGame_good_food sprite.png', 440, 610);
+    this.load.spritesheet('eating_alien_gf', 'assets/img/EatingGame/EatingGame_good_food_smap.png', 442, 610);
     this.load.image('eating_g1', 'assets/img/EatingGame/EatingGame_1.png');
     this.load.image('eating_g2', 'assets/img/EatingGame/EatingGame_2.png');
     this.load.image('eating_g3', 'assets/img/EatingGame/EatingGame_3.png');
@@ -757,7 +757,7 @@ Preload.prototype = {
     this.load.image('eating_g8', 'assets/img/EatingGame/EatingGame_8.png');    
 
     // Bad good
-    this.load.spritesheet('eating_alien_bf', 'assets/img/EatingGame/EatingGame_bad_food sprite.png', 500, 610);
+    this.load.spritesheet('eating_alien_bf', 'assets/img/EatingGame/EatingGame_bad_food_smap.png', 500, 610);
     this.load.image('eating_b1', 'assets/img/EatingGame/EatingGame_X1.png');
     this.load.image('eating_b2', 'assets/img/EatingGame/EatingGame_X2.png');
     this.load.image('eating_b3', 'assets/img/EatingGame/EatingGame_X3.png');
@@ -810,21 +810,21 @@ Preload.prototype = {
 
 
     // Space run assets
-    this.load.image('spacerun_alien', 'assets/img/spacerun/spacerun_alien.png');
-    this.load.image('spacerun_bg', 'assets/img/spacerun/spacerun_bg.png');
-    this.load.image('spacerun_car', 'assets/img/spacerun/spacerun_car.png');
-    this.load.image('spacerun_iconref', 'assets/img/spacerun/spacerun_iconref.png');
-    this.load.image('spacerun_instruction', 'assets/img/spacerun/spacerun_instruction.png');
-    this.load.image('spacerun_meteorite', 'assets/img/spacerun/spacerun_meteorite.png');
-    this.load.image('spacerun_meteorite_small', 'assets/img/spacerun/spacerun_meteorite_small.png');
-    this.load.image('spacerun_meteorite_medium', 'assets/img/spacerun/spacerun_meteorite_medium.png');
-    this.load.image('spacerun_ref1', 'assets/img/spacerun/spacerun_ref1.png');
-    this.load.image('spacerun_ref2', 'assets/img/spacerun/spacerun_ref2.png');
-    this.load.image('spacerun_ref3', 'assets/img/spacerun/spacerun_ref3.png');
-    this.load.image('spacerun_ref4', 'assets/img/spacerun/spacerun_ref4.png');
-    this.load.image('spacerun_ref5', 'assets/img/spacerun/spacerun_ref5.png');
-    this.load.image('spacerun_scoremetre', 'assets/img/spacerun/spacerun_scoremetre.png');
-    this.load.image('spacerun_yellow', 'assets/img/spacerun/spacerun_yellow.png');
+    this.load.image('spacerun_alien', 'assets/img/SpaceRun/spacerun_alien.png');
+    this.load.image('spacerun_bg', 'assets/img/SpaceRun/spacerun_bg.png');
+    this.load.image('spacerun_car', 'assets/img/SpaceRun/spacerun_car.png');
+    this.load.image('spacerun_iconref', 'assets/img/SpaceRun/spacerun_iconref.png');
+    this.load.image('spacerun_instruction', 'assets/img/SpaceRun/spacerun_instruction.png');
+    this.load.image('spacerun_meteorite', 'assets/img/SpaceRun/spacerun_meteorite.png');
+    this.load.image('spacerun_meteorite_small', 'assets/img/SpaceRun/spacerun_meteorite_small.png');
+    this.load.image('spacerun_meteorite_medium', 'assets/img/SpaceRun/spacerun_meteorite_medium.png');
+    this.load.image('spacerun_ref1', 'assets/img/SpaceRun/spacerun_ref1.png');
+    this.load.image('spacerun_ref2', 'assets/img/SpaceRun/spacerun_ref2.png');
+    this.load.image('spacerun_ref3', 'assets/img/SpaceRun/spacerun_ref3.png');
+    this.load.image('spacerun_ref4', 'assets/img/SpaceRun/spacerun_ref4.png');
+    this.load.image('spacerun_ref5', 'assets/img/SpaceRun/spacerun_ref5.png');
+    this.load.image('spacerun_scoremetre', 'assets/img/SpaceRun/spacerun_scoremetre.png');
+    this.load.image('spacerun_yellow', 'assets/img/SpaceRun/spacerun_yellow.png');
     this.load.audio('plop_1', 'assets/sounds/plop_1.wav');
     this.load.audio('putkea_alas_1', 'assets/sounds/putkea_alas_1.wav');
     this.load.audio('putkea_alas_2', 'assets/sounds/putkea_alas_2.wav');
