@@ -793,18 +793,18 @@ Preload.prototype = {
     this.load.image('beach_alien2_saver', 'assets/img/BeachGame/LifeSaver_pinkalien_wear.png');
 
     // Space station assets
-    this.load.spritesheet('spacest_alien', 'assets/img/spacestation/spacest_sprite.png', 350, 460, 10);
-    this.load.image('spacest_alienhitbox', 'assets/img/spacestation/alienhitbox.png');
-    this.load.image('spacest_crown', 'assets/img/spacestation/spacest_crown.png');
-    this.load.image('spacest_hat', 'assets/img/spacestation/spacest_hat.png');
-    this.load.image('spacest_helmet', 'assets/img/spacestation/spacest_helmet.png');
-    this.load.image('spacest_pipe', 'assets/img/spacestation/spacest_pipe.png');
-    this.load.image('spacest_vest', 'assets/img/spacestation/spacest_vest.png');
-    this.load.image('spacest_camera', 'assets/img/spacestation/spacest_camera.png');
-    this.load.image('spacest_reflector', 'assets/img/spacestation/spacest_reflector.png');
-    this.load.image('spacest_ribbon', 'assets/img/spacestation/spacest_ribbon.png');
-    this.load.image('spacest_watch', 'assets/img/spacestation/spacest_watch.png');
-    this.load.image('spacest_flower', 'assets/img/spacestation/spacest_flower.png');
+    this.load.spritesheet('spacest_alien', 'assets/img/SpaceStation/spacest_sprite.png', 350, 460, 10);
+    this.load.image('spacest_alienhitbox', 'assets/img/SpaceStation/alienhitbox.png');
+    this.load.image('spacest_crown', 'assets/img/SpaceStation/spacest_crown.png');
+    this.load.image('spacest_hat', 'assets/img/SpaceStation/spacest_hat.png');
+    this.load.image('spacest_helmet', 'assets/img/SpaceStation/spacest_helmet.png');
+    this.load.image('spacest_pipe', 'assets/img/SpaceStation/spacest_pipe.png');
+    this.load.image('spacest_vest', 'assets/img/SpaceStation/spacest_vest.png');
+    this.load.image('spacest_camera', 'assets/img/SpaceStation/spacest_camera.png');
+    this.load.image('spacest_reflector', 'assets/img/SpaceStation/spacest_reflector.png');
+    this.load.image('spacest_ribbon', 'assets/img/SpaceStation/spacest_ribbon.png');
+    this.load.image('spacest_watch', 'assets/img/SpaceStation/spacest_watch.png');
+    this.load.image('spacest_flower', 'assets/img/SpaceStation/spacest_flower.png');
     this.load.audio('ei_kay_1', 'assets/sounds/ei_kay_1.wav');
     this.load.audio('ei_kay_2', 'assets/sounds/ei_kay_2.wav');
 
