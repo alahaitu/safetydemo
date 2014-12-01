@@ -15,16 +15,16 @@
       this.game.state.start('eatingScene');
     },
     beachSceneStartClick: function() {
-      this.game.state.start('beachScene');
+      //this.game.state.start('beachScene');
     },
     spaceSceneStartClick: function() {
-      this.game.state.start('trampoline');
-    },
-    plantAnimationClick: function() {
       this.game.state.start('spaceStation');
     },
+    plantAnimationClick: function() {
+      //this.game.state.start('spaceStation');
+    },
     ballAnimationClick: function() {
-      this.game.state.start('spaceScene');
+      //this.game.state.start('spaceScene');
     },
     startPlayroom: function() {
       this.game.state.start('playroom');

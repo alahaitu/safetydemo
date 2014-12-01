@@ -13,15 +13,15 @@ var lastSpawn = null;
         this.game.physics.arcade.gravity.y = 500;
 
         // Graphics
+        this.scoreMeter = this.game.add.sprite(119, 38, 'score_meter');
+        this.pointer = this.game.add.sprite(114, 21, 'score_pointer');
+        this.add.sprite(40, 35, 'score_basket');
         this.eating_background = this.game.add.sprite(0, 0, 'eating_bg');
         this.alienSprite = this.game.add.sprite(560,80, 'eating_alien_gf');
         this.alienSprite.animations.add('eat');
         this.table = new table(this.game, 0, 561, 'eating_table');
         this.game.add.existing(this.table);
-        this.add.sprite(40, 35, 'score_basket');
         this.backButton = this.add.button(899, 23, 'exit_btn' , this.startPlayroom, this);
-        this.scoreMeter = this.game.add.sprite(119, 38, 'score_meter');
-        this.pointer = this.game.add.sprite(114, 21, 'score_pointer');
         
         // Sounds
         this.eatingSoundGood1 = this.add.audio('rousk1');

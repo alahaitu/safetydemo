@@ -16,11 +16,14 @@
       this.pointer = this.game.add.sprite(114, 21, 'score_pointer');
 
       this.game.physics.startSystem(Phaser.Physics.ARCADE);
-      this.game.physics.arcade.enable(this.lifesaver);
+      this.game.physics.arcade.enable([this.lifesaver, this.alien1, this.alien2]);
 
       this.lifesaver.inputEnabled = true;
       this.lifesaver.input.enableDrag(true);
       this.lifesaver.body.collideWorldBounds = true;
+
+      //this.lifesaver.events.startDrag.add(this.startDrag, this);
+      //this.lifesaver.events.stopDrag.add(this.stopDrag, this);
 
     },
     update: function() {
@@ -34,11 +37,17 @@
     },
     alien1Saved: function() {
       console.log("Alien 1 saved.");
-
     },
     alien2Saved: function() {
       console.log("Alien 2 saved.");
-
+    },
+    startDrag: function(sprite, pointer) {
+      this.lifesaver.body.moves = false;
+      console.log("Drag started.");
+    },
+    stopStop: function(sprite, pointer) {
+      this.lifesaver.body.moves = true;
+      console.log("Drag stopped.");
     },
     exitScene: function() {
       this.game.state.start('playroom');

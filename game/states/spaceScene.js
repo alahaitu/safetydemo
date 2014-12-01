@@ -22,16 +22,17 @@ var streak = 0;
       score = 0;
       streak = 0;
       this.popSound = this.add.audio('plop_1');
-      this.sadSound = this.add.audio('hyi_3');
+      this.sadSound = this.add.audio('hyi_2');
 
       this.add.sprite(0, 0, 'spacerun_bg');
       this.backButton = this.add.button(899, 23, 'exit_btn' , this.startPlayroom, this);
-      this.scoreMeter = this.game.add.sprite(119, 38, 'spacerun_scoremetre');
       reflectorGroup = this.game.add.group();
       badObjectGroup = this.game.add.group();
 
       this.spaceAlien = new spaceAlien(this.game, 100, 200, 'spacerun_alien');
       this.game.add.existing(this.spaceAlien);
+
+      this.scoreMeter = this.game.add.sprite(119, 38, 'spacerun_scoremetre');
 
       this.reflectorGeneratorTimer = this.game.time.events.loop(Phaser.Timer.SECOND * reflectorGeneratePace, this.reflectorGenerator, this);
       this.reflectorGeneratorTimer.timer.start();
