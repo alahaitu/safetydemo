@@ -2,6 +2,7 @@
 var stationAlien = require('../prefabs/stationAlien');  
 var goodStationObject = require('../prefabs/goodStationObject');
 var badStationObject = require('../prefabs/badStationObject');
+var floor = require('../prefabs/floor');
 
 var badObjectGroup;
 var state = 0;
@@ -25,6 +26,10 @@ var soundCooldown = 0;
 
       this.add.sprite(0, 0, 'spacest_background');
       this.add.sprite(420, 0, 'spacest_pipe');
+
+      this.floor = new floor(this.game, 0, 650, 'spacest_floor');
+      this.game.add.existing(this.floor);
+
       this.backButton = this.add.button(899, 23, 'exit_btn' , this.startPlayroom, this);
 
       this.stationAlien = new stationAlien(this.game, 120, 550, 'spacest_alienhitbox');
@@ -43,12 +48,18 @@ var soundCooldown = 0;
       var pipe = 0;
       var total = 0;
       var goodPipe = 0;
+      var lastSprite = 0;
+      var rand = 0;
 
       // Spwan 2 "bad" objects
       for (var i = 0; i < 2; i++)
       {
           var sprite;
-          var rand = this.game.rnd.integerInRange(1, 6);
+
+        while (rand == lastSprite){
+          rand = this.game.rnd.integerInRange(1, 6);
+        }
+          lastSprite = rand;
 
           switch (rand){
             case 1:
@@ -166,6 +177,14 @@ var soundCooldown = 0;
       break;
       }
 
+    // Collide the objects with invisible floor
+      this.game.physics.arcade.collide(this.goodStationObject, this.floor);
+
+    badObjectGroup.forEach(function(badStationObject){
+          this.game.physics.arcade.collide(badStationObject, this.floor);
+    }, this);
+
+    // Collide check for aliens & objects
     this.game.physics.arcade.collide(this.goodStationObject, this.stationAlien, this.goodCollide, null, this);
 
     badObjectGroup.forEach(function(badStationObject){

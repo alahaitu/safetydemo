@@ -118,6 +118,7 @@ Preload.prototype = {
     this.load.image('spacest_flower', 'assets/img/SpaceStation/spacest_flower.png');
     this.load.audio('ei_kay_1', 'assets/sounds/ei_kay_1.wav');
     this.load.audio('ei_kay_2', 'assets/sounds/ei_kay_2.wav');
+    this.load.image('spacest_floor', 'assets/img/SpaceStation/floor.png');
 
 
     // Space run assets
