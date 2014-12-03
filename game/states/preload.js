@@ -105,6 +105,7 @@ Preload.prototype = {
     // Space station assets
     this.load.spritesheet('spacest_alien', 'assets/img/SpaceStation/spacest_sprite.png', 350, 460, 10);
     this.load.image('spacest_alienhitbox', 'assets/img/SpaceStation/alienhitbox.png');
+    this.load.image('spacest_background', 'assets/img/SpaceStation/avaruusasema_bg.png');
     this.load.image('spacest_crown', 'assets/img/SpaceStation/spacest_crown.png');
     this.load.image('spacest_hat', 'assets/img/SpaceStation/spacest_hat.png');
     this.load.image('spacest_helmet', 'assets/img/SpaceStation/spacest_helmet.png');
@@ -142,7 +143,7 @@ Preload.prototype = {
   },
   create: function() {
     this.music = this.add.audio('bg_music');
-    this.music.play('',0,1,true);
+   // this.music.play('',0,1,true);
     this.asset.cropEnabled = false;
   },
   update: function() {

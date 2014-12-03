@@ -23,14 +23,14 @@ var soundCooldown = 0;
       this.noSound1 = this.add.audio('ei_kay_1');
       this.noSound2 = this.add.audio('ei_kay_2');
 
-      this.add.sprite(0, 0, 'trampoline_game_bg');
+      this.add.sprite(0, 0, 'spacest_background');
       this.add.sprite(420, 0, 'spacest_pipe');
       this.backButton = this.add.button(899, 23, 'exit_btn' , this.startPlayroom, this);
 
-      this.stationAlien = new stationAlien(this.game, 120, 450, 'spacest_alienhitbox');
+      this.stationAlien = new stationAlien(this.game, 120, 550, 'spacest_alienhitbox');
       this.game.add.existing(this.stationAlien);
 
-      this.alienSprite = this.game.add.sprite(40 ,150, 'spacest_alien');
+      this.alienSprite = this.game.add.sprite(40 ,180, 'spacest_alien');
 
       badObjectGroup = this.game.add.group();
 
