@@ -140,6 +140,7 @@ Preload.prototype = {
     this.load.audio('plop_1', 'assets/sounds/plop_1.wav');
     this.load.audio('putkea_alas_1', 'assets/sounds/putkea_alas_1.wav');
     this.load.audio('putkea_alas_2', 'assets/sounds/putkea_alas_2.wav');
+    this.load.image('spacerun_ground', 'assets/img/SpaceRun/spacerun_ground.png');
 
   },
   create: function() {

@@ -29,6 +29,9 @@ var firstReflectorCollected = false;
       this.sadSound = this.add.audio('hyi_2');
 
       this.add.sprite(0, 0, 'spacerun_bg');
+      this.ground = this.game.add.tileSprite(0, 561, 1024, 127, 'spacerun_ground');
+      this.ground.autoScroll(-100,0);
+
       this.backButton = this.add.button(899, 23, 'exit_btn' , this.startPlayroom, this);
       reflectorGroup = this.game.add.group();
       badObjectGroup = this.game.add.group();
