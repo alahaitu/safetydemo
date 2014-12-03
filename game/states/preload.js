@@ -144,7 +144,7 @@ Preload.prototype = {
   },
   create: function() {
     this.music = this.add.audio('bg_music');
-   // this.music.play('',0,1,true);
+    this.music.play('',0,1,true);
     this.asset.cropEnabled = false;
   },
   update: function() {

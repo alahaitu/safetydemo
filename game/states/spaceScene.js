@@ -98,12 +98,6 @@ var firstReflectorCollected = false;
     badSpaceObject.body.velocity.y = 100;
     badSpaceObject.body.velocity.x = 40;
     badSpaceObject.body.allowGravity = true;
-
-    if ( score >= 40){
-        // Remove latest score sprite
-        this.scoreSprite.destroy();
-        score = score - 30;
-    }
   }
 
   // Player hits the bad object undirectly, falls on it
