@@ -6,8 +6,11 @@ var Reflector = function(game, x, y, sprite, frame) {
 	this.game.physics.arcade.enableBody(this);
 
 	this.body.allowGravity = false;
+	this.anchor.setTo(0.5, 0.5);
+    this.body.angularVelocity = this.game.rnd.integerInRange(-10, 10);
 
-	var speed = this.game.rnd.integerInRange(170, 250);
+
+	var speed = this.game.rnd.integerInRange(100, 150);
 
  	this.body.velocity.x = -speed;
 

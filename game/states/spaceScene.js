@@ -5,10 +5,11 @@ var badSpaceObject = require('../prefabs/badSpaceObject');
 
 var reflectorGroup;
 var badObjectGroup;
-var reflectorGeneratePace = 2.5;
-var badObjectGeneratePace = 4.4;
+var reflectorGeneratePace = 4;
+var badObjectGeneratePace = 7;
 var score = 0;
-var streak = 0;
+var gameStarted = false;
+var firstReflectorCollected = false;
 
   function SpaceScene() {}
   SpaceScene.prototype = {
@@ -16,11 +17,14 @@ var streak = 0;
     preload: function() {
     },
     create: function() {
-      this.game.physics.startSystem(Phaser.Physics.ARCADE);
-      this.game.physics.arcade.gravity.y = 400;
-      this.game.input.enabled = true;
       score = 0;
-      streak = 0;
+      gameStarted = false
+      firstReflectorCollected = false
+
+      this.game.physics.startSystem(Phaser.Physics.ARCADE);
+      this.game.physics.arcade.gravity.y = 200;
+      this.game.input.enabled = true;
+
       this.popSound = this.add.audio('plop_1');
       this.sadSound = this.add.audio('hyi_2');
 
@@ -29,16 +33,10 @@ var streak = 0;
       reflectorGroup = this.game.add.group();
       badObjectGroup = this.game.add.group();
 
-      this.spaceAlien = new spaceAlien(this.game, 100, 200, 'spacerun_alien');
+      this.spaceAlien = new spaceAlien(this.game, 100, 450, 'spacerun_alien');
       this.game.add.existing(this.spaceAlien);
 
       this.scoreMeter = this.game.add.sprite(119, 38, 'spacerun_scoremetre');
-
-      this.reflectorGeneratorTimer = this.game.time.events.loop(Phaser.Timer.SECOND * reflectorGeneratePace, this.reflectorGenerator, this);
-      this.reflectorGeneratorTimer.timer.start();
-
-      this.badObjectGeneratorTimer = this.game.time.events.loop(Phaser.Timer.SECOND * badObjectGeneratePace, this.badObjectGenerator, this);
-      this.badObjectGeneratorTimer.timer.start();
 
     },
 
@@ -74,16 +72,16 @@ var streak = 0;
           sprite = 'spacerun_meteorite_small';
             break;
           case 2:
-          sprite = 'spacerun_meteorite_medium';
+          sprite = 'spacerun_meteorite_small';
             break;
           case 3:
-          sprite = 'spacerun_meteorite_medium';
+          sprite = 'spacerun_meteorite_small';
             break;
           case 4:
-          sprite = 'spacerun_meteorite';
+          sprite = 'spacerun_meteorite_small'; // spacerun_meteorite
             break;
           case 5:
-          sprite = 'spacerun_car';
+          sprite = 'spacerun_meteorite_small'; // spacerun_car
             break;
         }
           this.badSpaceObject = new badSpaceObject(this.game, 1000, this.game.rnd.integerInRange(0, 500), sprite);
@@ -91,15 +89,32 @@ var streak = 0;
   },
 
   alienBadObjectCollision: function(badSpaceObject){
-    badSpaceObject.destroy();
+
+    // Direct collision with the player
+   if (badSpaceObject.x > this.spaceAlien.x + this.spaceAlien.width){
+
     this.sadSound.play()
-    
+    badSpaceObject.body.angularVelocity = 0;
+    badSpaceObject.body.velocity.y = 100;
+    badSpaceObject.body.velocity.x = 40;
+    badSpaceObject.body.allowGravity = true;
+
     if ( score >= 40){
         // Remove latest score sprite
         this.scoreSprite.destroy();
         score = score - 30;
-        streak = 0;
     }
+  }
+
+  // Player hits the bad object undirectly, falls on it
+   if (badSpaceObject.y > this.spaceAlien.y + this.spaceAlien.height){
+      badSpaceObject.body.allowGravity = true;
+   }
+   // Player hits the bad object undirectly, upwards
+   if (badSpaceObject.y < this.spaceAlien.y){
+    badSpaceObject.body.velocity.y = -151;
+   }
+
   },
 
   alienReflectorcollision: function(reflector){
@@ -108,21 +123,23 @@ var streak = 0;
 
     this.scoreSprite = this.add.sprite(130 + score, 47, 'spacerun_yellow');
     score = score + 30;
-    streak++;
 
-    // If player has collected 3 or more in a row, add a bit of extra challenge
-    if (streak >= 3){
-        // an ever increasing chance to spawn a bad object
-        var rand = this.game.rnd.integerInRange(1, streak + 1);
-        if (rand >= 4){
-          this.badObjectGenerator();
-        }
-    }
+      if (firstReflectorCollected == false){
+        this.badObjectGeneratorTimer = this.game.time.events.loop(Phaser.Timer.SECOND * badObjectGeneratePace, this.badObjectGenerator, this);
+        this.badObjectGeneratorTimer.timer.start();
+        firstReflectorCollected = true
+      }
   },
 
     update: function() {
       if (this.game.input.activePointer.isDown){
           this.spaceAlien.up();
+
+          if (gameStarted == false ){
+              this.reflectorGeneratorTimer = this.game.time.events.loop(Phaser.Timer.SECOND * reflectorGeneratePace, this.reflectorGenerator, this);
+              this.reflectorGeneratorTimer.timer.start();
+              gameStarted = true;
+        }
       }
 
     // Collide reflector with the alien
