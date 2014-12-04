@@ -26,7 +26,9 @@ var firstReflectorCollected = false;
       this.game.input.enabled = true;
 
       this.popSound = this.add.audio('plop_1');
-      this.sadSound = this.add.audio('hyi_2');
+      this.collisionSound1 = this.add.audio('sattuu_1');
+      this.collisionSound2 = this.add.audio('sattuu_2');
+      this.collisionSound3 = this.add.audio('sattuu_3');
 
       this.add.sprite(0, 0, 'spacerun_bg');
       this.ground = this.game.add.tileSprite(0, 561, 1024, 127, 'spacerun_ground');
@@ -81,10 +83,10 @@ var firstReflectorCollected = false;
           sprite = 'spacerun_meteorite_small';
             break;
           case 4:
-          sprite = 'spacerun_meteorite_small'; // spacerun_meteorite
+          sprite = 'spacerun_meteorite_medium';
             break;
           case 5:
-          sprite = 'spacerun_meteorite_small'; // spacerun_car
+          sprite = 'spacerun_car';
             break;
         }
           this.badSpaceObject = new badSpaceObject(this.game, 1000, this.game.rnd.integerInRange(0, 500), sprite);
@@ -96,7 +98,7 @@ var firstReflectorCollected = false;
     // Direct collision with the player
    if (badSpaceObject.x > this.spaceAlien.x + this.spaceAlien.width){
 
-    this.sadSound.play()
+    this.randomCollisionSound();
     badSpaceObject.body.angularVelocity = 0;
     badSpaceObject.body.velocity.y = 100;
     badSpaceObject.body.velocity.x = 40;
@@ -126,6 +128,22 @@ var firstReflectorCollected = false;
         this.badObjectGeneratorTimer.timer.start();
         firstReflectorCollected = true
       }
+  },
+  randomCollisionSound: function(){
+        var rand = this.game.rnd.integerInRange(1, 3);
+
+        switch (rand){
+          case 1:
+            this.collisionSound1.play();
+            break;
+          case 2:
+            this.collisionSound2.play();
+            break;
+          case 3:
+            this.collisionSound3.play();
+            break;
+        }
+
   },
 
     update: function() {
