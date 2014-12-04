@@ -32,7 +32,7 @@ var soundCooldown = 0;
 
       this.backButton = this.add.button(899, 23, 'exit_btn' , this.startPlayroom, this);
 
-      this.stationAlien = new stationAlien(this.game, 120, 550, 'spacest_alienhitbox');
+      this.stationAlien = new stationAlien(this.game, 140, 250, 'spacest_alienhitbox');
       this.game.add.existing(this.stationAlien);
 
       this.alienSprite = this.game.add.sprite(40 ,180, 'spacest_alien');
@@ -185,10 +185,10 @@ var soundCooldown = 0;
     }, this);
 
     // Collide check for aliens & objects
-    this.game.physics.arcade.collide(this.goodStationObject, this.stationAlien, this.goodCollide, null, this);
+    this.game.physics.arcade.overlap(this.goodStationObject, this.stationAlien, this.goodCollide, null, this);
 
     badObjectGroup.forEach(function(badStationObject){
-          this.game.physics.arcade.collide(badStationObject, this.stationAlien, this.badCollide, null, this);
+          this.game.physics.arcade.overlap(badStationObject, this.stationAlien, this.badCollide, null, this);
     }, this);
     
       if (soundCooldown != 0){
