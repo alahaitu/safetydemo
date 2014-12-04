@@ -16,7 +16,6 @@ Preload.prototype = {
     // Placeholder assets
     this.load.image('transparentRectangle', 'assets/img/EatingGame/rectangle_transparent.png');
     this.load.audio('bg_music', 'assets/sounds/bg_music.mp3');
-    this.load.image('alien', 'assets/img/EatingGame/rectangle_purple.png');
     this.load.audio('bg_music', 'assets/sounds/tunnari-14-11-10.mp3');
 
     // Loading screen assets
@@ -54,6 +53,7 @@ Preload.prototype = {
     this.load.audio('hammastys_1', 'assets/sounds/hammastys_1.wav');
     this.load.audio('hammastys_2', 'assets/sounds/hammastys_2.wav');
     this.load.audio('hammastys_3', 'assets/sounds/hammastys_3.wav');
+    this.load.image('rectangle_hitbox', 'assets/img/EatingGame/rectangle_hitbox.png');
 
     // Good food
     this.load.spritesheet('eating_alien_gf', 'assets/img/EatingGame/EatingGame_good_food_smap.png', 442, 610);
@@ -140,6 +140,10 @@ Preload.prototype = {
     this.load.audio('plop_1', 'assets/sounds/plop_1.wav');
     this.load.audio('putkea_alas_1', 'assets/sounds/putkea_alas_1.wav');
     this.load.audio('putkea_alas_2', 'assets/sounds/putkea_alas_2.wav');
+    this.load.audio('sattuu_1', 'assets/sounds/sattuu_1.wav');
+    this.load.audio('sattuu_2', 'assets/sounds/sattuu_2.wav');
+    this.load.audio('sattuu_3', 'assets/sounds/sattuu_3.wav');
+
     this.load.image('spacerun_ground', 'assets/img/SpaceRun/spacerun_ground.png');
 
   },

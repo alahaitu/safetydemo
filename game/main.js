@@ -7,6 +7,7 @@ window.onload = function () {
   // Game States
   game.state.add('beachScene', require('./states/beachScene'));
   game.state.add('boot', require('./states/boot'));
+  game.state.add('eating', require('./states/eating'));
   game.state.add('eatingGameWin', require('./states/eatingGameWin'));
   game.state.add('eatingScene', require('./states/eatingScene'));
   game.state.add('gameover', require('./states/gameover'));

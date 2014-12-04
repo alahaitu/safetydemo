@@ -12,7 +12,7 @@
 
     },
     eatingSceneStartClick: function() {
-      this.game.state.start('eatingScene');
+      this.game.state.start('eating');
     },
     beachSceneStartClick: function() {
       //this.game.state.start('beachScene');
