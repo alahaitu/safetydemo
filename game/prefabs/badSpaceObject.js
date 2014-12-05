@@ -23,6 +23,10 @@ var BadSpaceObject = function(game, x, y, sprite, frame) {
 	
 	var speed = this.game.rnd.integerInRange(100, 150);
 
+	if (sprite == "spacerun_car"){
+	speed = this.game.rnd.integerInRange(150, 180);
+	}
+
  	this.body.velocity.x = -speed;
 
 	this.checkWorldBounds = true;	

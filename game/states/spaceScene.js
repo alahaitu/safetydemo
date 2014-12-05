@@ -29,10 +29,12 @@ var firstReflectorCollected = false;
       this.collisionSound1 = this.add.audio('sattuu_1');
       this.collisionSound2 = this.add.audio('sattuu_2');
       this.collisionSound3 = this.add.audio('sattuu_3');
+      
+      this.bg = this.game.add.tileSprite(0, 0, 1024, 688, 'spacerun_bg');
+      this.bg.autoScroll(-2,0);
 
-      this.add.sprite(0, 0, 'spacerun_bg');
       this.ground = this.game.add.tileSprite(0, 561, 1024, 127, 'spacerun_ground');
-      this.ground.autoScroll(-100,0);
+      this.ground.autoScroll(-120,0);
 
       this.backButton = this.add.button(899, 23, 'exit_btn' , this.startPlayroom, this);
       reflectorGroup = this.game.add.group();
