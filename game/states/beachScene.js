@@ -1,40 +1,72 @@
 'use strict';
+var drowningAlien = require('../prefabs/drowningAlien');  
+var lifesaver = require('../prefabs/lifesaver');
+
+var drowningAlienGroup;
+
   function BeachScene() {}
   BeachScene.prototype = {
     create: function() {
-    
-      this.beachBg = this.game.add.sprite(0, 0, 'beach_bg');
-      this.alien1 = this.game.add.sprite(0, 60, 'beach_alien1');
-      //this.beachBg = this.game.add.sprite(0, 0, 'beach_alien1_saver');
-      this.alien2 = this.game.add.sprite(600, 200, 'beach_alien2');
-      //this.beachBg = this.game.add.sprite(0, 0, 'beach_alien2_saver');
-      this.lifesaver = this.game.add.sprite(this.game.width/2, 450, 'beach_lsaver');
-
-      this.add.sprite(40, 35, 'score_basket');
-      this.backButton = this.add.button(899, 23, 'exit_btn' , this.exitScene, this);
-      this.scoreMeter = this.game.add.sprite(119, 38, 'score_meter');
-      this.pointer = this.game.add.sprite(114, 21, 'score_pointer');
-
       this.game.physics.startSystem(Phaser.Physics.ARCADE);
-      this.game.physics.arcade.enable([this.lifesaver, this.alien1, this.alien2]);
+      this.beachBg = this.game.add.sprite(0, 0, 'beach_bg');
+      this.backButton = this.add.button(899, 23, 'exit_btn' , this.exitScene, this);
 
+      drowningAlienGroup = this.game.add.group();
+
+      this.lifesaver = new lifesaver(this.game, this.game.width/2, 450, 'beach_lsaver');
+      this.game.add.existing(this.lifesaver);
       this.lifesaver.inputEnabled = true;
       this.lifesaver.input.enableDrag(true);
-      this.lifesaver.body.collideWorldBounds = true;
 
-      //this.lifesaver.events.startDrag.add(this.startDrag, this);
-      //this.lifesaver.events.stopDrag.add(this.stopDrag, this);
+      this.spawnDrowningAliens(150, 100);
 
     },
     update: function() {
-      
-      this.alien1.x += 1;
-      this.alien2.x -= 1;
 
-      this.game.physics.arcade.collide(this.alien1, this.lifesaver, this.alien1Saved, null, this);
-      this.game.physics.arcade.collide(this.alien2, this.lifesaver, this.alien2Saved, null, this);
+        drowningAlienGroup.forEach(function(drowningAlien){
+              this.game.physics.arcade.overlap(drowningAlien, this.lifesaver, this.alienSaved, null, this);
+
+              if (drowningAlien && drowningAlien.body.y > 450 ){
+                this.spawnNewLifesaver(drowningAlien.body.x, drowningAlien.body.y);
+                drowningAlien.destroy();
+              }
+
+        }, this);
 
     },
+    spawnDrowningAliens: function(x, y) {
+
+      for (var i=0; i < 3; i++){
+        var sprite ='';
+        var rand = this.game.rnd.integerInRange(1, 2);
+        switch (rand){
+          case 1:
+          sprite = 'beach_alien1';
+            break;
+          case 2:
+          sprite = 'beach_alien2';
+            break;
+        }
+
+          this.drowningAlien = new drowningAlien(this.game, x + (i*300), y + this.game.rnd.integerInRange(-100, 100), sprite);
+          drowningAlienGroup.add(this.drowningAlien);
+      }
+
+    },
+
+    alienSaved: function(alien) {
+          alien.body.velocity.y = 150;
+          this.lifesaver.destroy();
+    },
+
+    spawnNewLifesaver: function(x, y){
+      this.lifesaver = new lifesaver(this.game, x, y, 'beach_lsaver');
+      this.game.add.existing(this.lifesaver);
+      this.lifesaver.inputEnabled = true;
+      this.lifesaver.input.enableDrag(true);
+
+    },
+
     alien1Saved: function() {
       console.log("Alien 1 saved.");
     },

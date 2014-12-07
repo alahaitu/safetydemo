@@ -13,6 +13,7 @@ var flyingBadFoodGroup
   Eating.prototype = {
 
     create: function() {
+        score = 0;
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.physics.arcade.gravity.y = 500;
 

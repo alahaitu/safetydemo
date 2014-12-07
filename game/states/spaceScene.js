@@ -172,8 +172,8 @@ var firstReflectorCollected = false;
 
     // Check win
       if (score >= 600) {
-         this.game.state.start('trampolineGameWin');
-       }
+          this.game.state.start('trampolineGameWin');
+         }
     },
     paused: function() {
     },
