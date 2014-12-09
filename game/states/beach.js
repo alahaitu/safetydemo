@@ -53,6 +53,9 @@ var score;
           this.beachAlien.name = sprite;
           beachAlienGroup.add(this.beachAlien);
           y = originalY;
+
+           this.beachAlien.inputEnabled = true;
+          this.beachAlien.events.onInputDown.add(this.alienWalks, this.beachAlien);
       }
     },
       spawnLifejackets: function(x, y) {
@@ -89,6 +92,26 @@ var score;
       }
 
     },
+
+    alienWalks: function(alien){
+
+     if (alien.name == "lifejack_alien1" && alien.frame == 3) {
+              alien.loadTexture('lifejack_alien1',4);
+              alien.body.velocity.x = 150;
+        }
+
+        if (alien.name == "lifejack_alien2" && alien.frame == 3)
+        {
+              alien.loadTexture('lifejack_alien2',4);
+              alien.body.velocity.x = 150;
+        }
+        if (alien.name == "lifejack_alien3" && alien.frame == 3)
+        {
+              alien.loadTexture('lifejack_alien3',4);
+              alien.body.velocity.x = 150;
+        }
+    },
+
     alienDressed: function(alien, lifejacket) {
 
         // If lifesaver & alien are matches, destroy lifejacket and move alien away
@@ -113,7 +136,6 @@ var score;
               lifejacket.destroy();
               score++;
               alien.loadTexture('lifejack_alien3',3);
-
               //alien.body.velocity.x = 150;
         }
 
