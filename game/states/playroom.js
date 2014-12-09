@@ -15,7 +15,7 @@
       this.game.state.start('eating');
     },
     beachSceneStartClick: function() {
-      this.game.state.start('beach');
+      this.game.state.start('lifejacket');
     },
     spaceSceneStartClick: function() {
       this.game.state.start('spaceStation');
