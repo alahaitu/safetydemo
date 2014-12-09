@@ -5,6 +5,7 @@ window.onload = function () {
   var game = new Phaser.Game(1024, 688, Phaser.AUTO, 'safety-demo');
 
   // Game States
+  game.state.add('beach', require('./states/beach'));
   game.state.add('beachScene', require('./states/beachScene'));
   game.state.add('boot', require('./states/boot'));
   game.state.add('eating', require('./states/eating'));
