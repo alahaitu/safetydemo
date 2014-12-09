@@ -116,27 +116,34 @@ var score;
 
         // If lifesaver & alien are matches, destroy lifejacket and move alien away
 
-        if (alien.name == "lifejack_alien1" && lifejacket.name == "lifejack_jacket1")
-        {
-              lifejacket.destroy();
-              score++;
-              alien.loadTexture('lifejack_alien1',3);
-             // alien.body.velocity.x = 150;
+        if (alien.name == "lifejack_alien1" && alien.frame != 3 && alien.frame !=  4){
+            alien.loadTexture('lifejack_alien1',1);
+
+          if (lifejacket.name == "lifejack_jacket1") {
+                lifejacket.destroy();
+                score++;
+                alien.loadTexture('lifejack_alien1',3);
+          }
         }
 
-        if (alien.name == "lifejack_alien2" && lifejacket.name == "lifejack_jacket2")
-        {
-              lifejacket.destroy();
-              score++;
-              alien.loadTexture('lifejack_alien2',3);
-              //alien.body.velocity.x = 150;
+       if (alien.name == "lifejack_alien2" && alien.frame != 3 && alien.frame !=  4){
+            alien.loadTexture('lifejack_alien2',1);
+
+          if (lifejacket.name == "lifejack_jacket2") {
+                lifejacket.destroy();
+                score++;
+                alien.loadTexture('lifejack_alien2',3);
+          }
         }
-        if (alien.name == "lifejack_alien3" && lifejacket.name == "lifejack_jacket3")
-        {
-              lifejacket.destroy();
-              score++;
-              alien.loadTexture('lifejack_alien3',3);
-              //alien.body.velocity.x = 150;
+
+       if (alien.name == "lifejack_alien3" && alien.frame != 3 && alien.frame !=  4){
+            alien.loadTexture('lifejack_alien3',1);
+
+          if (lifejacket.name == "lifejack_jacket3") {
+                lifejacket.destroy();
+                score++;
+                alien.loadTexture('lifejack_alien3',3);
+          }
         }
 
         if (score >= 3){
