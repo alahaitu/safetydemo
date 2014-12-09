@@ -146,6 +146,15 @@ Preload.prototype = {
 
     this.load.image('spacerun_ground', 'assets/img/SpaceRun/spacerun_ground.png');
 
+    // Beach game assets
+    this.load.spritesheet('lifejack_alien1', 'assets/img/LifeJacket/lifejack_alien1.png', 220, 450, 5);
+    this.load.spritesheet('lifejack_alien2', 'assets/img/LifeJacket/lifejack_alien2.png', 280, 310, 5);
+    this.load.spritesheet('lifejack_alien3', 'assets/img/LifeJacket/lifejack_alien3.png', 210, 360, 5);
+    this.load.image('lifejack_jacket1', 'assets/img/LifeJacket/lifejack_jacket1.png');
+    this.load.image('lifejack_jacket2', 'assets/img/LifeJacket/lifejack_jacket2.png');
+    this.load.image('lifejack_jacket3', 'assets/img/LifeJacket/lifejack_jacket3.png');
+    this.load.image('lifejack_bg', 'assets/img/LifeJacket/lifejack_bg.png');
+
   },
   create: function() {
     this.music = this.add.audio('bg_music');
