@@ -190,6 +190,14 @@ var jumpSoundPlaying = false;
 
     // Check win
       if (score >= 600) {
+          this.game.sound.stopAll();
+          this.bgmusic = this.add.audio('bg_music');
+          this.bgmusic.play('',0,1,true);
+          
+          this.jumpSound.stop();
+          jumpSoundPlaying = false;
+          this.game.state.start('playroom');
+
           this.game.state.start('trampolineGameWin');
          }
     },
@@ -200,6 +208,12 @@ var jumpSoundPlaying = false;
     shutdown: function() {
     },
     startPlayroom: function() {
+      this.game.sound.stopAll();
+      this.bgmusic = this.add.audio('bg_music');
+      this.bgmusic.play('',0,1,true);
+
+       this.jumpSound.stop();
+      jumpSoundPlaying = false;
       this.game.state.start('playroom');
     }
   };

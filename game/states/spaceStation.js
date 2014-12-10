@@ -15,6 +15,10 @@ var soundCooldown = 0;
       // If you need to use the loader, you may need to use them here.
     },
     create: function() {
+      this.game.sound.stopAll();
+      this.music = this.add.audio('avaruusbiisi');
+      this.music.play('',0,1,true);
+
       state = 0;
       soundCooldown = 0;
       this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -266,7 +270,14 @@ var soundCooldown = 0;
       // (i.e. you switch to another state from this one).
     },
     startPlayroom: function() {
+
+      this.game.sound.stopAll();
+      this.bgmusic = this.add.audio('bg_music');
+      this.bgmusic.play('',0,1,true);
+
       this.game.state.start('playroom');
+
+
     }
   };
 module.exports = SpaceStation;

@@ -9,7 +9,6 @@
       this.spaceSceneStartButton = this.game.add.button(750, 50, 'playr_button_space', this.spaceSceneStartClick, this);
       //this.ball= this.game.add.button(835, 500, 'playr_button_ball', this.ballAnimationClick, this);
       this.plant = this.game.add.button(45, 160, 'playr_button_plant', this.plantAnimationClick, this);
-
     },
     eatingSceneStartClick: function() {
       this.game.state.start('eating');
