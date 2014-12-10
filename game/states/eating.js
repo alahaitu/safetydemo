@@ -46,13 +46,19 @@ var flyingBadFoodGroup
         flyingGoodFoodGroup = this.game.add.group();
         flyingBadFoodGroup = this.game.add.group();
 
-
         this.objectGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 2.5, this.generateObjects, this);
 
         this.objectGenerator.timer.start();
 
     },
     update: function() {
+
+/*
+if (this.alienSprite.animations.currentAnim){
+      if (this.alienSprite.animations.currentAnim.isFinished){
+      console.log(this.alienSprite.animations.currentAnim.frame);
+    }
+  }*/
 
     // Fly objects into the mouth
     flyingGoodFoodGroup.forEach(function(food){
@@ -69,6 +75,8 @@ var flyingBadFoodGroup
        this.game.state.start('eatingGameWin');
       }
     },
+
+
 
     goodFly: function(food){
       if (food != undefined){

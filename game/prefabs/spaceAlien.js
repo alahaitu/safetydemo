@@ -14,7 +14,7 @@ SpaceAlien.prototype.constructor = SpaceAlien;
 SpaceAlien.prototype.update = function() {
 
 // Alien cant go over the screen limits
-if (this.body.y > 485){
+if (this.body.y > 430){
 		this.body.velocity.y = -100;
 }
 if (this.body.y < 0){

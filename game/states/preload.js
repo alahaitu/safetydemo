@@ -56,7 +56,7 @@ Preload.prototype = {
     this.load.image('rectangle_hitbox', 'assets/img/EatingGame/rectangle_hitbox.png');
 
     // Good food
-    this.load.spritesheet('eating_alien_gf', 'assets/img/EatingGame/EatingGame_good_food_smap.png', 383, 530); //442, 610
+    this.load.spritesheet('eating_alien_gf', 'assets/img/EatingGame/EatingGame_good_food_smap.png', 383, 530);
     this.load.image('eating_g1', 'assets/img/EatingGame/EatingGame_1.png');
     this.load.image('eating_g2', 'assets/img/EatingGame/EatingGame_2.png');
     this.load.image('eating_g3', 'assets/img/EatingGame/EatingGame_3.png');
@@ -67,7 +67,7 @@ Preload.prototype = {
     this.load.image('eating_g8', 'assets/img/EatingGame/EatingGame_8.png');    
 
     // Bad good
-    this.load.spritesheet('eating_alien_bf', 'assets/img/EatingGame/EatingGame_bad_food_smap.png', 435, 530); // 500,610
+    this.load.spritesheet('eating_alien_bf', 'assets/img/EatingGame/EatingGame_bad_food_smap.png', 435, 530, 3);
     this.load.image('eating_b1', 'assets/img/EatingGame/EatingGame_X1.png');
     this.load.image('eating_b2', 'assets/img/EatingGame/EatingGame_X2.png');
     this.load.image('eating_b3', 'assets/img/EatingGame/EatingGame_X3.png');
@@ -143,6 +143,10 @@ Preload.prototype = {
     this.load.audio('sattuu_1', 'assets/sounds/sattuu_1.wav');
     this.load.audio('sattuu_2', 'assets/sounds/sattuu_2.wav');
     this.load.audio('sattuu_3', 'assets/sounds/sattuu_3.wav');
+    this.load.spritesheet('spacerun_alienbike_sprite', 'assets/img/SpaceRun/spacerun_alienbike_sprite.png', 225, 285);
+    this.load.audio('suihkumoottori', 'assets/sounds/suihkumoottori.wav');
+
+
 
     this.load.image('spacerun_ground', 'assets/img/SpaceRun/spacerun_ground.png');
 
@@ -162,7 +166,7 @@ Preload.prototype = {
   },
   update: function() {
     if(!!this.ready) {
-      this.game.state.start('playroom');
+      this.game.state.start('spaceScene');
     }
   },
   onLoadComplete: function() {

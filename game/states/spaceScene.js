@@ -10,6 +10,7 @@ var badObjectGeneratePace = 7;
 var score = 0;
 var gameStarted = false;
 var firstReflectorCollected = false;
+var jumpSoundPlaying = false;
 
   function SpaceScene() {}
   SpaceScene.prototype = {
@@ -20,6 +21,7 @@ var firstReflectorCollected = false;
       score = 0;
       gameStarted = false
       firstReflectorCollected = false
+      jumpSoundPlaying = false;
 
       this.game.physics.startSystem(Phaser.Physics.ARCADE);
       this.game.physics.arcade.gravity.y = 200;
@@ -29,6 +31,8 @@ var firstReflectorCollected = false;
       this.collisionSound1 = this.add.audio('sattuu_1');
       this.collisionSound2 = this.add.audio('sattuu_2');
       this.collisionSound3 = this.add.audio('sattuu_3');
+      this.jumpSound = this.add.audio('suihkumoottori');
+
       
       this.bg = this.game.add.tileSprite(0, 0, 1024, 688, 'spacerun_bg');
       this.bg.autoScroll(-2,0);
@@ -40,7 +44,8 @@ var firstReflectorCollected = false;
       reflectorGroup = this.game.add.group();
       badObjectGroup = this.game.add.group();
 
-      this.spaceAlien = new spaceAlien(this.game, 100, 450, 'spacerun_alien');
+      this.spaceAlien = new spaceAlien(this.game, 100, 450, 'spacerun_alienbike_sprite');  //spacerun_alien
+      this.spaceAlien.animations.add('jump');
       this.game.add.existing(this.spaceAlien);
 
       this.scoreMeter = this.game.add.sprite(119, 38, 'spacerun_scoremetre');
@@ -151,12 +156,25 @@ var firstReflectorCollected = false;
     update: function() {
       if (this.game.input.activePointer.isDown){
           this.spaceAlien.up();
+          this.spaceAlien.play('jump', 12, false);
+        if (jumpSoundPlaying == false){
+         this.jumpSound.play("",0,1,true,false);
+         jumpSoundPlaying = true;
+       }
 
           if (gameStarted == false ){
               this.reflectorGeneratorTimer = this.game.time.events.loop(Phaser.Timer.SECOND * reflectorGeneratePace, this.reflectorGenerator, this);
               this.reflectorGeneratorTimer.timer.start();
               gameStarted = true;
         }
+      }
+
+      if (this.game.input.activePointer.isDown == false){
+        this.spaceAlien.animations.currentAnim.stop('jump',true);
+         this.jumpSound.stop();
+          jumpSoundPlaying = false;
+
+
       }
 
     // Collide reflector with the alien
