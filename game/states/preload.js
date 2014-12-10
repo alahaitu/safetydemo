@@ -54,6 +54,8 @@ Preload.prototype = {
     this.load.audio('hammastys_2', 'assets/sounds/hammastys_2.wav');
     this.load.audio('hammastys_3', 'assets/sounds/hammastys_3.wav');
     this.load.image('rectangle_hitbox', 'assets/img/EatingGame/rectangle_hitbox.png');
+    this.load.audio('picking_veggie', 'assets/sounds/picking_veggie.wav');
+    
 
     // Good food
     this.load.spritesheet('eating_alien_gf', 'assets/img/EatingGame/EatingGame_good_food_smap.png', 383, 530);
@@ -119,6 +121,8 @@ Preload.prototype = {
     this.load.audio('ei_kay_1', 'assets/sounds/ei_kay_1.wav');
     this.load.audio('ei_kay_2', 'assets/sounds/ei_kay_2.wav');
     this.load.image('spacest_floor', 'assets/img/SpaceStation/floor.png');
+    this.load.audio('jee', 'assets/sounds/jee.wav');
+    this.load.audio('noniin', 'assets/sounds/noniin.wav');
 
 
     // Space run assets
@@ -146,6 +150,7 @@ Preload.prototype = {
     this.load.spritesheet('spacerun_alienbike_sprite', 'assets/img/SpaceRun/spacerun_alienbike_sprite.png', 225, 285);
     this.load.audio('suihkumoottori', 'assets/sounds/suihkumoottori.wav');
     this.load.audio('avaruusbiisi', 'assets/sounds/avaruusbiisi.wav');
+    this.load.audio('heijastin', 'assets/sounds/heijastin.wav');
 
 
     this.load.image('spacerun_ground', 'assets/img/SpaceRun/spacerun_ground.png');
@@ -158,6 +163,11 @@ Preload.prototype = {
     this.load.image('lifejack_jacket2', 'assets/img/LifeJacket/lifejack_jacket2.png');
     this.load.image('lifejack_jacket3', 'assets/img/LifeJacket/lifejack_jacket3.png');
     this.load.image('lifejack_bg', 'assets/img/LifeJacket/lifejack_bg.png');
+
+    this.load.audio('hihna_kiinni', 'assets/sounds/hihna_kiinni.wav');
+    this.load.audio('hihna_kiinni_noniin', 'assets/sounds/hinha_kiinni_noniin.wav');
+
+
   },
   create: function() {
     this.music = this.add.audio('bg_music');

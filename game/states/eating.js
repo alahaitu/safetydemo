@@ -37,7 +37,8 @@ var flyingBadFoodGroup
         this.eatingSoundSurprised1 = this.add.audio('hammastys_1');
         this.eatingSoundSurprised2 = this.add.audio('hammastys_2');
         this.eatingSoundSurprised3 = this.add.audio('hammastys_3');
-
+        this.pickSound =  this.add.audio('picking_veggie');
+        
         this.alien = new alien(this.game, 760, 300, 'rectangle_hitbox');
         this.game.add.existing(this.alien);
 

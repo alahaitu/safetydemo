@@ -5,15 +5,19 @@ var lifejacket = require('../prefabs/lifejacket');
 var beachAlienGroup;
 var lifejacketGroup;
 var score;
+var lastScore;
 
   function Lifejacket() {}
   Lifejacket.prototype = {
     preload: function() {},
     create: function() {
       score = 0;
+      lastScore = 0;
       this.game.physics.startSystem(Phaser.Physics.ARCADE);
       this.beachBg = this.game.add.sprite(0, 0, 'lifejack_bg');
       this.backButton = this.add.button(899, 23, 'exit_btn' , this.startPlayroom, this);
+      this.strapSound1 = this.add.audio('hihna_kiinni');
+      this.strapSound2 = this.add.audio('hihna_kiinni_noniin');
 
       beachAlienGroup = this.game.add.group();
       lifejacketGroup = this.game.add.group();
@@ -21,6 +25,7 @@ var score;
       this.spawnLifejackets(250, 600);
 
       this.spawnBeachAliens(200, 290);
+
     },
       spawnBeachAliens: function(x, y) {
 
@@ -98,30 +103,35 @@ var score;
      if (alien.name == "lifejack_alien1" && alien.frame == 3) {
               alien.loadTexture('lifejack_alien1',4);
               alien.body.velocity.x = 150;
+              score++;
         }
 
         if (alien.name == "lifejack_alien2" && alien.frame == 3)
         {
               alien.loadTexture('lifejack_alien2',4);
               alien.body.velocity.x = 150;
+              score++;
+
         }
         if (alien.name == "lifejack_alien3" && alien.frame == 3)
         {
               alien.loadTexture('lifejack_alien3',4);
               alien.body.velocity.x = 150;
+              score++;
+
         }
+
     },
 
     alienDressed: function(alien, lifejacket) {
 
-        // If lifesaver & alien are matches, destroy lifejacket and move alien away
+        // If lifesaver & alien are matches, destroy lifejacket
 
         if (alien.name == "lifejack_alien1" && alien.frame != 3 && alien.frame !=  4 && lifejacket.body.y < 280){
             alien.loadTexture('lifejack_alien1',1);
 
           if (lifejacket.name == "lifejack_jacket1") {
                 lifejacket.destroy();
-                score++;
                 alien.loadTexture('lifejack_alien1',3);
           }
         }
@@ -131,7 +141,6 @@ var score;
 
           if (lifejacket.name == "lifejack_jacket2") {
                 lifejacket.destroy();
-                score++;
                 alien.loadTexture('lifejack_alien2',3);
           }
         }
@@ -141,13 +150,8 @@ var score;
 
           if (lifejacket.name == "lifejack_jacket3") {
                 lifejacket.destroy();
-                score++;
                 alien.loadTexture('lifejack_alien3',3);
           }
-        }
-
-        if (score >= 3){
-          this.win();
         }
     },
 
@@ -160,6 +164,24 @@ var score;
 
         }, this);
     }, this);    
+
+      if (score > lastScore){
+        lastScore++;
+        var rand = this.game.rnd.integerInRange(1, 2);
+        switch (rand){
+          case 1:
+            this.strapSound1.play();
+            break;
+          case 2:
+            this.strapSound2.play();
+            break;
+        }
+      }
+      
+        if (score >= 3){
+          this.win();
+        }
+
    },
 
      win: function(){

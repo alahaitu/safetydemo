@@ -27,7 +27,7 @@ var jumpSoundPlaying = false;
       this.game.physics.arcade.gravity.y = 200;
       this.game.input.enabled = true;
 
-      this.popSound = this.add.audio('plop_1');
+      this.popSound = this.add.audio('heijastin');
       this.collisionSound1 = this.add.audio('sattuu_1');
       this.collisionSound2 = this.add.audio('sattuu_2');
       this.collisionSound3 = this.add.audio('sattuu_3');

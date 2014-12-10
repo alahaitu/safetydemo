@@ -27,6 +27,8 @@ var soundCooldown = 0;
       this.popSound2 = this.add.audio('putkea_alas_2');
       this.noSound1 = this.add.audio('ei_kay_1');
       this.noSound2 = this.add.audio('ei_kay_2');
+      this.goodSound1 = this.add.audio('jee');
+      this.goodSound2 = this.add.audio('noniin');
 
       this.add.sprite(0, 0, 'spacest_background');
       this.add.sprite(420, 0, 'spacest_pipe');
@@ -234,6 +236,18 @@ var soundCooldown = 0;
       this.goodStationObject.destroy();
       badObjectGroup.destroy();
       badObjectGroup = this.game.add.group();
+
+
+      var rand = this.game.rnd.integerInRange(1, 2);
+      switch (rand){
+            case 1:
+            this.goodSound1.play();
+              break;
+            case 2:
+            this.goodSound2.play();
+              break;
+            }
+
 
       // Proceed to next state, Spawn new objects,
       state++;
