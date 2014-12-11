@@ -181,7 +181,7 @@ Preload.prototype = {
   },
   update: function() {
     if(!!this.ready) {
-      this.game.state.start('spaceScene');
+      this.game.state.start('playroom');
     }
   },
   onLoadComplete: function() {
