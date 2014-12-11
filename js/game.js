@@ -8,6 +8,7 @@ window.onload = function () {
   // Game States
   game.state.add('beachScene', require('./states/beachScene'));
   game.state.add('boot', require('./states/boot'));
+  game.state.add('eating', require('./states/eating'));
   game.state.add('eatingGameWin', require('./states/eatingGameWin'));
   game.state.add('eatingScene', require('./states/eatingScene'));
   game.state.add('gameover', require('./states/gameover'));
@@ -24,7 +25,7 @@ window.onload = function () {
 
   game.state.start('boot');
 };
-},{"./states/beachScene":12,"./states/boot":13,"./states/eatingGameWin":14,"./states/eatingScene":15,"./states/gameover":16,"./states/menu":17,"./states/play":18,"./states/playroom":19,"./states/preload":20,"./states/spaceScene":21,"./states/spaceStation":22,"./states/trampoline":23,"./states/trampolineCutscene":24,"./states/trampolineGameWin":25}],2:[function(require,module,exports){
+},{"./states/beachScene":17,"./states/boot":18,"./states/eating":19,"./states/eatingGameWin":20,"./states/eatingScene":21,"./states/gameover":22,"./states/menu":23,"./states/play":24,"./states/playroom":25,"./states/preload":26,"./states/spaceScene":27,"./states/spaceStation":28,"./states/trampoline":29,"./states/trampolineCutscene":30,"./states/trampolineGameWin":31}],2:[function(require,module,exports){
 'use strict';
 
 var Alien = function(game, x, y, sprite, frame) {
@@ -84,25 +85,62 @@ module.exports = BadEatObject;
 },{}],4:[function(require,module,exports){
 'use strict';
 
+var BadFood = function(game, x, y, sprite, frame) {
+  Phaser.Sprite.call(this, game, x, y, sprite, frame);
+
+	this.game.physics.arcade.enableBody(this);
+	this.body.allowGravity = false;
+	this.body.velocity.x = 130;
+	this.anchor.setTo(0.5, 0.5);
+
+	this.checkWorldBounds = true;	
+	this.outOfBoundsKill = true;
+  
+};
+
+BadFood.prototype = Object.create(Phaser.Sprite.prototype);
+BadFood.prototype.constructor = BadFood;
+
+BadFood.prototype.update = function() {
+  
+  // write your prefab's specific update code here
+  
+};
+
+module.exports = BadFood;
+
+},{}],5:[function(require,module,exports){
+'use strict';
+
 var BadSpaceObject = function(game, x, y, sprite, frame) {
   Phaser.Sprite.call(this, game, x, y, sprite, frame);
 
 	this.game.physics.arcade.enableBody(this);
 
 	this.body.allowGravity = false;
+	this.anchor.setTo(0.5, 0.5);
 
-	var speed = this.game.rnd.integerInRange(200, 350);
+	if (sprite != "spacerun_car"){
+	    this.body.angularVelocity = this.game.rnd.integerInRange(-30, 30);
+
+		var angle = this.game.rnd.integerInRange(0, 20);
+
+	 	if (this.body.y >= 250){
+		 	this.body.velocity.y = -angle;
+	 	}
+		if (this.body.y < 250){
+		 	this.body.velocity.y = angle;
+	 	}
+	}
+	
+	var speed = this.game.rnd.integerInRange(100, 150);
+
+	if (sprite == "spacerun_car"){
+	speed = this.game.rnd.integerInRange(150, 180);
+	}
 
  	this.body.velocity.x = -speed;
 
-	var angle = this.game.rnd.integerInRange(20, 70);
-
- 	if (this.body.y >= 250){
-	 	this.body.velocity.y = -angle;
- 	}
-	if (this.body.y < 250){
-	 	this.body.velocity.y = angle;
- 	}
 	this.checkWorldBounds = true;	
 	this.outOfBoundsKill = true;
 };
@@ -118,7 +156,7 @@ BadSpaceObject.prototype.update = function() {
 
 module.exports = BadSpaceObject;
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 var BadStationObject = function(game, x, y, sprite, frame) {
@@ -141,7 +179,53 @@ BadStationObject.prototype.update = function() {
 
 module.exports = BadStationObject;
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
+'use strict';
+
+var DrowningAlien = function(game, x, y, sprite, frame) {
+  Phaser.Sprite.call(this, game, x, y, sprite, frame);
+
+ 	this.game.physics.arcade.enableBody(this);
+	this.body.allowGravity = false;
+	
+	this.checkWorldBounds = true;	
+	this.outOfBoundsKill = true;
+};
+
+DrowningAlien.prototype = Object.create(Phaser.Sprite.prototype);
+DrowningAlien.prototype.constructor = DrowningAlien;
+
+DrowningAlien.prototype.update = function() {
+  
+  // write your prefab's specific update code here
+  
+};
+
+module.exports = DrowningAlien;
+
+},{}],8:[function(require,module,exports){
+'use strict';
+
+var Floor = function(game, x, y, sprite, frame) {
+  Phaser.Sprite.call(this, game, x, y, sprite, frame);
+
+	this.game.physics.arcade.enableBody(this);
+	this.body.allowGravity = false;
+	this.body.immovable = true;  
+};
+
+Floor.prototype = Object.create(Phaser.Sprite.prototype);
+Floor.prototype.constructor = Floor;
+
+Floor.prototype.update = function() {
+  
+  // write your prefab's specific update code here
+  
+};
+
+module.exports = Floor;
+
+},{}],9:[function(require,module,exports){
 'use strict';
 
 var GoodEatObject = function(game, x, y, sprite, frame) {
@@ -176,7 +260,34 @@ GoodEatObject.prototype.drop = function(){
 
 module.exports = GoodEatObject;
 
-},{}],7:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
+'use strict';
+
+var GoodFood = function(game, x, y, sprite, frame) {
+  Phaser.Sprite.call(this, game, x, y, sprite, frame);
+
+ 	this.game.physics.arcade.enableBody(this);
+	this.body.allowGravity = false;
+ 	this.body.velocity.x = 130;
+	this.anchor.setTo(0.5, 0.5);
+
+	this.checkWorldBounds = true;	
+	this.outOfBoundsKill = true;
+  
+};
+
+GoodFood.prototype = Object.create(Phaser.Sprite.prototype);
+GoodFood.prototype.constructor = GoodFood;
+
+GoodFood.prototype.update = function() {
+  
+  // write your prefab's specific update code here
+  
+};
+
+module.exports = GoodFood;
+
+},{}],11:[function(require,module,exports){
 'use strict';
 
 var GoodStationObject = function(game, x, y, sprite, frame) {
@@ -199,7 +310,29 @@ GoodStationObject.prototype.update = function() {
 
 module.exports = GoodStationObject;
 
-},{}],8:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
+'use strict';
+
+var Lifesaver = function(game, x, y, sprite, frame) {
+  Phaser.Sprite.call(this, game, x, y, sprite, frame);
+
+ 	this.game.physics.arcade.enableBody(this);
+	this.body.allowGravity = false;
+	this.body.collideWorldBounds = true;  
+};
+
+Lifesaver.prototype = Object.create(Phaser.Sprite.prototype);
+Lifesaver.prototype.constructor = Lifesaver;
+
+Lifesaver.prototype.update = function() {
+  
+  // write your prefab's specific update code here
+  
+};
+
+module.exports = Lifesaver;
+
+},{}],13:[function(require,module,exports){
 'use strict';
 
 var Reflector = function(game, x, y, sprite, frame) {
@@ -208,8 +341,11 @@ var Reflector = function(game, x, y, sprite, frame) {
 	this.game.physics.arcade.enableBody(this);
 
 	this.body.allowGravity = false;
+	this.anchor.setTo(0.5, 0.5);
+    this.body.angularVelocity = this.game.rnd.integerInRange(-10, 10);
 
-	var speed = this.game.rnd.integerInRange(170, 250);
+
+	var speed = this.game.rnd.integerInRange(100, 150);
 
  	this.body.velocity.x = -speed;
 
@@ -238,7 +374,7 @@ Reflector.prototype.update = function() {
 
 module.exports = Reflector;
 
-},{}],9:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 var SpaceAlien = function(game, x, y, sprite, frame) {
@@ -254,19 +390,22 @@ SpaceAlien.prototype.constructor = SpaceAlien;
 
 SpaceAlien.prototype.update = function() {
 
-// Alien can't fall below screen
+// Alien cant go over the screen limits
 if (this.body.y > 485){
 		this.body.velocity.y = -100;
+}
+if (this.body.y < 0){
+		this.body.velocity.y = 1;
 }
 
 },
 SpaceAlien.prototype.up = function() { 
-	this.body.velocity.y = -330;
+	this.body.velocity.y = -150; // -330
 };
 
 module.exports = SpaceAlien;
 
-},{}],10:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 var StationAlien = function(game, x, y, sprite, frame) {
@@ -289,7 +428,7 @@ StationAlien.prototype.update = function() {
 
 module.exports = StationAlien;
 
-},{}],11:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 'use strict';
 
 var Table = function(game, x, y, sprite, frame) {
@@ -312,44 +451,76 @@ Table.prototype.update = function() {
 
 module.exports = Table;
 
-},{}],12:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
+var drowningAlien = require('../prefabs/drowningAlien');  
+var lifesaver = require('../prefabs/lifesaver');
+
+var drowningAlienGroup;
+
   function BeachScene() {}
   BeachScene.prototype = {
     create: function() {
-    
-      this.beachBg = this.game.add.sprite(0, 0, 'beach_bg');
-      this.alien1 = this.game.add.sprite(0, 60, 'beach_alien1');
-      //this.beachBg = this.game.add.sprite(0, 0, 'beach_alien1_saver');
-      this.alien2 = this.game.add.sprite(600, 200, 'beach_alien2');
-      //this.beachBg = this.game.add.sprite(0, 0, 'beach_alien2_saver');
-      this.lifesaver = this.game.add.sprite(this.game.width/2, 450, 'beach_lsaver');
-
-      this.add.sprite(40, 35, 'score_basket');
-      this.backButton = this.add.button(899, 23, 'exit_btn' , this.exitScene, this);
-      this.scoreMeter = this.game.add.sprite(119, 38, 'score_meter');
-      this.pointer = this.game.add.sprite(114, 21, 'score_pointer');
-
       this.game.physics.startSystem(Phaser.Physics.ARCADE);
-      this.game.physics.arcade.enable([this.lifesaver, this.alien1, this.alien2]);
+      this.beachBg = this.game.add.sprite(0, 0, 'beach_bg');
+      this.backButton = this.add.button(899, 23, 'exit_btn' , this.exitScene, this);
 
+      drowningAlienGroup = this.game.add.group();
+
+      this.lifesaver = new lifesaver(this.game, this.game.width/2, 450, 'beach_lsaver');
+      this.game.add.existing(this.lifesaver);
       this.lifesaver.inputEnabled = true;
       this.lifesaver.input.enableDrag(true);
-      this.lifesaver.body.collideWorldBounds = true;
 
-      //this.lifesaver.events.startDrag.add(this.startDrag, this);
-      //this.lifesaver.events.stopDrag.add(this.stopDrag, this);
+      this.spawnDrowningAliens(150, 100);
 
     },
     update: function() {
-      
-      this.alien1.x += 1;
-      this.alien2.x -= 1;
 
-      this.game.physics.arcade.collide(this.alien1, this.lifesaver, this.alien1Saved, null, this);
-      this.game.physics.arcade.collide(this.alien2, this.lifesaver, this.alien2Saved, null, this);
+        drowningAlienGroup.forEach(function(drowningAlien){
+              this.game.physics.arcade.overlap(drowningAlien, this.lifesaver, this.alienSaved, null, this);
+
+              if (drowningAlien && drowningAlien.body.y > 450 ){
+                this.spawnNewLifesaver(drowningAlien.body.x, drowningAlien.body.y);
+                drowningAlien.destroy();
+              }
+
+        }, this);
 
     },
+    spawnDrowningAliens: function(x, y) {
+
+      for (var i=0; i < 3; i++){
+        var sprite ='';
+        var rand = this.game.rnd.integerInRange(1, 2);
+        switch (rand){
+          case 1:
+          sprite = 'beach_alien1';
+            break;
+          case 2:
+          sprite = 'beach_alien2';
+            break;
+        }
+
+          this.drowningAlien = new drowningAlien(this.game, x + (i*300), y + this.game.rnd.integerInRange(-100, 100), sprite);
+          drowningAlienGroup.add(this.drowningAlien);
+      }
+
+    },
+
+    alienSaved: function(alien) {
+          alien.body.velocity.y = 150;
+          this.lifesaver.destroy();
+    },
+
+    spawnNewLifesaver: function(x, y){
+      this.lifesaver = new lifesaver(this.game, x, y, 'beach_lsaver');
+      this.game.add.existing(this.lifesaver);
+      this.lifesaver.inputEnabled = true;
+      this.lifesaver.input.enableDrag(true);
+
+    },
+
     alien1Saved: function() {
       console.log("Alien 1 saved.");
     },
@@ -370,7 +541,7 @@ module.exports = Table;
   };
 module.exports = BeachScene;
 
-},{}],13:[function(require,module,exports){
+},{"../prefabs/drowningAlien":7,"../prefabs/lifesaver":12}],18:[function(require,module,exports){
 
 'use strict';
 
@@ -389,7 +560,219 @@ Boot.prototype = {
 
 module.exports = Boot;
 
-},{}],14:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
+'use strict';
+var goodFood = require('../prefabs/goodFood');  
+var badFood = require('../prefabs/badFood');  
+var alien = require('../prefabs/alien');  
+var table = require('../prefabs/table');  
+var score = 0;
+var goodGroup;
+var badGroup;
+var flyingGoodFoodGroup;
+var flyingBadFoodGroup
+
+  function Eating() {}
+  Eating.prototype = {
+
+    create: function() {
+        score = 0;
+        this.game.physics.startSystem(Phaser.Physics.ARCADE);
+        this.game.physics.arcade.gravity.y = 500;
+
+        // Graphics
+        this.eating_background = this.game.add.sprite(0, 0, 'eating_bg');
+        this.alienSprite = this.game.add.sprite(560,80, 'eating_alien_gf');
+        this.alienSprite.animations.add('eat');
+        this.table = new table(this.game, 0, 492, 'eating_table');
+        this.game.add.existing(this.table);
+        this.backButton = this.add.button(899, 23, 'exit_btn' , this.startPlayroom, this);
+        
+        // Sounds
+        this.eatingSoundGood1 = this.add.audio('rousk1');
+        this.eatingSoundGood2 = this.add.audio('rousk2');
+        this.eatingSoundGood3 = this.add.audio('rousk3');
+        this.eatingSoundGood4 = this.add.audio('rousk4');
+        this.eatingSoundGood5 = this.add.audio('rousk5');
+        this.eatingSoundBad1 = this.add.audio('hyi_1');
+        this.eatingSoundBad2 = this.add.audio('hyi_2');
+        this.eatingSoundBad3 = this.add.audio('hyi_3');
+        this.eatingSoundSurprised1 = this.add.audio('hammastys_1');
+        this.eatingSoundSurprised2 = this.add.audio('hammastys_2');
+        this.eatingSoundSurprised3 = this.add.audio('hammastys_3');
+
+        this.alien = new alien(this.game, 760, 300, 'rectangle_hitbox');
+        this.game.add.existing(this.alien);
+
+        goodGroup = this.game.add.group();
+        badGroup = this.game.add.group();
+        flyingGoodFoodGroup = this.game.add.group();
+        flyingBadFoodGroup = this.game.add.group();
+
+
+        this.objectGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 2.5, this.generateObjects, this);
+
+        this.objectGenerator.timer.start();
+
+    },
+    update: function() {
+
+    // Fly objects into the mouth
+    flyingGoodFoodGroup.forEach(function(food){
+      this.goodFly(food);
+      this.game.physics.arcade.overlap(food, this.alien, this.goodCollision, null, this);
+     }, this);
+
+    flyingBadFoodGroup.forEach(function(food){
+      this.badFly(food);
+      this.game.physics.arcade.overlap(food, this.alien, this.badCollision, null, this);
+     }, this);
+
+      if (score > 10) {
+       this.game.state.start('eatingGameWin');
+      }
+    },
+
+    goodFly: function(food){
+      if (food != undefined){
+
+        if (food.x < 760){
+            food.body.velocity.x = food.body.velocity.x + 10;
+          }
+          else if (food.x >= 760){
+            if (food.body.velocity.x > 130){
+              food.body.velocity.x = 130;
+            }
+            food.body.velocity.x = food.body.velocity.x - 10;
+          }
+
+        if (food.y > 300){
+          food.y = food.y - 2;
+
+          // If close to the alien, double the y movement
+          if ( food.x > 650){
+            food.y = food.y - 2;
+          }
+        }
+      }
+
+    },
+
+    badFly: function(food){
+       if (food != undefined){
+
+        if (food.x < 760){
+            food.body.velocity.x = food.body.velocity.x + 10;
+          }
+          else if (food.x >= 760){
+            if (food.body.velocity.x > 130){
+              food.body.velocity.x = 130;
+            }
+            food.body.velocity.x = food.body.velocity.x - 10;
+          }
+
+        if (food.y > 300){
+          food.y = food.y - 2;
+
+          // If close to the alien, double the y movement
+          if ( food.x > 650){
+            food.y = food.y - 2;
+          }
+        }
+      }
+
+    },
+
+    goodCollision: function(goodFood){
+      score++;
+      goodFood.destroy();
+
+      this.alienSprite.loadTexture('eating_alien_gf');
+      this.alienSprite.play('eat', 8, false);
+      this.randomEatingSoundGood();
+
+    },
+    badCollision: function(badFood){
+      score--;
+      badFood.destroy();
+
+      this.alienSprite.loadTexture('eating_alien_bf');
+      this.alienSprite.play('eat', 8, false);
+      this.randomEatingSoundBad();
+
+    },
+
+    randomEatingSoundGood: function(){
+        var rand = this.game.rnd.integerInRange(1, 5);
+
+        switch (rand){
+          case 1:
+            this.eatingSoundGood1.play();
+            break;
+          case 2:
+            this.eatingSoundGood2.play();
+            break;
+          case 3:
+            this.eatingSoundGood3.play();
+            break;
+          case 4:
+            this.eatingSoundGood4.play();
+            break;
+          case 5:
+            this.eatingSoundGood5.play();
+            break;
+        }
+    },
+    randomEatingSoundBad: function(){
+        var rand = this.game.rnd.integerInRange(1, 3);
+
+        switch (rand){
+          case 1:
+            this.eatingSoundBad1.play();
+            break;
+          case 2:
+            this.eatingSoundBad2.play();
+            break;
+          case 3:
+            this.eatingSoundBad3.play();
+            break;
+        }
+    },
+    generateObjects: function() {
+        var goodOrBad = this.game.rnd.integerInRange(0,1);
+
+        // Good object
+        if (goodOrBad == 0) {
+            this.goodFood = new goodFood(this.game, -40, 520, 'eating_g' + this.game.rnd.integerInRange(1, 8));
+            this.goodFood.inputEnabled = true;
+            this.goodFood.events.onInputDown.add(this.addGoodFlying, this.goodFood);
+           goodGroup.add(this.goodFood);
+        }
+
+        // Bad object
+        else if (goodOrBad == 1) {
+            this.badFood = new badFood(this.game, -40, 520, 'eating_b' + this.game.rnd.integerInRange(1, 6));
+            this.game.add.existing(this.badFood);
+            this.badFood.inputEnabled = true;
+            this.badFood.events.onInputDown.add(this.addBadFlying, this.badFood);
+            badGroup.add(this.badFood);
+        }
+
+    },
+    addGoodFlying: function(food){
+       flyingGoodFoodGroup.add(food);
+    },
+    addBadFlying: function(food){
+       flyingBadFoodGroup.add(food);
+    },
+
+    startPlayroom: function() {
+      this.game.state.start('playroom');
+    }
+  };
+module.exports = Eating;
+
+},{"../prefabs/alien":2,"../prefabs/badFood":4,"../prefabs/goodFood":10,"../prefabs/table":16}],20:[function(require,module,exports){
 'use strict';
   function EatingGameWin() {}
   EatingGameWin.prototype = {
@@ -423,7 +806,7 @@ module.exports = Boot;
   };
 module.exports = EatingGameWin;
 
-},{}],15:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 'use strict';
 var goodEatObject = require('../prefabs/goodEatObject');  
 var badEatObject = require('../prefabs/badEatObject');  
@@ -569,7 +952,7 @@ var lastSpawn = null;
   };
 module.exports = EatingScene;
 
-},{"../prefabs/alien":2,"../prefabs/badEatObject":3,"../prefabs/goodEatObject":6,"../prefabs/table":11}],16:[function(require,module,exports){
+},{"../prefabs/alien":2,"../prefabs/badEatObject":3,"../prefabs/goodEatObject":9,"../prefabs/table":16}],22:[function(require,module,exports){
 
 'use strict';
 function GameOver() {}
@@ -597,7 +980,7 @@ GameOver.prototype = {
 };
 module.exports = GameOver;
 
-},{}],17:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 
 'use strict';
 function Menu() {}
@@ -629,7 +1012,7 @@ Menu.prototype = {
 
 module.exports = Menu;
 
-},{}],18:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 
   'use strict';
   function Play() {}
@@ -656,25 +1039,25 @@ module.exports = Menu;
   };
   
   module.exports = Play;
-},{}],19:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 'use strict';
   function Playroom() {}
   Playroom.prototype = {
     create: function() {
       this.playroom_background = this.game.add.sprite(0, 0, 'playroom_bg');
 
-      this.eatingSceneStartButton = this.game.add.button(715, 225, 'playr_button_eat', this.eatingSceneStartClick, this);
+      this.eatingSceneStartButton = this.game.add.button(676, 245, 'playr_button_eat', this.eatingSceneStartClick, this);
       this.beachSceneStartButton = this.game.add.button(210, 460, 'playr_button_duck', this.beachSceneStartClick, this);
       this.spaceSceneStartButton = this.game.add.button(750, 50, 'playr_button_space', this.spaceSceneStartClick, this);
-      this.ball= this.game.add.button(835, 500, 'playr_button_ball', this.ballAnimationClick, this);
+      //this.ball= this.game.add.button(835, 500, 'playr_button_ball', this.ballAnimationClick, this);
       this.plant = this.game.add.button(45, 160, 'playr_button_plant', this.plantAnimationClick, this);
 
     },
     eatingSceneStartClick: function() {
-      this.game.state.start('eatingScene');
+      this.game.state.start('eating');
     },
     beachSceneStartClick: function() {
-      //this.game.state.start('beachScene');
+      this.game.state.start('beachScene');
     },
     spaceSceneStartClick: function() {
       this.game.state.start('spaceStation');
@@ -691,7 +1074,7 @@ module.exports = Menu;
   };
 module.exports = Playroom;
 
-},{}],20:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 
 'use strict';
 function Preload() {
@@ -710,8 +1093,11 @@ Preload.prototype = {
     // Placeholder assets
     this.load.image('transparentRectangle', 'assets/img/EatingGame/rectangle_transparent.png');
     this.load.audio('bg_music', 'assets/sounds/bg_music.mp3');
-    this.load.image('alien', 'assets/img/EatingGame/rectangle_purple.png');
     this.load.audio('bg_music', 'assets/sounds/tunnari-14-11-10.mp3');
+
+    // Loading screen assets
+    this.load.image('loading_bg', 'assets/img/LoadScreen/loadscreen_bg.png');
+    this.load.spritesheet('loadscreen_aliensprite', 'assets/img/LoadScreen/loadscreen_aliensprite.png', 260, 350);
 
     // Shared assets
     this.load.image('exit_btn', 'assets/img/Shared/SpaceJump_home.png');
@@ -744,6 +1130,7 @@ Preload.prototype = {
     this.load.audio('hammastys_1', 'assets/sounds/hammastys_1.wav');
     this.load.audio('hammastys_2', 'assets/sounds/hammastys_2.wav');
     this.load.audio('hammastys_3', 'assets/sounds/hammastys_3.wav');
+    this.load.image('rectangle_hitbox', 'assets/img/EatingGame/rectangle_hitbox.png');
 
     // Good food
     this.load.spritesheet('eating_alien_gf', 'assets/img/EatingGame/EatingGame_good_food_smap.png', 442, 610);
@@ -795,6 +1182,7 @@ Preload.prototype = {
     // Space station assets
     this.load.spritesheet('spacest_alien', 'assets/img/SpaceStation/spacest_sprite.png', 350, 460, 10);
     this.load.image('spacest_alienhitbox', 'assets/img/SpaceStation/alienhitbox.png');
+    this.load.image('spacest_background', 'assets/img/SpaceStation/avaruusasema_bg.png');
     this.load.image('spacest_crown', 'assets/img/SpaceStation/spacest_crown.png');
     this.load.image('spacest_hat', 'assets/img/SpaceStation/spacest_hat.png');
     this.load.image('spacest_helmet', 'assets/img/SpaceStation/spacest_helmet.png');
@@ -807,6 +1195,7 @@ Preload.prototype = {
     this.load.image('spacest_flower', 'assets/img/SpaceStation/spacest_flower.png');
     this.load.audio('ei_kay_1', 'assets/sounds/ei_kay_1.wav');
     this.load.audio('ei_kay_2', 'assets/sounds/ei_kay_2.wav');
+    this.load.image('spacest_floor', 'assets/img/SpaceStation/floor.png');
 
 
     // Space run assets
@@ -828,6 +1217,11 @@ Preload.prototype = {
     this.load.audio('plop_1', 'assets/sounds/plop_1.wav');
     this.load.audio('putkea_alas_1', 'assets/sounds/putkea_alas_1.wav');
     this.load.audio('putkea_alas_2', 'assets/sounds/putkea_alas_2.wav');
+    this.load.audio('sattuu_1', 'assets/sounds/sattuu_1.wav');
+    this.load.audio('sattuu_2', 'assets/sounds/sattuu_2.wav');
+    this.load.audio('sattuu_3', 'assets/sounds/sattuu_3.wav');
+
+    this.load.image('spacerun_ground', 'assets/img/SpaceRun/spacerun_ground.png');
 
   },
   create: function() {
@@ -847,7 +1241,7 @@ Preload.prototype = {
 
 module.exports = Preload;
 
-},{}],21:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 'use strict';
 var spaceAlien = require('../prefabs/spaceAlien');  
 var reflector = require('../prefabs/reflector');
@@ -855,10 +1249,11 @@ var badSpaceObject = require('../prefabs/badSpaceObject');
 
 var reflectorGroup;
 var badObjectGroup;
-var reflectorGeneratePace = 2.5;
-var badObjectGeneratePace = 4.4;
+var reflectorGeneratePace = 4;
+var badObjectGeneratePace = 7;
 var score = 0;
-var streak = 0;
+var gameStarted = false;
+var firstReflectorCollected = false;
 
   function SpaceScene() {}
   SpaceScene.prototype = {
@@ -866,29 +1261,33 @@ var streak = 0;
     preload: function() {
     },
     create: function() {
-      this.game.physics.startSystem(Phaser.Physics.ARCADE);
-      this.game.physics.arcade.gravity.y = 400;
-      this.game.input.enabled = true;
       score = 0;
-      streak = 0;
-      this.popSound = this.add.audio('plop_1');
-      this.sadSound = this.add.audio('hyi_2');
+      gameStarted = false
+      firstReflectorCollected = false
 
-      this.add.sprite(0, 0, 'spacerun_bg');
+      this.game.physics.startSystem(Phaser.Physics.ARCADE);
+      this.game.physics.arcade.gravity.y = 200;
+      this.game.input.enabled = true;
+
+      this.popSound = this.add.audio('plop_1');
+      this.collisionSound1 = this.add.audio('sattuu_1');
+      this.collisionSound2 = this.add.audio('sattuu_2');
+      this.collisionSound3 = this.add.audio('sattuu_3');
+      
+      this.bg = this.game.add.tileSprite(0, 0, 1024, 688, 'spacerun_bg');
+      this.bg.autoScroll(-2,0);
+
+      this.ground = this.game.add.tileSprite(0, 561, 1024, 127, 'spacerun_ground');
+      this.ground.autoScroll(-120,0);
+
       this.backButton = this.add.button(899, 23, 'exit_btn' , this.startPlayroom, this);
       reflectorGroup = this.game.add.group();
       badObjectGroup = this.game.add.group();
 
-      this.spaceAlien = new spaceAlien(this.game, 100, 200, 'spacerun_alien');
+      this.spaceAlien = new spaceAlien(this.game, 100, 450, 'spacerun_alien');
       this.game.add.existing(this.spaceAlien);
 
       this.scoreMeter = this.game.add.sprite(119, 38, 'spacerun_scoremetre');
-
-      this.reflectorGeneratorTimer = this.game.time.events.loop(Phaser.Timer.SECOND * reflectorGeneratePace, this.reflectorGenerator, this);
-      this.reflectorGeneratorTimer.timer.start();
-
-      this.badObjectGeneratorTimer = this.game.time.events.loop(Phaser.Timer.SECOND * badObjectGeneratePace, this.badObjectGenerator, this);
-      this.badObjectGeneratorTimer.timer.start();
 
     },
 
@@ -924,13 +1323,13 @@ var streak = 0;
           sprite = 'spacerun_meteorite_small';
             break;
           case 2:
-          sprite = 'spacerun_meteorite_medium';
+          sprite = 'spacerun_meteorite_small';
             break;
           case 3:
-          sprite = 'spacerun_meteorite_medium';
+          sprite = 'spacerun_meteorite_small';
             break;
           case 4:
-          sprite = 'spacerun_meteorite';
+          sprite = 'spacerun_meteorite_medium';
             break;
           case 5:
           sprite = 'spacerun_car';
@@ -941,15 +1340,26 @@ var streak = 0;
   },
 
   alienBadObjectCollision: function(badSpaceObject){
-    badSpaceObject.destroy();
-    this.sadSound.play()
-    
-    if ( score >= 40){
-        // Remove latest score sprite
-        this.scoreSprite.destroy();
-        score = score - 30;
-        streak = 0;
-    }
+
+    // Direct collision with the player
+   if (badSpaceObject.x > this.spaceAlien.x + this.spaceAlien.width){
+
+    this.randomCollisionSound();
+    badSpaceObject.body.angularVelocity = 0;
+    badSpaceObject.body.velocity.y = 100;
+    badSpaceObject.body.velocity.x = 40;
+    badSpaceObject.body.allowGravity = true;
+  }
+
+  // Player hits the bad object undirectly, falls on it
+   if (badSpaceObject.y > this.spaceAlien.y + this.spaceAlien.height){
+      badSpaceObject.body.allowGravity = true;
+   }
+   // Player hits the bad object undirectly, upwards
+   if (badSpaceObject.y < this.spaceAlien.y){
+    badSpaceObject.body.velocity.y = -151;
+   }
+
   },
 
   alienReflectorcollision: function(reflector){
@@ -958,21 +1368,39 @@ var streak = 0;
 
     this.scoreSprite = this.add.sprite(130 + score, 47, 'spacerun_yellow');
     score = score + 30;
-    streak++;
 
-    // If player has collected 3 or more in a row, add a bit of extra challenge
-    if (streak >= 3){
-        // an ever increasing chance to spawn a bad object
-        var rand = this.game.rnd.integerInRange(1, streak + 1);
-        if (rand >= 4){
-          this.badObjectGenerator();
+      if (firstReflectorCollected == false){
+        this.badObjectGeneratorTimer = this.game.time.events.loop(Phaser.Timer.SECOND * badObjectGeneratePace, this.badObjectGenerator, this);
+        this.badObjectGeneratorTimer.timer.start();
+        firstReflectorCollected = true
+      }
+  },
+  randomCollisionSound: function(){
+        var rand = this.game.rnd.integerInRange(1, 3);
+
+        switch (rand){
+          case 1:
+            this.collisionSound1.play();
+            break;
+          case 2:
+            this.collisionSound2.play();
+            break;
+          case 3:
+            this.collisionSound3.play();
+            break;
         }
-    }
+
   },
 
     update: function() {
       if (this.game.input.activePointer.isDown){
           this.spaceAlien.up();
+
+          if (gameStarted == false ){
+              this.reflectorGeneratorTimer = this.game.time.events.loop(Phaser.Timer.SECOND * reflectorGeneratePace, this.reflectorGenerator, this);
+              this.reflectorGeneratorTimer.timer.start();
+              gameStarted = true;
+        }
       }
 
     // Collide reflector with the alien
@@ -988,8 +1416,8 @@ var streak = 0;
 
     // Check win
       if (score >= 600) {
-         this.game.state.start('trampolineGameWin');
-       }
+          this.game.state.start('trampolineGameWin');
+         }
     },
     paused: function() {
     },
@@ -1003,11 +1431,12 @@ var streak = 0;
   };
 module.exports = SpaceScene;
 
-},{"../prefabs/badSpaceObject":4,"../prefabs/reflector":8,"../prefabs/spaceAlien":9}],22:[function(require,module,exports){
+},{"../prefabs/badSpaceObject":5,"../prefabs/reflector":13,"../prefabs/spaceAlien":14}],28:[function(require,module,exports){
 'use strict';
 var stationAlien = require('../prefabs/stationAlien');  
 var goodStationObject = require('../prefabs/goodStationObject');
 var badStationObject = require('../prefabs/badStationObject');
+var floor = require('../prefabs/floor');
 
 var badObjectGroup;
 var state = 0;
@@ -1029,14 +1458,18 @@ var soundCooldown = 0;
       this.noSound1 = this.add.audio('ei_kay_1');
       this.noSound2 = this.add.audio('ei_kay_2');
 
-      this.add.sprite(0, 0, 'trampoline_game_bg');
+      this.add.sprite(0, 0, 'spacest_background');
       this.add.sprite(420, 0, 'spacest_pipe');
+
+      this.floor = new floor(this.game, 0, 650, 'spacest_floor');
+      this.game.add.existing(this.floor);
+
       this.backButton = this.add.button(899, 23, 'exit_btn' , this.startPlayroom, this);
 
-      this.stationAlien = new stationAlien(this.game, 120, 450, 'spacest_alienhitbox');
+      this.stationAlien = new stationAlien(this.game, 140, 250, 'spacest_alienhitbox');
       this.game.add.existing(this.stationAlien);
 
-      this.alienSprite = this.game.add.sprite(40 ,150, 'spacest_alien');
+      this.alienSprite = this.game.add.sprite(40 ,180, 'spacest_alien');
 
       badObjectGroup = this.game.add.group();
 
@@ -1049,12 +1482,18 @@ var soundCooldown = 0;
       var pipe = 0;
       var total = 0;
       var goodPipe = 0;
+      var lastSprite = 0;
+      var rand = 0;
 
       // Spwan 2 "bad" objects
       for (var i = 0; i < 2; i++)
       {
           var sprite;
-          var rand = this.game.rnd.integerInRange(1, 6);
+
+        while (rand == lastSprite){
+          rand = this.game.rnd.integerInRange(1, 6);
+        }
+          lastSprite = rand;
 
           switch (rand){
             case 1:
@@ -1172,10 +1611,18 @@ var soundCooldown = 0;
       break;
       }
 
-    this.game.physics.arcade.collide(this.goodStationObject, this.stationAlien, this.goodCollide, null, this);
+    // Collide the objects with invisible floor
+      this.game.physics.arcade.collide(this.goodStationObject, this.floor);
 
     badObjectGroup.forEach(function(badStationObject){
-          this.game.physics.arcade.collide(badStationObject, this.stationAlien, this.badCollide, null, this);
+          this.game.physics.arcade.collide(badStationObject, this.floor);
+    }, this);
+
+    // Collide check for aliens & objects
+    this.game.physics.arcade.overlap(this.goodStationObject, this.stationAlien, this.goodCollide, null, this);
+
+    badObjectGroup.forEach(function(badStationObject){
+          this.game.physics.arcade.overlap(badStationObject, this.stationAlien, this.badCollide, null, this);
     }, this);
     
       if (soundCooldown != 0){
@@ -1258,7 +1705,7 @@ var soundCooldown = 0;
   };
 module.exports = SpaceStation;
 
-},{"../prefabs/badStationObject":5,"../prefabs/goodStationObject":7,"../prefabs/stationAlien":10}],23:[function(require,module,exports){
+},{"../prefabs/badStationObject":6,"../prefabs/floor":8,"../prefabs/goodStationObject":11,"../prefabs/stationAlien":15}],29:[function(require,module,exports){
 'use strict';
   function Trampoline() {}
   Trampoline.prototype = {
@@ -1373,7 +1820,7 @@ module.exports = SpaceStation;
   };
 module.exports = Trampoline;
 
-},{}],24:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 'use strict';
   function TrampolineCutscene() {}
   TrampolineCutscene.prototype = {
@@ -1402,7 +1849,7 @@ module.exports = Trampoline;
   };
 module.exports = TrampolineCutscene;
 
-},{}],25:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 'use strict';
   function TrampolineGameWin() {}
   TrampolineGameWin.prototype = {
