@@ -48,6 +48,9 @@ var jumpSoundPlaying = false;
       this.spaceAlien.animations.add('jump');
       this.game.add.existing(this.spaceAlien);
 
+      this.alienHitbox = new spaceAlien(this.game, 100, 450, 'spacerun_alien_hitbox');
+      this.game.add.existing(this.alienHitbox);
+
       this.scoreMeter = this.game.add.sprite(119, 38, 'spacerun_scoremetre');
 
     },
@@ -103,7 +106,7 @@ var jumpSoundPlaying = false;
   alienBadObjectCollision: function(badSpaceObject){
 
     // Direct collision with the player
-   if (badSpaceObject.x > this.spaceAlien.x + this.spaceAlien.width){
+   if (badSpaceObject.x > this.alienHitbox.x + this.alienHitbox.width){
 
     this.randomCollisionSound();
     badSpaceObject.body.angularVelocity = 0;
@@ -113,11 +116,11 @@ var jumpSoundPlaying = false;
   }
 
   // Player hits the bad object undirectly, falls on it
-   if (badSpaceObject.y > this.spaceAlien.y + this.spaceAlien.height){
+   if (badSpaceObject.y > this.alienHitbox.y + this.alienHitbox.height){
       badSpaceObject.body.allowGravity = true;
    }
    // Player hits the bad object undirectly, upwards
-   if (badSpaceObject.y < this.spaceAlien.y){
+   if (badSpaceObject.y < this.alienHitbox.y){
     badSpaceObject.body.velocity.y = -151;
    }
 
@@ -154,8 +157,11 @@ var jumpSoundPlaying = false;
   },
 
     update: function() {
+
+
       if (this.game.input.activePointer.isDown){
           this.spaceAlien.up();
+          this.alienHitbox.up();
           this.spaceAlien.play('jump', 12, false);
         if (jumpSoundPlaying == false){
          this.jumpSound.play("",0,1,true,false);
@@ -173,18 +179,18 @@ var jumpSoundPlaying = false;
         this.spaceAlien.animations.currentAnim.stop('jump',true);
          this.jumpSound.stop();
           jumpSoundPlaying = false;
-
-
       }
-
+       this.alienHitbox.x = this.spaceAlien.x;
+      this.alienHitbox.y = this.spaceAlien.y;
+      
     // Collide reflector with the alien
     reflectorGroup.forEach(function(reflector){
-          this.game.physics.arcade.collide(reflector, this.spaceAlien, this.alienReflectorcollision, null, this);
+          this.game.physics.arcade.collide(reflector, this.alienHitbox, this.alienReflectorcollision, null, this);
     }, this);
 
     // Collide bad objects with the alien
     badObjectGroup.forEach(function(badSpaceObject){
-          this.game.physics.arcade.collide(badSpaceObject, this.spaceAlien, this.alienBadObjectCollision, null, this);
+          this.game.physics.arcade.collide(badSpaceObject, this.alienHitbox, this.alienBadObjectCollision, null, this);
     }, this);
 
 
@@ -200,6 +206,9 @@ var jumpSoundPlaying = false;
 
           this.game.state.start('trampolineGameWin');
          }
+
+
+
     },
     paused: function() {
     },

@@ -151,6 +151,7 @@ Preload.prototype = {
     this.load.audio('suihkumoottori', 'assets/sounds/suihkumoottori.wav');
     this.load.audio('avaruusbiisi', 'assets/sounds/avaruusbiisi.wav');
     this.load.audio('heijastin', 'assets/sounds/heijastin.wav');
+    this.load.image('spacerun_alien_hitbox', 'assets/img/SpaceRun/spacerun_alien_hitbox.png');
 
 
     this.load.image('spacerun_ground', 'assets/img/SpaceRun/spacerun_ground.png');
@@ -180,7 +181,7 @@ Preload.prototype = {
   },
   update: function() {
     if(!!this.ready) {
-      this.game.state.start('playroom');
+      this.game.state.start('spaceScene');
     }
   },
   onLoadComplete: function() {
