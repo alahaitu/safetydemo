@@ -12,6 +12,7 @@ window.onload = function () {
   game.state.add('eatingScene', require('./states/eatingScene'));
   game.state.add('gameover', require('./states/gameover'));
   game.state.add('lifejacket', require('./states/lifejacket'));
+  game.state.add('lifejacketWin', require('./states/lifejacketWin'));
   game.state.add('menu', require('./states/menu'));
   game.state.add('play', require('./states/play'));
   game.state.add('playroom', require('./states/playroom'));

@@ -72,7 +72,7 @@ if (this.alienSprite.animations.currentAnim){
       this.game.physics.arcade.overlap(food, this.alien, this.badCollision, null, this);
      }, this);
 
-      if (score > 10) {
+      if (score > 7) {
        this.game.state.start('eatingGameWin');
       }
     },

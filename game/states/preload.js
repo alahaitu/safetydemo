@@ -163,6 +163,10 @@ Preload.prototype = {
     this.load.image('lifejack_jacket2', 'assets/img/LifeJacket/lifejack_jacket2.png');
     this.load.image('lifejack_jacket3', 'assets/img/LifeJacket/lifejack_jacket3.png');
     this.load.image('lifejack_bg', 'assets/img/LifeJacket/lifejack_bg.png');
+    this.load.image('lifejacket_bgwin', 'assets/img/LifeJacket/lifejacket_bgwin.png');
+    this.load.image('lifejacket_wave1', 'assets/img/LifeJacket/lifejacket_wave1.png');
+    this.load.image('lifejacket_wave2', 'assets/img/LifeJacket/lifejacket_wave2.png');
+    this.load.image('lifejack_boat', 'assets/img/LifeJacket/lifejack_boat-02.png');
 
     this.load.audio('hihna_kiinni', 'assets/sounds/hihna_kiinni.wav');
     this.load.audio('hihna_kiinni_noniin', 'assets/sounds/hinha_kiinni_noniin.wav');

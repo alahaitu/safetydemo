@@ -178,14 +178,19 @@ var lastScore;
         }
       }
       
-        if (score >= 3){
+        if (score == 3){
           this.win();
+          score++;
         }
 
    },
 
      win: function(){
-      console.log("win");
+        this.game.time.events.add(Phaser.Timer.SECOND * 3, this.startWinScreen, this);
+     },
+
+     startWinScreen: function(){
+      this.game.state.start('lifejacketWin');
      },
 
     paused: function() {
