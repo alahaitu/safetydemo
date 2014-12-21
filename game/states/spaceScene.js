@@ -8,7 +8,6 @@ var badObjectGroup;
 var reflectorGeneratePace = 4;
 var badObjectGeneratePace = 7;
 var score = 0;
-var gameStarted = false;
 var firstReflectorCollected = false;
 var jumpSoundPlaying = false;
 
@@ -19,7 +18,6 @@ var jumpSoundPlaying = false;
     },
     create: function() {
       score = 0;
-      gameStarted = false
       firstReflectorCollected = false
       jumpSoundPlaying = false;
 
@@ -52,6 +50,9 @@ var jumpSoundPlaying = false;
       this.game.add.existing(this.alienHitbox);
 
       this.scoreMeter = this.game.add.sprite(119, 38, 'spacerun_scoremetre');
+
+      this.reflectorGeneratorTimer = this.game.time.events.loop(Phaser.Timer.SECOND * reflectorGeneratePace, this.reflectorGenerator, this);
+      this.reflectorGeneratorTimer.timer.start();
 
     },
 
@@ -167,12 +168,6 @@ var jumpSoundPlaying = false;
          this.jumpSound.play("",0,1,true,false);
          jumpSoundPlaying = true;
        }
-
-          if (gameStarted == false ){
-              this.reflectorGeneratorTimer = this.game.time.events.loop(Phaser.Timer.SECOND * reflectorGeneratePace, this.reflectorGenerator, this);
-              this.reflectorGeneratorTimer.timer.start();
-              gameStarted = true;
-        }
       }
 
       if (this.game.input.activePointer.isDown == false){
