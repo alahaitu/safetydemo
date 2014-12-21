@@ -7,7 +7,9 @@ var lifejacketGroup;
 var score;
 var lastScore;
 var animationCounter;
-var startCounter;
+var smileCounter;
+var startAnimationCounter;
+var startSmileCounter;
 
   function Lifejacket() {}
   Lifejacket.prototype = {
@@ -15,7 +17,9 @@ var startCounter;
     create: function() {
       score = 0;
       animationCounter  = 0;
-      startCounter = false;
+      smileCounter = 0;
+      startAnimationCounter = false;
+      startSmileCounter = false;
       lastScore = 0;
       this.game.physics.startSystem(Phaser.Physics.ARCADE);
       this.beachBg = this.game.add.sprite(0, 0, 'lifejack_bg');
@@ -134,33 +138,36 @@ var startCounter;
 
         // If lifesaver & alien are matches, destroy lifejacket
 
-        if (alien.name == "lifejack_alien1" && alien.frame != 2 && lifejacket.body.y < 280){
+        if (alien.name == "lifejack_alien1" && alien.frame != 2 && alien.frame != 5 && lifejacket.body.y < 280){
             alien.loadTexture('lifejack_alien1',1);
+            startSmileCounter = true;
 
           if (lifejacket.name == "lifejack_jacket1") {
                 lifejacket.destroy();
                 alien.loadTexture('lifejack_alien1',2);
-                startCounter = true;
+                startAnimationCounter = true;
           }
         }
 
-       if (alien.name == "lifejack_alien2" && alien.frame != 2 && lifejacket.body.y < 280){
+       if (alien.name == "lifejack_alien2" && alien.frame != 2 && alien.frame != 5 && lifejacket.body.y < 280){
             alien.loadTexture('lifejack_alien2',1);
+            startSmileCounter = true;
 
           if (lifejacket.name == "lifejack_jacket2") {
                 lifejacket.destroy();
                 alien.loadTexture('lifejack_alien2',2);
-                startCounter = true;
+                startAnimationCounter = true;
           }
         }
 
-       if (alien.name == "lifejack_alien3" && alien.frame != 2 && lifejacket.body.y < 280){
+       if (alien.name == "lifejack_alien3" && alien.frame != 2 && alien.frame != 5 && lifejacket.body.y < 280){
             alien.loadTexture('lifejack_alien3',1);
+            startSmileCounter = true;
 
           if (lifejacket.name == "lifejack_jacket3") {
                 lifejacket.destroy();
                 alien.loadTexture('lifejack_alien3',2);
-                startCounter = true;
+                startAnimationCounter = true;
           }
         }
     },
@@ -169,7 +176,7 @@ var startCounter;
      beachAlienGroup.forEach(function(beachAlien){
        lifejacketGroup.forEach(function(lifejacket){
 
-              this.game.physics.arcade.overlap(beachAlien, lifejacket, this.alienDressed, null, this);
+            this.game.physics.arcade.overlap(beachAlien, lifejacket, this.alienDressed, null, this);
 
         }, this);
     }, this);    
@@ -192,16 +199,23 @@ var startCounter;
           score++;
         }
 
-    if (startCounter == true ){
+    if (startAnimationCounter == true ){
       animationCounter++;
+    }
+    if (startSmileCounter == true ){
+      smileCounter++;
     }
 
     if ( animationCounter > 300){
             this.startAnimation();
-            startCounter = false;
+            startAnimationCounter = false;
             animationCounter = 0;
     }
-
+    if ( smileCounter > 100){
+            this.smileBack();
+            startSmileCounter = false;
+            smileCounter = 0;
+    }
    },
 
    startAnimation: function(){
@@ -211,7 +225,22 @@ var startCounter;
         beachAlien.play(beachAlien.name, 1, true);
       }
     }, this);    
+   },
 
+   smileBack: function(){
+     beachAlienGroup.forEach(function(beachAlien){
+      if (beachAlien.frame == 1){
+        var overlap = false;
+       lifejacketGroup.forEach(function(lifejacket){
+            if (this.game.physics.arcade.overlap(beachAlien, lifejacket, this.alienDressed, null, this) == true){
+              overlap = true;
+            }
+        }, this);
+       if ( overlap == false && beachAlien.frame != 5) {
+        beachAlien.frame = 0;
+      }
+     }
+    }, this);    
    },
      win: function(){
         this.game.time.events.add(Phaser.Timer.SECOND * 3, this.startWinScreen, this);
