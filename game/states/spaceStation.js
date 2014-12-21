@@ -31,7 +31,6 @@ var soundCooldown = 0;
       this.goodSound2 = this.add.audio('noniin');
 
       this.add.sprite(0, 0, 'spacest_background');
-      this.add.sprite(420, 0, 'spacest_pipe');
 
       this.floor = new floor(this.game, 0, 650, 'spacest_floor');
       this.game.add.existing(this.floor);
@@ -46,7 +45,6 @@ var soundCooldown = 0;
       badObjectGroup = this.game.add.group();
 
       this.objectGenerator();
-
     },
 
     objectGenerator: function(){
@@ -101,7 +99,7 @@ var soundCooldown = 0;
             break;
           case 2:
             total = total + 2;
-            this.badStationObject = new badStationObject(this.game, 550, 0, sprite);
+            this.badStationObject = new badStationObject(this.game, 570, 0, sprite);
                 var random = this.game.rnd.integerInRange(1, 2);
               if (random == 1){
                 pipe = 1;
@@ -112,7 +110,7 @@ var soundCooldown = 0;
           break;
           case 3:
             total = total + 3;
-            this.badStationObject = new badStationObject(this.game, 700, 0, sprite);
+            this.badStationObject = new badStationObject(this.game, 740, 0, sprite);
             pipe = this.game.rnd.integerInRange(1, 2);
           break;
           }
@@ -139,10 +137,10 @@ var soundCooldown = 0;
         // Spawn the "Good" object
         switch(total){
           case 3:
-                this.goodStationObject = new goodStationObject(this.game, 700, 0, goodSprite);
+                this.goodStationObject = new goodStationObject(this.game, 740, 0, goodSprite);
           break;
           case 4:
-                this.goodStationObject = new goodStationObject(this.game, 550, 0, goodSprite);
+                this.goodStationObject = new goodStationObject(this.game, 570, 0, goodSprite);
           break;
           case 5:
                 this.goodStationObject = new goodStationObject(this.game, 400, 0, goodSprite);
@@ -162,6 +160,8 @@ var soundCooldown = 0;
                 this.popSound2.play();
               break;
             }
+            
+      this.add.sprite(420, 0, 'spacest_pipe');
 
     },
 
