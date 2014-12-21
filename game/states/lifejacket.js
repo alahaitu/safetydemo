@@ -6,12 +6,16 @@ var beachAlienGroup;
 var lifejacketGroup;
 var score;
 var lastScore;
+var animationCounter;
+var startCounter;
 
   function Lifejacket() {}
   Lifejacket.prototype = {
     preload: function() {},
     create: function() {
       score = 0;
+      animationCounter  = 0;
+      startCounter = false;
       lastScore = 0;
       this.game.physics.startSystem(Phaser.Physics.ARCADE);
       this.beachBg = this.game.add.sprite(0, 0, 'lifejack_bg');
@@ -59,8 +63,10 @@ var lastScore;
           beachAlienGroup.add(this.beachAlien);
           y = originalY;
 
-           this.beachAlien.inputEnabled = true;
-          this.beachAlien.events.onInputDown.add(this.alienWalks, this.beachAlien);
+         this.beachAlien.inputEnabled = true;
+         this.beachAlien.events.onInputDown.add(this.alienWalks, this.beachAlien);
+
+        this.beachAlien.animations.add(this.beachAlien.name, [3,4]);
       }
     },
       spawnLifejackets: function(x, y) {
@@ -100,25 +106,26 @@ var lastScore;
 
     alienWalks: function(alien){
 
-     if (alien.name == "lifejack_alien1" && alien.frame == 3) {
-              alien.loadTexture('lifejack_alien1',4);
+     if (alien.name == "lifejack_alien1" && alien.frame == 2) {
+              alien.loadTexture('lifejack_alien1',5);
               alien.body.velocity.x = 150;
               score++;
+              animationCounter = 0;
         }
 
-        if (alien.name == "lifejack_alien2" && alien.frame == 3)
+        if (alien.name == "lifejack_alien2" && alien.frame == 2)
         {
-              alien.loadTexture('lifejack_alien2',4);
+              alien.loadTexture('lifejack_alien2',5);
               alien.body.velocity.x = 150;
               score++;
-
+              animationCounter = 0;
         }
-        if (alien.name == "lifejack_alien3" && alien.frame == 3)
+        if (alien.name == "lifejack_alien3" && alien.frame == 2)
         {
-              alien.loadTexture('lifejack_alien3',4);
+              alien.loadTexture('lifejack_alien3',5);
               alien.body.velocity.x = 150;
               score++;
-
+              animationCounter = 0;
         }
 
     },
@@ -127,36 +134,38 @@ var lastScore;
 
         // If lifesaver & alien are matches, destroy lifejacket
 
-        if (alien.name == "lifejack_alien1" && alien.frame != 3 && alien.frame !=  4 && lifejacket.body.y < 280){
+        if (alien.name == "lifejack_alien1" && alien.frame != 2 && lifejacket.body.y < 280){
             alien.loadTexture('lifejack_alien1',1);
 
           if (lifejacket.name == "lifejack_jacket1") {
                 lifejacket.destroy();
-                alien.loadTexture('lifejack_alien1',3);
+                alien.loadTexture('lifejack_alien1',2);
+                startCounter = true;
           }
         }
 
-       if (alien.name == "lifejack_alien2" && alien.frame != 3 && alien.frame !=  4 && lifejacket.body.y < 280){
+       if (alien.name == "lifejack_alien2" && alien.frame != 2 && lifejacket.body.y < 280){
             alien.loadTexture('lifejack_alien2',1);
 
           if (lifejacket.name == "lifejack_jacket2") {
                 lifejacket.destroy();
-                alien.loadTexture('lifejack_alien2',3);
+                alien.loadTexture('lifejack_alien2',2);
+                startCounter = true;
           }
         }
 
-       if (alien.name == "lifejack_alien3" && alien.frame != 3 && alien.frame !=  4 && lifejacket.body.y < 280){
+       if (alien.name == "lifejack_alien3" && alien.frame != 2 && lifejacket.body.y < 280){
             alien.loadTexture('lifejack_alien3',1);
 
           if (lifejacket.name == "lifejack_jacket3") {
                 lifejacket.destroy();
-                alien.loadTexture('lifejack_alien3',3);
+                alien.loadTexture('lifejack_alien3',2);
+                startCounter = true;
           }
         }
     },
 
     update: function() {
-
      beachAlienGroup.forEach(function(beachAlien){
        lifejacketGroup.forEach(function(lifejacket){
 
@@ -183,8 +192,27 @@ var lastScore;
           score++;
         }
 
+    if (startCounter == true ){
+      animationCounter++;
+    }
+
+    if ( animationCounter > 300){
+            this.startAnimation();
+            startCounter = false;
+            animationCounter = 0;
+    }
+
    },
 
+   startAnimation: function(){
+
+     beachAlienGroup.forEach(function(beachAlien){
+      if (beachAlien.frame == 2){
+        beachAlien.play(beachAlien.name, 1, true);
+      }
+    }, this);    
+
+   },
      win: function(){
         this.game.time.events.add(Phaser.Timer.SECOND * 3, this.startWinScreen, this);
      },
