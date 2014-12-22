@@ -599,9 +599,11 @@ function Boot() {
 
 Boot.prototype = {
   preload: function() {
-    this.load.image('preloader', 'assets/preloader.gif');
+    //this.load.image('preloader', 'assets/preloader.gif');
+    this.load.image('preloader', 'assets/img/LoadScreen/loadscreen_bg.png');
   },
   create: function() {
+    //this.background = this.game.add.sprite(0, 0, 'preloader_bg');
     this.game.input.maxPointers = 1;
     this.game.state.start('preload');
   }
@@ -1047,12 +1049,20 @@ var beachAlienGroup;
 var lifejacketGroup;
 var score;
 var lastScore;
+var animationCounter;
+var smileCounter;
+var startAnimationCounter;
+var startSmileCounter;
 
   function Lifejacket() {}
   Lifejacket.prototype = {
     preload: function() {},
     create: function() {
       score = 0;
+      animationCounter  = 0;
+      smileCounter = 0;
+      startAnimationCounter = false;
+      startSmileCounter = false;
       lastScore = 0;
       this.game.physics.startSystem(Phaser.Physics.ARCADE);
       this.beachBg = this.game.add.sprite(0, 0, 'lifejack_bg');
@@ -1100,8 +1110,10 @@ var lastScore;
           beachAlienGroup.add(this.beachAlien);
           y = originalY;
 
-           this.beachAlien.inputEnabled = true;
-          this.beachAlien.events.onInputDown.add(this.alienWalks, this.beachAlien);
+         this.beachAlien.inputEnabled = true;
+         this.beachAlien.events.onInputDown.add(this.alienWalks, this.beachAlien);
+
+        this.beachAlien.animations.add(this.beachAlien.name, [3,4]);
       }
     },
       spawnLifejackets: function(x, y) {
@@ -1141,25 +1153,26 @@ var lastScore;
 
     alienWalks: function(alien){
 
-     if (alien.name == "lifejack_alien1" && alien.frame == 3) {
-              alien.loadTexture('lifejack_alien1',4);
+     if (alien.name == "lifejack_alien1" && alien.frame == 2) {
+              alien.loadTexture('lifejack_alien1',5);
               alien.body.velocity.x = 150;
               score++;
+              animationCounter = 0;
         }
 
-        if (alien.name == "lifejack_alien2" && alien.frame == 3)
+        if (alien.name == "lifejack_alien2" && alien.frame == 2)
         {
-              alien.loadTexture('lifejack_alien2',4);
+              alien.loadTexture('lifejack_alien2',5);
               alien.body.velocity.x = 150;
               score++;
-
+              animationCounter = 0;
         }
-        if (alien.name == "lifejack_alien3" && alien.frame == 3)
+        if (alien.name == "lifejack_alien3" && alien.frame == 2)
         {
-              alien.loadTexture('lifejack_alien3',4);
+              alien.loadTexture('lifejack_alien3',5);
               alien.body.velocity.x = 150;
               score++;
-
+              animationCounter = 0;
         }
 
     },
@@ -1168,40 +1181,45 @@ var lastScore;
 
         // If lifesaver & alien are matches, destroy lifejacket
 
-        if (alien.name == "lifejack_alien1" && alien.frame != 3 && alien.frame !=  4 && lifejacket.body.y < 280){
+        if (alien.name == "lifejack_alien1" && alien.frame != 2 && alien.frame != 5 && lifejacket.body.y < 280){
             alien.loadTexture('lifejack_alien1',1);
+            startSmileCounter = true;
 
           if (lifejacket.name == "lifejack_jacket1") {
                 lifejacket.destroy();
-                alien.loadTexture('lifejack_alien1',3);
+                alien.loadTexture('lifejack_alien1',2);
+                startAnimationCounter = true;
           }
         }
 
-       if (alien.name == "lifejack_alien2" && alien.frame != 3 && alien.frame !=  4 && lifejacket.body.y < 280){
+       if (alien.name == "lifejack_alien2" && alien.frame != 2 && alien.frame != 5 && lifejacket.body.y < 280){
             alien.loadTexture('lifejack_alien2',1);
+            startSmileCounter = true;
 
           if (lifejacket.name == "lifejack_jacket2") {
                 lifejacket.destroy();
-                alien.loadTexture('lifejack_alien2',3);
+                alien.loadTexture('lifejack_alien2',2);
+                startAnimationCounter = true;
           }
         }
 
-       if (alien.name == "lifejack_alien3" && alien.frame != 3 && alien.frame !=  4 && lifejacket.body.y < 280){
+       if (alien.name == "lifejack_alien3" && alien.frame != 2 && alien.frame != 5 && lifejacket.body.y < 280){
             alien.loadTexture('lifejack_alien3',1);
+            startSmileCounter = true;
 
           if (lifejacket.name == "lifejack_jacket3") {
                 lifejacket.destroy();
-                alien.loadTexture('lifejack_alien3',3);
+                alien.loadTexture('lifejack_alien3',2);
+                startAnimationCounter = true;
           }
         }
     },
 
     update: function() {
-
      beachAlienGroup.forEach(function(beachAlien){
        lifejacketGroup.forEach(function(lifejacket){
 
-              this.game.physics.arcade.overlap(beachAlien, lifejacket, this.alienDressed, null, this);
+            this.game.physics.arcade.overlap(beachAlien, lifejacket, this.alienDressed, null, this);
 
         }, this);
     }, this);    
@@ -1224,8 +1242,49 @@ var lastScore;
           score++;
         }
 
+    if (startAnimationCounter == true ){
+      animationCounter++;
+    }
+    if (startSmileCounter == true ){
+      smileCounter++;
+    }
+
+    if ( animationCounter > 300){
+            this.startAnimation();
+            startAnimationCounter = false;
+            animationCounter = 0;
+    }
+    if ( smileCounter > 100){
+            this.smileBack();
+            startSmileCounter = false;
+            smileCounter = 0;
+    }
    },
 
+   startAnimation: function(){
+
+     beachAlienGroup.forEach(function(beachAlien){
+      if (beachAlien.frame == 2){
+        beachAlien.play(beachAlien.name, 1, true);
+      }
+    }, this);    
+   },
+
+   smileBack: function(){
+     beachAlienGroup.forEach(function(beachAlien){
+      if (beachAlien.frame == 1){
+        var overlap = false;
+       lifejacketGroup.forEach(function(lifejacket){
+            if (this.game.physics.arcade.overlap(beachAlien, lifejacket, this.alienDressed, null, this) == true){
+              overlap = true;
+            }
+        }, this);
+       if ( overlap == false && beachAlien.frame != 5) {
+        beachAlien.frame = 0;
+      }
+     }
+    }, this);    
+   },
      win: function(){
         this.game.time.events.add(Phaser.Timer.SECOND * 3, this.startWinScreen, this);
      },
@@ -1410,7 +1469,7 @@ Preload.prototype = {
     this.load.setPreloadSprite(this.asset);
 
     // Placeholder assets
-    this.load.image('transparentRectangle', 'assets/img/EatingGame/rectangle_transparent.png');
+    //this.load.image('transparentRectangle', 'assets/img/EatingGame/rectangle_transparent.png');
     this.load.audio('bg_music', 'assets/sounds/bg_music.mp3');
     this.load.audio('bg_music', 'assets/sounds/tunnari-14-11-10.mp3');
 
@@ -1553,9 +1612,9 @@ Preload.prototype = {
     this.load.image('spacerun_ground', 'assets/img/SpaceRun/spacerun_ground.png');
 
     // Lifejacket game assets
-    this.load.spritesheet('lifejack_alien1', 'assets/img/LifeJacket/lifejack_alien1.png', 220, 450, 5);
-    this.load.spritesheet('lifejack_alien2', 'assets/img/LifeJacket/lifejack_alien2.png', 280, 310, 5);
-    this.load.spritesheet('lifejack_alien3', 'assets/img/LifeJacket/lifejack_alien3.png', 210, 360, 5);
+    this.load.spritesheet('lifejack_alien1', 'assets/img/LifeJacket/lifejack_alien1.png', 220, 450, 6);
+    this.load.spritesheet('lifejack_alien2', 'assets/img/LifeJacket/lifejack_alien2.png', 280, 310, 6);
+    this.load.spritesheet('lifejack_alien3', 'assets/img/LifeJacket/lifejack_alien3.png', 210, 360, 6);
     this.load.image('lifejack_jacket1', 'assets/img/LifeJacket/lifejack_jacket1.png');
     this.load.image('lifejack_jacket2', 'assets/img/LifeJacket/lifejack_jacket2.png');
     this.load.image('lifejack_jacket3', 'assets/img/LifeJacket/lifejack_jacket3.png');
@@ -1598,7 +1657,6 @@ var badObjectGroup;
 var reflectorGeneratePace = 4;
 var badObjectGeneratePace = 7;
 var score = 0;
-var gameStarted = false;
 var firstReflectorCollected = false;
 var jumpSoundPlaying = false;
 
@@ -1609,7 +1667,6 @@ var jumpSoundPlaying = false;
     },
     create: function() {
       score = 0;
-      gameStarted = false
       firstReflectorCollected = false
       jumpSoundPlaying = false;
 
@@ -1642,6 +1699,9 @@ var jumpSoundPlaying = false;
       this.game.add.existing(this.alienHitbox);
 
       this.scoreMeter = this.game.add.sprite(119, 38, 'spacerun_scoremetre');
+
+      this.reflectorGeneratorTimer = this.game.time.events.loop(Phaser.Timer.SECOND * reflectorGeneratePace, this.reflectorGenerator, this);
+      this.reflectorGeneratorTimer.timer.start();
 
     },
 
@@ -1757,12 +1817,6 @@ var jumpSoundPlaying = false;
          this.jumpSound.play("",0,1,true,false);
          jumpSoundPlaying = true;
        }
-
-          if (gameStarted == false ){
-              this.reflectorGeneratorTimer = this.game.time.events.loop(Phaser.Timer.SECOND * reflectorGeneratePace, this.reflectorGenerator, this);
-              this.reflectorGeneratorTimer.timer.start();
-              gameStarted = true;
-        }
       }
 
       if (this.game.input.activePointer.isDown == false){
@@ -1852,7 +1906,6 @@ var soundCooldown = 0;
       this.goodSound2 = this.add.audio('noniin');
 
       this.add.sprite(0, 0, 'spacest_background');
-      this.add.sprite(420, 0, 'spacest_pipe');
 
       this.floor = new floor(this.game, 0, 650, 'spacest_floor');
       this.game.add.existing(this.floor);
@@ -1867,7 +1920,6 @@ var soundCooldown = 0;
       badObjectGroup = this.game.add.group();
 
       this.objectGenerator();
-
     },
 
     objectGenerator: function(){
@@ -1922,7 +1974,7 @@ var soundCooldown = 0;
             break;
           case 2:
             total = total + 2;
-            this.badStationObject = new badStationObject(this.game, 550, 0, sprite);
+            this.badStationObject = new badStationObject(this.game, 570, 0, sprite);
                 var random = this.game.rnd.integerInRange(1, 2);
               if (random == 1){
                 pipe = 1;
@@ -1933,7 +1985,7 @@ var soundCooldown = 0;
           break;
           case 3:
             total = total + 3;
-            this.badStationObject = new badStationObject(this.game, 700, 0, sprite);
+            this.badStationObject = new badStationObject(this.game, 740, 0, sprite);
             pipe = this.game.rnd.integerInRange(1, 2);
           break;
           }
@@ -1960,10 +2012,10 @@ var soundCooldown = 0;
         // Spawn the "Good" object
         switch(total){
           case 3:
-                this.goodStationObject = new goodStationObject(this.game, 700, 0, goodSprite);
+                this.goodStationObject = new goodStationObject(this.game, 740, 0, goodSprite);
           break;
           case 4:
-                this.goodStationObject = new goodStationObject(this.game, 550, 0, goodSprite);
+                this.goodStationObject = new goodStationObject(this.game, 570, 0, goodSprite);
           break;
           case 5:
                 this.goodStationObject = new goodStationObject(this.game, 400, 0, goodSprite);
@@ -1983,6 +2035,8 @@ var soundCooldown = 0;
                 this.popSound2.play();
               break;
             }
+            
+      this.add.sprite(420, 0, 'spacest_pipe');
 
     },
 
