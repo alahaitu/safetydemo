@@ -32,7 +32,7 @@
       this.game.state.start('playroom');
     },
     creditStartClick: function() {
-      this.game.state.start('credit');
+      this.game.state.start('credits');
     }
   };
 module.exports = Playroom;

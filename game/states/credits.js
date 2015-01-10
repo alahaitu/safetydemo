@@ -1,6 +1,6 @@
 'use strict';
-  function Credit() {}
-  Credit.prototype = {
+  function Credits() {}
+  Credits.prototype = {
     preload: function() {},
     create: function() {
         this.credit_background = this.game.add.sprite(0, 0, 'creditscr_bg');
@@ -18,4 +18,4 @@
     shutdown: function() {
     }
   };
-module.exports = Credit;
+module.exports = Credits;

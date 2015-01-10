@@ -175,11 +175,9 @@ Preload.prototype = {
     this.load.audio('hihna_kiinni', 'assets/sounds/hihna_kiinni.wav');
     this.load.audio('hihna_kiinni_noniin', 'assets/sounds/hinha_kiinni_noniin.wav');
 
-    // Credit assets
+    // Credits assets
     this.load.image('creditscr_bg', 'assets/img/Credit/creditscr_bg.png');
     this.load.image('creditscr_exit', 'assets/img/Credit/creditscr_exit.png');
-
-
   },
   create: function() {
     this.music = this.add.audio('bg_music');
