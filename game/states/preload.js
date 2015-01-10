@@ -15,8 +15,8 @@ Preload.prototype = {
 
     // Placeholder assets
     //this.load.image('transparentRectangle', 'assets/img/EatingGame/rectangle_transparent.png');
-    this.load.audio('bg_music', 'assets/sounds/bg_music.mp3');
-    this.load.audio('bg_music', 'assets/sounds/tunnari-14-11-10.mp3');
+    //this.load.audio('bg_music', 'assets/sounds/bg_music.mp3');
+    this.load.audio('bg_music', 'assets/sounds/tunnari-14-11-10.wav');
 
     // Loading screen assets
     this.load.image('loading_bg', 'assets/img/LoadScreen/loadscreen_bg.png');
