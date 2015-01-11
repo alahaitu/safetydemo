@@ -8,6 +8,7 @@ window.onload = function () {
   // Game States
   game.state.add('beachScene', require('./states/beachScene'));
   game.state.add('boot', require('./states/boot'));
+  game.state.add('credits', require('./states/credits'));
   game.state.add('eating', require('./states/eating'));
   game.state.add('eatingGameWin', require('./states/eatingGameWin'));
   game.state.add('eatingScene', require('./states/eatingScene'));
@@ -27,7 +28,7 @@ window.onload = function () {
 
   game.state.start('boot');
 };
-},{"./states/beachScene":19,"./states/boot":20,"./states/eating":21,"./states/eatingGameWin":22,"./states/eatingScene":23,"./states/gameover":24,"./states/lifejacket":25,"./states/lifejacketWin":26,"./states/menu":27,"./states/play":28,"./states/playroom":29,"./states/preload":30,"./states/spaceScene":31,"./states/spaceStation":32,"./states/trampoline":33,"./states/trampolineCutscene":34,"./states/trampolineGameWin":35}],2:[function(require,module,exports){
+},{"./states/beachScene":19,"./states/boot":20,"./states/credits":21,"./states/eating":22,"./states/eatingGameWin":23,"./states/eatingScene":24,"./states/gameover":25,"./states/lifejacket":26,"./states/lifejacketWin":27,"./states/menu":28,"./states/play":29,"./states/playroom":30,"./states/preload":31,"./states/spaceScene":32,"./states/spaceStation":33,"./states/trampoline":34,"./states/trampolineCutscene":35,"./states/trampolineGameWin":36}],2:[function(require,module,exports){
 'use strict';
 
 var Alien = function(game, x, y, sprite, frame) {
@@ -599,8 +600,11 @@ function Boot() {
 
 Boot.prototype = {
   preload: function() {
-    //this.load.image('preloader', 'assets/preloader.gif');
-    this.load.image('preloader', 'assets/img/LoadScreen/loadscreen_bg.png');
+    this.load.image('preloader', 'assets/preloader.gif');
+   
+    // Loading screen assets
+    this.load.image('loading_bg', 'assets/img/LoadScreen/loadscreen_bg.png');
+    this.load.spritesheet('loading_alien', 'assets/img/LoadScreen/loadscreen_aliensprite.png', 260, 350, 4);
   },
   create: function() {
     //this.background = this.game.add.sprite(0, 0, 'preloader_bg');
@@ -612,6 +616,29 @@ Boot.prototype = {
 module.exports = Boot;
 
 },{}],21:[function(require,module,exports){
+'use strict';
+  function Credits() {}
+  Credits.prototype = {
+    preload: function() {},
+    create: function() {
+        this.credit_background = this.game.add.sprite(0, 0, 'creditscr_bg');
+        this.backButton = this.add.button(910, 30, 'creditscr_exit' , this.startPlayroom, this);
+    },
+    startPlayroom: function(){
+      this.game.state.start('playroom');
+    },
+    update: function() {
+    },
+    paused: function() {
+    },
+    render: function() {
+    },
+    shutdown: function() {
+    }
+  };
+module.exports = Credits;
+
+},{}],22:[function(require,module,exports){
 'use strict';
 var goodFood = require('../prefabs/goodFood');  
 var badFood = require('../prefabs/badFood');  
@@ -652,6 +679,13 @@ var flyingBadFoodGroup
         this.eatingSoundSurprised2 = this.add.audio('hammastys_2');
         this.eatingSoundSurprised3 = this.add.audio('hammastys_3');
         this.pickSound =  this.add.audio('picking_veggie');
+
+        // Stop the game intro narration
+        this.sound.remove(this.game.introNarration);
+
+        // Intro narration for eating
+        this.intro = this.add.audio('2_pikilla_nalka');
+        this.intro.play('',0,1,false);
         
         this.alien = new alien(this.game, 760, 300, 'rectangle_hitbox');
         this.game.add.existing(this.alien);
@@ -827,12 +861,15 @@ if (this.alienSprite.animations.currentAnim){
     },
 
     startPlayroom: function() {
-      this.game.state.start('playroom');
+    // Stop the intro narration
+    this.sound.remove(this.intro);
+
+    this.game.state.start('playroom');
     }
   };
 module.exports = Eating;
 
-},{"../prefabs/alien":2,"../prefabs/badFood":4,"../prefabs/goodFood":11,"../prefabs/table":18}],22:[function(require,module,exports){
+},{"../prefabs/alien":2,"../prefabs/badFood":4,"../prefabs/goodFood":11,"../prefabs/table":18}],23:[function(require,module,exports){
 'use strict';
   function EatingGameWin() {}
   EatingGameWin.prototype = {
@@ -843,11 +880,19 @@ module.exports = Eating;
     create: function() {
       this.add.sprite(0, 0, 'eating_game_win');
       this.applauseSound = this.add.audio('applause_sound');
-      this.game.time.events.add(Phaser.Timer.SECOND * 4, this.startPlayground, this);
       this.applauseSound.play();
+
+      this.winNarration = this.add.audio('5_piki_on_syonyt_tarpeeksi');
+
+      this.game.time.events.add(Phaser.Timer.SECOND * 4, this.startPlayground, this);
+      this.game.time.events.add(Phaser.Timer.SECOND * 1, this.startNarration, this);
     },
     startPlayground: function() {
       this.game.state.start('playroom');
+    },
+
+    startNarration: function() {
+      this.winNarration.play();
     },
 
     update: function() {
@@ -866,7 +911,7 @@ module.exports = Eating;
   };
 module.exports = EatingGameWin;
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 'use strict';
 var goodEatObject = require('../prefabs/goodEatObject');  
 var badEatObject = require('../prefabs/badEatObject');  
@@ -1012,7 +1057,7 @@ var lastSpawn = null;
   };
 module.exports = EatingScene;
 
-},{"../prefabs/alien":2,"../prefabs/badEatObject":3,"../prefabs/goodEatObject":10,"../prefabs/table":18}],24:[function(require,module,exports){
+},{"../prefabs/alien":2,"../prefabs/badEatObject":3,"../prefabs/goodEatObject":10,"../prefabs/table":18}],25:[function(require,module,exports){
 
 'use strict';
 function GameOver() {}
@@ -1040,7 +1085,7 @@ GameOver.prototype = {
 };
 module.exports = GameOver;
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 'use strict';
 var beachAlien = require('../prefabs/beachAlien');  
 var lifejacket = require('../prefabs/lifejacket');  
@@ -1065,10 +1110,18 @@ var startSmileCounter;
       startSmileCounter = false;
       lastScore = 0;
       this.game.physics.startSystem(Phaser.Physics.ARCADE);
+
       this.beachBg = this.game.add.sprite(0, 0, 'lifejack_bg');
       this.backButton = this.add.button(899, 23, 'exit_btn' , this.startPlayroom, this);
       this.strapSound1 = this.add.audio('hihna_kiinni');
       this.strapSound2 = this.add.audio('hihna_kiinni_noniin');
+      
+      // Stop the game intro narration
+      this.sound.remove(this.game.introNarration);
+
+      // Intro narration for eating
+      this.intro = this.add.audio('9_veneretkelle');
+      this.intro.play('',0,1,false);
 
       beachAlienGroup = this.game.add.group();
       lifejacketGroup = this.game.add.group();
@@ -1305,7 +1358,7 @@ var startSmileCounter;
   };
 module.exports = Lifejacket;
 
-},{"../prefabs/beachAlien":7,"../prefabs/lifejacket":13}],26:[function(require,module,exports){
+},{"../prefabs/beachAlien":7,"../prefabs/lifejacket":13}],27:[function(require,module,exports){
 'use strict';
   function LifejacketWin() {}
   LifejacketWin.prototype = {
@@ -1359,7 +1412,7 @@ module.exports = Lifejacket;
   };
 module.exports = LifejacketWin;
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 
 'use strict';
 function Menu() {}
@@ -1391,7 +1444,7 @@ Menu.prototype = {
 
 module.exports = Menu;
 
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 
   'use strict';
   function Play() {}
@@ -1418,7 +1471,7 @@ module.exports = Menu;
   };
   
   module.exports = Play;
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 'use strict';
   function Playroom() {}
   Playroom.prototype = {
@@ -1428,8 +1481,13 @@ module.exports = Menu;
       this.eatingSceneStartButton = this.game.add.button(676, 245, 'playr_button_eat', this.eatingSceneStartClick, this);
       this.beachSceneStartButton = this.game.add.button(210, 460, 'playr_button_duck', this.beachSceneStartClick, this);
       this.spaceSceneStartButton = this.game.add.button(750, 50, 'playr_button_space', this.spaceSceneStartClick, this);
-      //this.ball= this.game.add.button(835, 500, 'playr_button_ball', this.ballAnimationClick, this);
       this.plant = this.game.add.button(45, 160, 'playr_button_plant', this.plantAnimationClick, this);
+      this.creditStartButton = this.game.add.button(50, 570, 'playr_button_credits', this.creditStartClick, this);
+
+      this.alienWave = this.game.add.sprite(323,100, 'playr_sprite_wave');
+      this.alienWave.animations.add('wave');
+      this.alienWave.play('wave', 8, true);
+
     },
     eatingSceneStartClick: function() {
       this.game.state.start('eating');
@@ -1441,18 +1499,19 @@ module.exports = Menu;
       this.game.state.start('spaceStation');
     },
     plantAnimationClick: function() {
-      //this.game.state.start('spaceStation');
     },
     ballAnimationClick: function() {
-      //this.game.state.start('spaceScene');
     },
     startPlayroom: function() {
       this.game.state.start('playroom');
+    },
+    creditStartClick: function() {
+      this.game.state.start('credits');
     }
   };
 module.exports = Playroom;
 
-},{}],30:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 
 'use strict';
 function Preload() {
@@ -1462,20 +1521,22 @@ function Preload() {
 
 Preload.prototype = {
   preload: function() {
+    
     this.asset = this.add.sprite(this.width/2,this.height/2, 'preloader');
     this.asset.anchor.setTo(0.5, 0.5);
+
+    this.load_bg = this.game.add.sprite(0, 0, 'loading_bg');
+    this.load_alien = this.game.add.sprite(380, 220, 'loading_alien');
+    this.load_alien.animations.add('wavehand');
+    this.load_alien.play('wavehand', 4, true);
 
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     this.load.setPreloadSprite(this.asset);
 
     // Placeholder assets
     //this.load.image('transparentRectangle', 'assets/img/EatingGame/rectangle_transparent.png');
-    this.load.audio('bg_music', 'assets/sounds/bg_music.mp3');
-    this.load.audio('bg_music', 'assets/sounds/tunnari-14-11-10.mp3');
-
-    // Loading screen assets
-    this.load.image('loading_bg', 'assets/img/LoadScreen/loadscreen_bg.png');
-    this.load.spritesheet('loadscreen_aliensprite', 'assets/img/LoadScreen/loadscreen_aliensprite.png', 260, 350);
+    //this.load.audio('bg_music', 'assets/sounds/bg_music.mp3');
+    this.load.audio('bg_music', 'assets/sounds/tunnari-14-11-10.wav');
 
     // Shared assets
     this.load.image('exit_btn', 'assets/img/Shared/SpaceJump_home.png');
@@ -1492,6 +1553,9 @@ Preload.prototype = {
     this.load.image('playr_button_eat', 'assets/img/Playroom/playr_button_eat.png');
     this.load.image('playr_button_plant', 'assets/img/Playroom/playr_button_plant.png');
     this.load.image('playr_button_space', 'assets/img/Playroom/playr_button_space.png');    
+    this.load.image('playr_button_credits', 'assets/img/Playroom/playr_button_credits.png');    
+    this.load.spritesheet('playr_sprite_wave', 'assets/img/Playroom/playr_sprite_wave.png', 360, 480, 14);
+    this.load.spritesheet('playr_sprite_blink', 'assets/img/Playroom/playr_sprite_blink.png', 360, 480, 2);
 
     // Eating game assets
     this.load.image('eating_game_win', 'assets/img/EatingGame/kitchen_winscreen.png');
@@ -1627,12 +1691,34 @@ Preload.prototype = {
     this.load.audio('hihna_kiinni', 'assets/sounds/hihna_kiinni.wav');
     this.load.audio('hihna_kiinni_noniin', 'assets/sounds/hinha_kiinni_noniin.wav');
 
+    // Credits assets
+    this.load.image('creditscr_bg', 'assets/img/Credit/creditscr_bg.png');
+    this.load.image('creditscr_exit', 'assets/img/Credit/creditscr_exit.png');
 
+    // Narrations
+    this.load.audio('1_Intro', 'assets/sounds/1_Intro.wav');
+    this.load.audio('1_paljon_tekemista', 'assets/sounds/1_paljon_tekemista.wav');
+    this.load.audio('2_pikilla_nalka', 'assets/sounds/2_pikilla_nalka.wav');
+    this.load.audio('3A_hyi_pahaa', 'assets/sounds/3A_hyi_pahaa.wav');
+    this.load.audio('3B_hyi_pahaa2', 'assets/sounds/3B_hyi_pahaa2.wav');
+    this.load.audio('4_nam', 'assets/sounds/4_nam.wav');
+    this.load.audio('5_piki_on_syonyt_tarpeeksi', 'assets/sounds/5_piki_on_syonyt_tarpeeksi.wav');
+    this.load.audio('6_jotain_sopimatonta', 'assets/sounds/6_jotain_sopimatonta.wav');
+    this.load.audio('7_pyoraretkelle', 'assets/sounds/7_pyoraretkelle.wav');
+    this.load.audio('8_auu1', 'assets/sounds/8_auu1.wav');
+    this.load.audio('9_veneretkelle', 'assets/sounds/9_veneretkelle.wav');
+    this.load.audio('10_liian_iso', 'assets/sounds/10_liian_iso.wav');
+    this.load.audio('11_liian_pieni', 'assets/sounds/11_liian_pieni.wav');
+    this.load.audio('12_oikea_koko', 'assets/sounds/12_oikea_koko.wav');
+    this.load.audio('13_mita_viela', 'assets/sounds/13_mita_viela.wav');
   },
   create: function() {
     this.music = this.add.audio('bg_music');
     this.music.play('',0,1,true);
     this.asset.cropEnabled = false;
+
+    this.game.introNarration = this.add.audio('1_Intro');
+    this.game.introNarration.play('',0,1,false);
   },
   update: function() {
     if(!!this.ready) {
@@ -1646,7 +1732,7 @@ Preload.prototype = {
 
 module.exports = Preload;
 
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 'use strict';
 var spaceAlien = require('../prefabs/spaceAlien');  
 var reflector = require('../prefabs/reflector');
@@ -1679,7 +1765,6 @@ var jumpSoundPlaying = false;
       this.collisionSound2 = this.add.audio('sattuu_2');
       this.collisionSound3 = this.add.audio('sattuu_3');
       this.jumpSound = this.add.audio('suihkumoottori');
-
       
       this.bg = this.game.add.tileSprite(0, 0, 1024, 688, 'spacerun_bg');
       this.bg.autoScroll(-2,0);
@@ -1872,7 +1957,7 @@ var jumpSoundPlaying = false;
   };
 module.exports = SpaceScene;
 
-},{"../prefabs/badSpaceObject":5,"../prefabs/reflector":15,"../prefabs/spaceAlien":16}],32:[function(require,module,exports){
+},{"../prefabs/badSpaceObject":5,"../prefabs/reflector":15,"../prefabs/spaceAlien":16}],33:[function(require,module,exports){
 'use strict';
 var stationAlien = require('../prefabs/stationAlien');  
 var goodStationObject = require('../prefabs/goodStationObject');
@@ -1893,6 +1978,10 @@ var soundCooldown = 0;
       this.game.sound.stopAll();
       this.music = this.add.audio('avaruusbiisi');
       this.music.play('',0,1,true);
+
+      // Intro narration for spaceStation
+      this.intro = this.add.audio('7_pyoraretkelle');
+      this.intro.play('',0,1,false);
 
       state = 0;
       soundCooldown = 0;
@@ -2171,7 +2260,7 @@ var soundCooldown = 0;
   };
 module.exports = SpaceStation;
 
-},{"../prefabs/badStationObject":6,"../prefabs/floor":9,"../prefabs/goodStationObject":12,"../prefabs/stationAlien":17}],33:[function(require,module,exports){
+},{"../prefabs/badStationObject":6,"../prefabs/floor":9,"../prefabs/goodStationObject":12,"../prefabs/stationAlien":17}],34:[function(require,module,exports){
 'use strict';
   function Trampoline() {}
   Trampoline.prototype = {
@@ -2286,7 +2375,7 @@ module.exports = SpaceStation;
   };
 module.exports = Trampoline;
 
-},{}],34:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 'use strict';
   function TrampolineCutscene() {}
   TrampolineCutscene.prototype = {
@@ -2315,7 +2404,7 @@ module.exports = Trampoline;
   };
 module.exports = TrampolineCutscene;
 
-},{}],35:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 'use strict';
   function TrampolineGameWin() {}
   TrampolineGameWin.prototype = {

@@ -3,7 +3,8 @@ body {
 }
 
 #safety-demo {
-  border: 2px solid white;
+  margin-top: -8px;
+  border: 0px;
   width: 1024px;
   margin-left: auto;
   margin-right: auto;
