@@ -265,6 +265,8 @@ var startSmileCounter;
       // Put render operations here.
     },
     startPlayroom: function() {
+      // Stop the intro narration
+      this.sound.remove(this.intro);
       this.game.state.start('playroom');
     }
   };
