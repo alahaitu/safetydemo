@@ -22,10 +22,18 @@ var startSmileCounter;
       startSmileCounter = false;
       lastScore = 0;
       this.game.physics.startSystem(Phaser.Physics.ARCADE);
+
       this.beachBg = this.game.add.sprite(0, 0, 'lifejack_bg');
       this.backButton = this.add.button(899, 23, 'exit_btn' , this.startPlayroom, this);
       this.strapSound1 = this.add.audio('hihna_kiinni');
       this.strapSound2 = this.add.audio('hihna_kiinni_noniin');
+      
+      // Stop the game intro narration
+      this.sound.remove(this.game.introNarration);
+
+      // Intro narration for eating
+      this.intro = this.add.audio('9_veneretkelle');
+      this.intro.play('',0,1,false);
 
       beachAlienGroup = this.game.add.group();
       lifejacketGroup = this.game.add.group();

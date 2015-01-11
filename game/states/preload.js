@@ -178,11 +178,31 @@ Preload.prototype = {
     // Credits assets
     this.load.image('creditscr_bg', 'assets/img/Credit/creditscr_bg.png');
     this.load.image('creditscr_exit', 'assets/img/Credit/creditscr_exit.png');
+
+    // Narrations
+    this.load.audio('1_Intro', 'assets/sounds/1_Intro.wav');
+    this.load.audio('1_paljon_tekemista', 'assets/sounds/1_paljon_tekemista.wav');
+    this.load.audio('2_pikilla_nalka', 'assets/sounds/2_pikilla_nalka.wav');
+    this.load.audio('3A_hyi_pahaa', 'assets/sounds/3A_hyi_pahaa.wav');
+    this.load.audio('3B_hyi_pahaa2', 'assets/sounds/3B_hyi_pahaa2.wav');
+    this.load.audio('4_nam', 'assets/sounds/4_nam.wav');
+    this.load.audio('5_piki_on_syonyt_tarpeeksi', 'assets/sounds/5_piki_on_syonyt_tarpeeksi.wav');
+    this.load.audio('6_jotain_sopimatonta', 'assets/sounds/6_jotain_sopimatonta.wav');
+    this.load.audio('7_pyoraretkelle', 'assets/sounds/7_pyoraretkelle.wav');
+    this.load.audio('8_auu1', 'assets/sounds/8_auu1.wav');
+    this.load.audio('9_veneretkelle', 'assets/sounds/9_veneretkelle.wav');
+    this.load.audio('10_liian_iso', 'assets/sounds/10_liian_iso.wav');
+    this.load.audio('11_liian_pieni', 'assets/sounds/11_liian_pieni.wav');
+    this.load.audio('12_oikea_koko', 'assets/sounds/12_oikea_koko.wav');
+    this.load.audio('13_mita_viela', 'assets/sounds/13_mita_viela.wav');
   },
   create: function() {
     this.music = this.add.audio('bg_music');
     this.music.play('',0,1,true);
     this.asset.cropEnabled = false;
+
+    this.game.introNarration = this.add.audio('1_Intro');
+    this.game.introNarration.play('',0,1,false);
   },
   update: function() {
     if(!!this.ready) {

@@ -30,7 +30,6 @@ var jumpSoundPlaying = false;
       this.collisionSound2 = this.add.audio('sattuu_2');
       this.collisionSound3 = this.add.audio('sattuu_3');
       this.jumpSound = this.add.audio('suihkumoottori');
-
       
       this.bg = this.game.add.tileSprite(0, 0, 1024, 688, 'spacerun_bg');
       this.bg.autoScroll(-2,0);

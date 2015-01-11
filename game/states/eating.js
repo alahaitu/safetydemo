@@ -38,6 +38,13 @@ var flyingBadFoodGroup
         this.eatingSoundSurprised2 = this.add.audio('hammastys_2');
         this.eatingSoundSurprised3 = this.add.audio('hammastys_3');
         this.pickSound =  this.add.audio('picking_veggie');
+
+        // Stop the game intro narration
+        this.sound.remove(this.game.introNarration);
+
+        // Intro narration for eating
+        this.intro = this.add.audio('2_pikilla_nalka');
+        this.intro.play('',0,1,false);
         
         this.alien = new alien(this.game, 760, 300, 'rectangle_hitbox');
         this.game.add.existing(this.alien);
@@ -213,7 +220,10 @@ if (this.alienSprite.animations.currentAnim){
     },
 
     startPlayroom: function() {
-      this.game.state.start('playroom');
+    // Stop the intro narration
+    this.sound.remove(this.intro);
+
+    this.game.state.start('playroom');
     }
   };
 module.exports = Eating;

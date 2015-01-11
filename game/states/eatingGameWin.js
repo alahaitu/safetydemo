@@ -8,11 +8,19 @@
     create: function() {
       this.add.sprite(0, 0, 'eating_game_win');
       this.applauseSound = this.add.audio('applause_sound');
-      this.game.time.events.add(Phaser.Timer.SECOND * 4, this.startPlayground, this);
       this.applauseSound.play();
+
+      this.winNarration = this.add.audio('5_piki_on_syonyt_tarpeeksi');
+
+      this.game.time.events.add(Phaser.Timer.SECOND * 4, this.startPlayground, this);
+      this.game.time.events.add(Phaser.Timer.SECOND * 1, this.startNarration, this);
     },
     startPlayground: function() {
       this.game.state.start('playroom');
+    },
+
+    startNarration: function() {
+      this.winNarration.play();
     },
 
     update: function() {

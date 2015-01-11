@@ -19,6 +19,10 @@ var soundCooldown = 0;
       this.music = this.add.audio('avaruusbiisi');
       this.music.play('',0,1,true);
 
+      // Intro narration for spaceStation
+      this.intro = this.add.audio('7_pyoraretkelle');
+      this.intro.play('',0,1,false);
+
       state = 0;
       soundCooldown = 0;
       this.game.physics.startSystem(Phaser.Physics.ARCADE);
