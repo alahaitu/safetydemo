@@ -15,8 +15,8 @@ Preload.prototype = {
 
     // Placeholder assets
     //this.load.image('transparentRectangle', 'assets/img/EatingGame/rectangle_transparent.png');
-    this.load.audio('bg_music', 'assets/sounds/bg_music.mp3');
-    this.load.audio('bg_music', 'assets/sounds/tunnari-14-11-10.mp3');
+    //this.load.audio('bg_music', 'assets/sounds/bg_music.mp3');
+    this.load.audio('bg_music', 'assets/sounds/tunnari-14-11-10.wav');
 
     // Loading screen assets
     this.load.image('loading_bg', 'assets/img/LoadScreen/loadscreen_bg.png');
@@ -37,6 +37,9 @@ Preload.prototype = {
     this.load.image('playr_button_eat', 'assets/img/Playroom/playr_button_eat.png');
     this.load.image('playr_button_plant', 'assets/img/Playroom/playr_button_plant.png');
     this.load.image('playr_button_space', 'assets/img/Playroom/playr_button_space.png');    
+    this.load.image('playr_button_credits', 'assets/img/Playroom/playr_button_credits.png');    
+    this.load.spritesheet('playr_sprite_wave', 'assets/img/Playroom/playr_sprite_wave.png', 360, 480, 14);
+    this.load.spritesheet('playr_sprite_blink', 'assets/img/Playroom/playr_sprite_blink.png', 360, 480, 2);
 
     // Eating game assets
     this.load.image('eating_game_win', 'assets/img/EatingGame/kitchen_winscreen.png');
@@ -172,7 +175,9 @@ Preload.prototype = {
     this.load.audio('hihna_kiinni', 'assets/sounds/hihna_kiinni.wav');
     this.load.audio('hihna_kiinni_noniin', 'assets/sounds/hinha_kiinni_noniin.wav');
 
-
+    // Credits assets
+    this.load.image('creditscr_bg', 'assets/img/Credit/creditscr_bg.png');
+    this.load.image('creditscr_exit', 'assets/img/Credit/creditscr_exit.png');
   },
   create: function() {
     this.music = this.add.audio('bg_music');
