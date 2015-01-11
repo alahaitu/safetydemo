@@ -40,7 +40,7 @@ Preload.prototype = {
     this.load.image('playr_button_plant', 'assets/img/Playroom/playr_button_plant.png');
     this.load.image('playr_button_space', 'assets/img/Playroom/playr_button_space.png');    
     this.load.image('playr_button_credits', 'assets/img/Playroom/playr_button_credits.png');    
-    this.load.spritesheet('playr_sprite_wave', 'assets/img/Playroom/playr_sprite_wave2.png', 360, 480, 14);
+    this.load.spritesheet('playr_sprite_wave', 'assets/img/Playroom/playr_sprite_wave.png', 360, 480, 14);
     this.load.spritesheet('playr_sprite_blink', 'assets/img/Playroom/playr_sprite_blink.png', 360, 480, 2);
 
     // Eating game assets
