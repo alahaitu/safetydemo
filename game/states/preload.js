@@ -7,8 +7,14 @@ function Preload() {
 
 Preload.prototype = {
   preload: function() {
+    
     this.asset = this.add.sprite(this.width/2,this.height/2, 'preloader');
     this.asset.anchor.setTo(0.5, 0.5);
+
+    this.load_bg = this.game.add.sprite(0, 0, 'loading_bg');
+    this.load_alien = this.game.add.sprite(380, 220, 'loading_alien');
+    this.load_alien.animations.add('wavehand');
+    this.load_alien.play('wavehand', 4, true);
 
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     this.load.setPreloadSprite(this.asset);
@@ -17,10 +23,6 @@ Preload.prototype = {
     //this.load.image('transparentRectangle', 'assets/img/EatingGame/rectangle_transparent.png');
     //this.load.audio('bg_music', 'assets/sounds/bg_music.mp3');
     this.load.audio('bg_music', 'assets/sounds/tunnari-14-11-10.wav');
-
-    // Loading screen assets
-    this.load.image('loading_bg', 'assets/img/LoadScreen/loadscreen_bg.png');
-    this.load.spritesheet('loadscreen_aliensprite', 'assets/img/LoadScreen/loadscreen_aliensprite.png', 260, 350);
 
     // Shared assets
     this.load.image('exit_btn', 'assets/img/Shared/SpaceJump_home.png');
