@@ -34,7 +34,6 @@ Preload.prototype = {
 
     // Playroom assets
     this.load.image('playroom_bg', 'assets/img/Playroom/playr_bg.png');
-    this.load.image('playr_button_ball', 'assets/img/Playroom/playr_button_ball.png');
     this.load.image('playr_button_duck', 'assets/img/Playroom/playr_button_duck.png');
     this.load.image('playr_button_eat', 'assets/img/Playroom/playr_button_eat.png');
     this.load.image('playr_button_plant', 'assets/img/Playroom/playr_button_plant.png');
@@ -58,7 +57,6 @@ Preload.prototype = {
     this.load.audio('hammastys_2', 'assets/sounds/hammastys_2.wav');
     this.load.audio('hammastys_3', 'assets/sounds/hammastys_3.wav');
     this.load.image('rectangle_hitbox', 'assets/img/EatingGame/rectangle_hitbox.png');
-    this.load.audio('picking_veggie', 'assets/sounds/picking_veggie.wav');
     
     // Good food
     this.load.spritesheet('eating_alien_gf', 'assets/img/EatingGame/EatingGame_goodfood.png', 490.42857142857, 500, 7); //383, 530);
@@ -158,20 +156,10 @@ Preload.prototype = {
 
     // Narrations
     this.load.audio('1_Intro', 'assets/sounds/1_Intro.wav');
-    this.load.audio('1_paljon_tekemista', 'assets/sounds/1_paljon_tekemista.wav');
     this.load.audio('2_pikilla_nalka', 'assets/sounds/2_pikilla_nalka.wav');
-    this.load.audio('3A_hyi_pahaa', 'assets/sounds/3A_hyi_pahaa.wav');
-    this.load.audio('3B_hyi_pahaa2', 'assets/sounds/3B_hyi_pahaa2.wav');
-    this.load.audio('4_nam', 'assets/sounds/4_nam.wav');
     this.load.audio('5_piki_on_syonyt_tarpeeksi', 'assets/sounds/5_piki_on_syonyt_tarpeeksi.wav');
-    this.load.audio('6_jotain_sopimatonta', 'assets/sounds/6_jotain_sopimatonta.wav');
     this.load.audio('7_pyoraretkelle', 'assets/sounds/7_pyoraretkelle.wav');
-    this.load.audio('8_auu1', 'assets/sounds/8_auu1.wav');
     this.load.audio('9_veneretkelle', 'assets/sounds/9_veneretkelle.wav');
-    this.load.audio('10_liian_iso', 'assets/sounds/10_liian_iso.wav');
-    this.load.audio('11_liian_pieni', 'assets/sounds/11_liian_pieni.wav');
-    this.load.audio('12_oikea_koko', 'assets/sounds/12_oikea_koko.wav');
-    this.load.audio('13_mita_viela', 'assets/sounds/13_mita_viela.wav');
   },
   create: function() {
     this.music = this.add.audio('bg_music');
