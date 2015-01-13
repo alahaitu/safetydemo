@@ -660,7 +660,7 @@ var flyingBadFoodGroup
 
         // Graphics
         this.eating_background = this.game.add.sprite(0, 0, 'eating_bg');
-        this.alienSprite = this.game.add.sprite(560,80, 'eating_alien_gf');
+        this.alienSprite = this.game.add.sprite(530,80, 'eating_alien_gf');
         this.alienSprite.animations.add('eat');
         this.table = new table(this.game, 0, 492, 'eating_table');
         this.game.add.existing(this.table);
@@ -1353,6 +1353,8 @@ var startSmileCounter;
       // Put render operations here.
     },
     startPlayroom: function() {
+      // Stop the intro narration
+      this.sound.remove(this.intro);
       this.game.state.start('playroom');
     }
   };
@@ -1555,7 +1557,6 @@ Preload.prototype = {
     this.load.image('playr_button_space', 'assets/img/Playroom/playr_button_space.png');    
     this.load.image('playr_button_credits', 'assets/img/Playroom/playr_button_credits.png');    
     this.load.spritesheet('playr_sprite_wave', 'assets/img/Playroom/playr_sprite_wave.png', 360, 480, 14);
-    this.load.spritesheet('playr_sprite_blink', 'assets/img/Playroom/playr_sprite_blink.png', 360, 480, 2);
 
     // Eating game assets
     this.load.image('eating_game_win', 'assets/img/EatingGame/kitchen_winscreen.png');
@@ -1575,9 +1576,8 @@ Preload.prototype = {
     this.load.image('rectangle_hitbox', 'assets/img/EatingGame/rectangle_hitbox.png');
     this.load.audio('picking_veggie', 'assets/sounds/picking_veggie.wav');
     
-
     // Good food
-    this.load.spritesheet('eating_alien_gf', 'assets/img/EatingGame/EatingGame_good_food_smap.png', 383, 530);
+    this.load.spritesheet('eating_alien_gf', 'assets/img/EatingGame/EatingGame_goodfood.png', 490.42857142857, 500, 7); //383, 530);
     this.load.image('eating_g1', 'assets/img/EatingGame/EatingGame_1.png');
     this.load.image('eating_g2', 'assets/img/EatingGame/EatingGame_2.png');
     this.load.image('eating_g3', 'assets/img/EatingGame/EatingGame_3.png');
@@ -1588,7 +1588,7 @@ Preload.prototype = {
     this.load.image('eating_g8', 'assets/img/EatingGame/EatingGame_8.png');    
 
     // Bad good
-    this.load.spritesheet('eating_alien_bf', 'assets/img/EatingGame/EatingGame_bad_food_smap.png', 435, 530, 3);
+    this.load.spritesheet('eating_alien_bf', 'assets/img/EatingGame/EatingGame_badfood.png', 492, 500, 9); // 435, 530, 3);
     this.load.image('eating_b1', 'assets/img/EatingGame/EatingGame_X1.png');
     this.load.image('eating_b2', 'assets/img/EatingGame/EatingGame_X2.png');
     this.load.image('eating_b3', 'assets/img/EatingGame/EatingGame_X3.png');
