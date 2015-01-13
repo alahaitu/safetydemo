@@ -19,7 +19,7 @@ var flyingBadFoodGroup
 
         // Graphics
         this.eating_background = this.game.add.sprite(0, 0, 'eating_bg');
-        this.alienSprite = this.game.add.sprite(530,80, 'eating_alien_gf');
+        this.alienSprite = this.game.add.sprite(525,92, 'eating_alien_gf');
         this.alienSprite.animations.add('eat');
         this.table = new table(this.game, 0, 492, 'eating_table');
         this.game.add.existing(this.table);
@@ -61,14 +61,6 @@ var flyingBadFoodGroup
     },
     update: function() {
 
-/*
-if (this.alienSprite.animations.currentAnim){
-      if (this.alienSprite.animations.currentAnim.isFinished){
-      console.log(this.alienSprite.animations.currentAnim.frame);
-    }
-  }*/
-
-    // Fly objects into the mouth
     flyingGoodFoodGroup.forEach(function(food){
       this.goodFly(food);
       this.game.physics.arcade.overlap(food, this.alien, this.goodCollision, null, this);
@@ -80,11 +72,10 @@ if (this.alienSprite.animations.currentAnim){
      }, this);
 
       if (score > 7) {
-       this.game.state.start('eatingGameWin');
+        this.game.time.events.add(Phaser.Timer.SECOND * 1, this.startWinScreen, this);
+        score = 0;
       }
     },
-
-
 
     goodFly: function(food){
       if (food != undefined){
@@ -108,7 +99,6 @@ if (this.alienSprite.animations.currentAnim){
           }
         }
       }
-
     },
 
     badFly: function(food){
@@ -217,6 +207,9 @@ if (this.alienSprite.animations.currentAnim){
     },
     addBadFlying: function(food){
        flyingBadFoodGroup.add(food);
+    },
+    startWinScreen: function() {
+       this.game.state.start('eatingGameWin');
     },
 
     startPlayroom: function() {
