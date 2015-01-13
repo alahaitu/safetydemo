@@ -80,25 +80,6 @@ Preload.prototype = {
     this.load.image('eating_b5', 'assets/img/EatingGame/EatingGame_X5.png');
     this.load.image('eating_b6', 'assets/img/EatingGame/EatingGame_X6.png');
 
-    // Trampoline game assets
- 
-    this.load.image('trampoline_game_bg', 'assets/img//Trampoline/SpaceJump_bg.png');
-    this.load.image('trampoline_game_alien', 'assets/img/Trampoline/SpaceJump_alien.png');
-    this.load.image('trampoline_game_bee', 'assets/img/Trampoline/TrampolineG_Bee.png');
-    this.load.image('trampoline_game_bear_ref', 'assets/img/Trampoline/SpaceJump_ref1.png');
-    this.load.image('trampoline_game_heart_ref', 'assets/img/Trampoline/SpaceJump_ref2.png');
-    this.load.image('trampoline_game_two_ref', 'assets/img/Trampoline/SpaceJump_ref3.png');
-    this.load.image('trampoline_game_dog_ref', 'assets/img/Trampoline/SpaceJump_ref4.png');
-    this.load.image('trampoline_game_star_ref', 'assets/img/Trampoline/SpaceJump_ref5.png');
-    this.load.image('trampoline_game_jump_button', 'assets/img/Trampoline/TrampolineG_JumpButton.png');  
-    //this.load.audio('bee_sound', 'assets/sounds/Tukes_bee_sfx.mp3');
-    this.load.image('trampoline_game_win', 'assets/img/Trampoline/SpJumpWin_bg.png');
-    this.load.image('trampoline_game_win_alien', 'assets/img/Trampoline/SpJumpWin_alien.png');
-    this.load.spritesheet('trampoline_game_win_glow', 'assets/img/Trampoline/SpJumpWin_sprite.png', 670, 688, 2);
-    this.load.image('trampoline_rbutton', 'assets/img/Trampoline/TrampolineG_RightButton.png');
-    this.load.image('trampoline_lbutton', 'assets/img/Trampoline/TrampolineG_LeftButton.png');
-    this.load.image('reflectors_icon', 'assets/img/Trampoline/SpaceJump_iconref.png');
-
     // Beach game assets
     this.load.image('beach_bg', 'assets/img/BeachGame/LifeSaver_bg.png');
     this.load.image('beach_lsaver', 'assets/img/BeachGame/LifeSaver_orangething.png');
@@ -127,7 +108,6 @@ Preload.prototype = {
     this.load.audio('jee', 'assets/sounds/jee.wav');
     this.load.audio('noniin', 'assets/sounds/noniin.wav');
 
-
     // Space run assets
     this.load.image('spacerun_alien', 'assets/img/SpaceRun/spacerun_alien.png');
     this.load.image('spacerun_bg', 'assets/img/SpaceRun/spacerun_bg.png');
@@ -155,8 +135,6 @@ Preload.prototype = {
     this.load.audio('avaruusbiisi', 'assets/sounds/avaruusbiisi.wav');
     this.load.audio('heijastin', 'assets/sounds/heijastin.wav');
     this.load.image('spacerun_alien_hitbox', 'assets/img/SpaceRun/spacerun_alien_hitbox.png');
-
-
     this.load.image('spacerun_ground', 'assets/img/SpaceRun/spacerun_ground.png');
 
     // Lifejacket game assets
@@ -171,7 +149,6 @@ Preload.prototype = {
     this.load.image('lifejacket_wave1', 'assets/img/LifeJacket/lifejacket_wave1.png');
     this.load.image('lifejacket_wave2', 'assets/img/LifeJacket/lifejacket_wave2.png');
     this.load.image('lifejack_boat', 'assets/img/LifeJacket/lifejack_boat-02.png');
-
     this.load.audio('hihna_kiinni', 'assets/sounds/hihna_kiinni.wav');
     this.load.audio('hihna_kiinni_noniin', 'assets/sounds/hinha_kiinni_noniin.wav');
 

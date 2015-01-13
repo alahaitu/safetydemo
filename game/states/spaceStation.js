@@ -11,8 +11,6 @@ var soundCooldown = 0;
   function SpaceStation() {}
   SpaceStation.prototype = {
     preload: function() {
-      // Override this method to add some load operations. 
-      // If you need to use the loader, you may need to use them here.
     },
     create: function() {
       this.game.sound.stopAll();

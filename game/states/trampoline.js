@@ -1,6 +1,23 @@
 'use strict';
   function Trampoline() {}
   Trampoline.prototype = {
+    preload: function(){
+      this.load.image('trampoline_game_bg', 'assets/img//Trampoline/SpaceJump_bg.png');
+      this.load.image('trampoline_game_alien', 'assets/img/Trampoline/SpaceJump_alien.png');
+      this.load.image('trampoline_game_bee', 'assets/img/Trampoline/TrampolineG_Bee.png');
+      this.load.image('trampoline_game_bear_ref', 'assets/img/Trampoline/SpaceJump_ref1.png');
+      this.load.image('trampoline_game_heart_ref', 'assets/img/Trampoline/SpaceJump_ref2.png');
+      this.load.image('trampoline_game_two_ref', 'assets/img/Trampoline/SpaceJump_ref3.png');
+      this.load.image('trampoline_game_dog_ref', 'assets/img/Trampoline/SpaceJump_ref4.png');
+      this.load.image('trampoline_game_star_ref', 'assets/img/Trampoline/SpaceJump_ref5.png');
+      this.load.image('trampoline_game_jump_button', 'assets/img/Trampoline/TrampolineG_JumpButton.png');  
+      this.load.image('trampoline_game_win', 'assets/img/Trampoline/SpJumpWin_bg.png');
+      this.load.image('trampoline_game_win_alien', 'assets/img/Trampoline/SpJumpWin_alien.png');
+      this.load.spritesheet('trampoline_game_win_glow', 'assets/img/Trampoline/SpJumpWin_sprite.png', 670, 688, 2);
+      this.load.image('trampoline_rbutton', 'assets/img/Trampoline/TrampolineG_RightButton.png');
+      this.load.image('trampoline_lbutton', 'assets/img/Trampoline/TrampolineG_LeftButton.png');
+      this.load.image('reflectors_icon', 'assets/img/Trampoline/SpaceJump_iconref.png');
+    },
     create: function() {
       this.add.sprite(0, 0, 'trampoline_game_bg');
       this.bear_ref = this.add.sprite(400, 140, 'trampoline_game_bear_ref');
