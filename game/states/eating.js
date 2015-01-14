@@ -19,7 +19,7 @@ var flyingBadFoodGroup
 
         // Graphics
         this.eating_background = this.game.add.sprite(0, 0, 'eating_bg');
-        this.alienSprite = this.game.add.sprite(525,92, 'eating_alien_gf');
+        this.alienSprite = this.game.add.sprite(560,80, 'eating_alien_gf');
         this.alienSprite.animations.add('eat');
         this.table = new table(this.game, 0, 492, 'eating_table');
         this.game.add.existing(this.table);
