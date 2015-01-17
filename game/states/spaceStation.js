@@ -281,9 +281,11 @@ var soundCooldown = 0;
     },
     disableGoodObjectGravity: function(goodStationObject) {
         goodStationObject.body.allowGravity = false;
+        goodStationObject.body.velocity.y = 0;
     },
     disableBadObjectGravity: function(badStationObject) {
         badStationObject.body.allowGravity = false;
+        badStationObject.body.velocity.y = 0;
     },
     enableGoodObjectGravity: function(goodStationObject) {
       goodStationObject.body.allowGravity = true;
