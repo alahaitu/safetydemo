@@ -19,18 +19,11 @@ Preload.prototype = {
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     this.load.setPreloadSprite(this.asset);
 
-    // Placeholder assets
-    //this.load.image('transparentRectangle', 'assets/img/EatingGame/rectangle_transparent.png');
-    //this.load.audio('bg_music', 'assets/sounds/bg_music.mp3');
-    this.load.audio('bg_music', 'assets/sounds/tunnari-14-11-10.wav');
 
     // Shared assets
     this.load.image('exit_btn', 'assets/img/Shared/SpaceJump_home.png');
-    this.load.image('score_meter', 'assets/img/Shared/VeggieP_ScoreMeter.png');
-    this.load.image('score_pointer', 'assets/img/Shared/VeggieP_ScorePointer.png');
-    this.load.image('score_basket', 'assets/img/Shared/TrampolineG_ScoreBasket.png');
-    this.load.audio('helmet_on_sound', 'assets/sounds/helmet_on.wav');
     this.load.audio('applause_sound', 'assets/sounds/applause.wav');
+    this.load.audio('bg_music', 'assets/sounds/tunnari-14-11-10.wav');
 
     // Playroom assets
     this.load.image('playroom_bg', 'assets/img/Playroom/playr_bg.png');
@@ -53,9 +46,6 @@ Preload.prototype = {
     this.load.audio('hyi_1', 'assets/sounds/hyi_1.wav');
     this.load.audio('hyi_2', 'assets/sounds/hyi_2.wav');
     this.load.audio('hyi_3', 'assets/sounds/hyi_3.wav');
-    this.load.audio('hammastys_1', 'assets/sounds/hammastys_1.wav');
-    this.load.audio('hammastys_2', 'assets/sounds/hammastys_2.wav');
-    this.load.audio('hammastys_3', 'assets/sounds/hammastys_3.wav');
     this.load.image('rectangle_hitbox', 'assets/img/EatingGame/rectangle_hitbox.png');
     
     // Good food
@@ -77,14 +67,6 @@ Preload.prototype = {
     this.load.image('eating_b4', 'assets/img/EatingGame/EatingGame_X4.png');
     this.load.image('eating_b5', 'assets/img/EatingGame/EatingGame_X5.png');
     this.load.image('eating_b6', 'assets/img/EatingGame/EatingGame_X6.png');
-
-    // Beach game assets
-    this.load.image('beach_bg', 'assets/img/BeachGame/LifeSaver_bg.png');
-    this.load.image('beach_lsaver', 'assets/img/BeachGame/LifeSaver_orangething.png');
-    this.load.image('beach_alien1', 'assets/img/BeachGame/LifeSaver_bluealien.png');
-    this.load.image('beach_alien1_saver', 'assets/img/BeachGame/LifeSaver_bluealien_wear.png');
-    this.load.image('beach_alien2', 'assets/img/BeachGame/LifeSaver_pinkalien.png');
-    this.load.image('beach_alien2_saver', 'assets/img/BeachGame/LifeSaver_pinkalien_wear.png');
 
     // Space station assets
     this.load.spritesheet('spacest_alien', 'assets/img/SpaceStation/spacest_sprite.png', 350, 460, 10);
@@ -134,6 +116,8 @@ Preload.prototype = {
     this.load.audio('heijastin', 'assets/sounds/heijastin.wav');
     this.load.image('spacerun_alien_hitbox', 'assets/img/SpaceRun/spacerun_alien_hitbox.png');
     this.load.image('spacerun_ground', 'assets/img/SpaceRun/spacerun_ground.png');
+    this.load.image('spacerun_win_alien', 'assets/img/SpaceRun/spacerun_win_alien.png');
+    this.load.image('spacerun_win_bg', 'assets/img/SpaceRun/spacerun_win_bg.png');
 
     // Lifejacket game assets
     this.load.spritesheet('lifejack_alien1', 'assets/img/LifeJacket/lifejack_alien1.png', 220, 450, 6);

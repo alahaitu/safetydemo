@@ -198,11 +198,8 @@ var jumpSoundPlaying = false;
           jumpSoundPlaying = false;
           this.game.state.start('playroom');
 
-          this.game.state.start('trampolineGameWin');
+          this.game.state.start('spaceRunWin');
          }
-
-
-
     },
     paused: function() {
     },

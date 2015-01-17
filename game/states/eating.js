@@ -34,10 +34,6 @@ var flyingBadFoodGroup
         this.eatingSoundBad1 = this.add.audio('hyi_1');
         this.eatingSoundBad2 = this.add.audio('hyi_2');
         this.eatingSoundBad3 = this.add.audio('hyi_3');
-        this.eatingSoundSurprised1 = this.add.audio('hammastys_1');
-        this.eatingSoundSurprised2 = this.add.audio('hammastys_2');
-        this.eatingSoundSurprised3 = this.add.audio('hammastys_3');
-        this.pickSound =  this.add.audio('picking_veggie');
 
         // Stop the game intro narration
         this.sound.remove(this.game.introNarration);
