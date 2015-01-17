@@ -118,6 +118,8 @@ var soundCooldown = 0;
           }
             this.badStationObject.inputEnabled = true;
             this.badStationObject.input.enableDrag(true);
+            this.badStationObject.events.onDragStart.add(this.disableBadObjectGravity, this);
+            this.badStationObject.events.onDragStop.add(this.enableBadObjectGravity, this);
 
             badObjectGroup.add(this.badStationObject);
         }
@@ -151,6 +153,8 @@ var soundCooldown = 0;
           this.game.add.existing(this.goodStationObject);
           this.goodStationObject.inputEnabled = true;
           this.goodStationObject.input.enableDrag(true);
+          this.goodStationObject.events.onDragStart.add(this.disableGoodObjectGravity, this);
+          this.goodStationObject.events.onDragStop.add(this.enableGoodObjectGravity, this);
 
           var rand = this.game.rnd.integerInRange(1, 2);
 
@@ -275,15 +279,23 @@ var soundCooldown = 0;
     spaceSceneInstruction: function() {
       this.add.sprite(0, 0, 'spacerun_instruction');
     },
+    disableGoodObjectGravity: function(goodStationObject) {
+        goodStationObject.body.allowGravity = false;
+    },
+    disableBadObjectGravity: function(badStationObject) {
+        badStationObject.body.allowGravity = false;
+    },
+    enableGoodObjectGravity: function(goodStationObject) {
+      goodStationObject.body.allowGravity = true;
+    },
+    enableBadObjectGravity: function(badStationObject) {
+        badStationObject.body.allowGravity = true;
+    },
     paused: function() {
-      // This method will be called when game paused.
     },
     render: function() {
-      // Put render operations here.
     },
     shutdown: function() {
-      // This method will be called when the state is shut down 
-      // (i.e. you switch to another state from this one).
     },
     startPlayroom: function() {
 
@@ -292,8 +304,6 @@ var soundCooldown = 0;
       this.bgmusic.play('',0,1,true);
 
       this.game.state.start('playroom');
-
-
     }
   };
 module.exports = SpaceStation;
