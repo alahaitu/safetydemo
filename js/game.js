@@ -19,16 +19,16 @@ window.onload = function () {
   game.state.add('play', require('./states/play'));
   game.state.add('playroom', require('./states/playroom'));
   game.state.add('preload', require('./states/preload'));
+  game.state.add('spaceRunWin', require('./states/spaceRunWin'));
   game.state.add('spaceScene', require('./states/spaceScene'));
   game.state.add('spaceStation', require('./states/spaceStation'));
   game.state.add('trampoline', require('./states/trampoline'));
   game.state.add('trampolineCutscene', require('./states/trampolineCutscene'));
-  game.state.add('trampolineGameWin', require('./states/trampolineGameWin'));
   
 
   game.state.start('boot');
 };
-},{"./states/beachScene":19,"./states/boot":20,"./states/credits":21,"./states/eating":22,"./states/eatingGameWin":23,"./states/eatingScene":24,"./states/gameover":25,"./states/lifejacket":26,"./states/lifejacketWin":27,"./states/menu":28,"./states/play":29,"./states/playroom":30,"./states/preload":31,"./states/spaceScene":32,"./states/spaceStation":33,"./states/trampoline":34,"./states/trampolineCutscene":35,"./states/trampolineGameWin":36}],2:[function(require,module,exports){
+},{"./states/beachScene":19,"./states/boot":20,"./states/credits":21,"./states/eating":22,"./states/eatingGameWin":23,"./states/eatingScene":24,"./states/gameover":25,"./states/lifejacket":26,"./states/lifejacketWin":27,"./states/menu":28,"./states/play":29,"./states/playroom":30,"./states/preload":31,"./states/spaceRunWin":32,"./states/spaceScene":33,"./states/spaceStation":34,"./states/trampoline":35,"./states/trampolineCutscene":36}],2:[function(require,module,exports){
 'use strict';
 
 var Alien = function(game, x, y, sprite, frame) {
@@ -660,7 +660,7 @@ var flyingBadFoodGroup
 
         // Graphics
         this.eating_background = this.game.add.sprite(0, 0, 'eating_bg');
-        this.alienSprite = this.game.add.sprite(530,80, 'eating_alien_gf');
+        this.alienSprite = this.game.add.sprite(560,80, 'eating_alien_gf');
         this.alienSprite.animations.add('eat');
         this.table = new table(this.game, 0, 492, 'eating_table');
         this.game.add.existing(this.table);
@@ -675,10 +675,6 @@ var flyingBadFoodGroup
         this.eatingSoundBad1 = this.add.audio('hyi_1');
         this.eatingSoundBad2 = this.add.audio('hyi_2');
         this.eatingSoundBad3 = this.add.audio('hyi_3');
-        this.eatingSoundSurprised1 = this.add.audio('hammastys_1');
-        this.eatingSoundSurprised2 = this.add.audio('hammastys_2');
-        this.eatingSoundSurprised3 = this.add.audio('hammastys_3');
-        this.pickSound =  this.add.audio('picking_veggie');
 
         // Stop the game intro narration
         this.sound.remove(this.game.introNarration);
@@ -702,14 +698,6 @@ var flyingBadFoodGroup
     },
     update: function() {
 
-/*
-if (this.alienSprite.animations.currentAnim){
-      if (this.alienSprite.animations.currentAnim.isFinished){
-      console.log(this.alienSprite.animations.currentAnim.frame);
-    }
-  }*/
-
-    // Fly objects into the mouth
     flyingGoodFoodGroup.forEach(function(food){
       this.goodFly(food);
       this.game.physics.arcade.overlap(food, this.alien, this.goodCollision, null, this);
@@ -721,11 +709,10 @@ if (this.alienSprite.animations.currentAnim){
      }, this);
 
       if (score > 7) {
-       this.game.state.start('eatingGameWin');
+        this.game.time.events.add(Phaser.Timer.SECOND * 1, this.startWinScreen, this);
+        score = 0;
       }
     },
-
-
 
     goodFly: function(food){
       if (food != undefined){
@@ -749,7 +736,6 @@ if (this.alienSprite.animations.currentAnim){
           }
         }
       }
-
     },
 
     badFly: function(food){
@@ -858,6 +844,9 @@ if (this.alienSprite.animations.currentAnim){
     },
     addBadFlying: function(food){
        flyingBadFoodGroup.add(food);
+    },
+    startWinScreen: function() {
+       this.game.state.start('eatingGameWin');
     },
 
     startPlayroom: function() {
@@ -1535,22 +1524,14 @@ Preload.prototype = {
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     this.load.setPreloadSprite(this.asset);
 
-    // Placeholder assets
-    //this.load.image('transparentRectangle', 'assets/img/EatingGame/rectangle_transparent.png');
-    //this.load.audio('bg_music', 'assets/sounds/bg_music.mp3');
-    this.load.audio('bg_music', 'assets/sounds/tunnari-14-11-10.wav');
 
     // Shared assets
     this.load.image('exit_btn', 'assets/img/Shared/SpaceJump_home.png');
-    this.load.image('score_meter', 'assets/img/Shared/VeggieP_ScoreMeter.png');
-    this.load.image('score_pointer', 'assets/img/Shared/VeggieP_ScorePointer.png');
-    this.load.image('score_basket', 'assets/img/Shared/TrampolineG_ScoreBasket.png');
-    this.load.audio('helmet_on_sound', 'assets/sounds/helmet_on.wav');
     this.load.audio('applause_sound', 'assets/sounds/applause.wav');
+    this.load.audio('bg_music', 'assets/sounds/tunnari-14-11-10.wav');
 
     // Playroom assets
     this.load.image('playroom_bg', 'assets/img/Playroom/playr_bg.png');
-    this.load.image('playr_button_ball', 'assets/img/Playroom/playr_button_ball.png');
     this.load.image('playr_button_duck', 'assets/img/Playroom/playr_button_duck.png');
     this.load.image('playr_button_eat', 'assets/img/Playroom/playr_button_eat.png');
     this.load.image('playr_button_plant', 'assets/img/Playroom/playr_button_plant.png');
@@ -1570,14 +1551,10 @@ Preload.prototype = {
     this.load.audio('hyi_1', 'assets/sounds/hyi_1.wav');
     this.load.audio('hyi_2', 'assets/sounds/hyi_2.wav');
     this.load.audio('hyi_3', 'assets/sounds/hyi_3.wav');
-    this.load.audio('hammastys_1', 'assets/sounds/hammastys_1.wav');
-    this.load.audio('hammastys_2', 'assets/sounds/hammastys_2.wav');
-    this.load.audio('hammastys_3', 'assets/sounds/hammastys_3.wav');
     this.load.image('rectangle_hitbox', 'assets/img/EatingGame/rectangle_hitbox.png');
-    this.load.audio('picking_veggie', 'assets/sounds/picking_veggie.wav');
     
     // Good food
-    this.load.spritesheet('eating_alien_gf', 'assets/img/EatingGame/EatingGame_goodfood.png', 490.42857142857, 500, 7); //383, 530);
+    this.load.spritesheet('eating_alien_gf', 'assets/img/EatingGame/EatingGame_good_food_smap.png', 383, 530, 9);
     this.load.image('eating_g1', 'assets/img/EatingGame/EatingGame_1.png');
     this.load.image('eating_g2', 'assets/img/EatingGame/EatingGame_2.png');
     this.load.image('eating_g3', 'assets/img/EatingGame/EatingGame_3.png');
@@ -1588,40 +1565,13 @@ Preload.prototype = {
     this.load.image('eating_g8', 'assets/img/EatingGame/EatingGame_8.png');    
 
     // Bad good
-    this.load.spritesheet('eating_alien_bf', 'assets/img/EatingGame/EatingGame_badfood.png', 492, 500, 9); // 435, 530, 3);
+    this.load.spritesheet('eating_alien_bf', 'assets/img/EatingGame/EatingGame_bad_food_smap.png', 435, 530, 3);
     this.load.image('eating_b1', 'assets/img/EatingGame/EatingGame_X1.png');
     this.load.image('eating_b2', 'assets/img/EatingGame/EatingGame_X2.png');
     this.load.image('eating_b3', 'assets/img/EatingGame/EatingGame_X3.png');
     this.load.image('eating_b4', 'assets/img/EatingGame/EatingGame_X4.png');
     this.load.image('eating_b5', 'assets/img/EatingGame/EatingGame_X5.png');
     this.load.image('eating_b6', 'assets/img/EatingGame/EatingGame_X6.png');
-
-    // Trampoline game assets
- 
-    this.load.image('trampoline_game_bg', 'assets/img//Trampoline/SpaceJump_bg.png');
-    this.load.image('trampoline_game_alien', 'assets/img/Trampoline/SpaceJump_alien.png');
-    this.load.image('trampoline_game_bee', 'assets/img/Trampoline/TrampolineG_Bee.png');
-    this.load.image('trampoline_game_bear_ref', 'assets/img/Trampoline/SpaceJump_ref1.png');
-    this.load.image('trampoline_game_heart_ref', 'assets/img/Trampoline/SpaceJump_ref2.png');
-    this.load.image('trampoline_game_two_ref', 'assets/img/Trampoline/SpaceJump_ref3.png');
-    this.load.image('trampoline_game_dog_ref', 'assets/img/Trampoline/SpaceJump_ref4.png');
-    this.load.image('trampoline_game_star_ref', 'assets/img/Trampoline/SpaceJump_ref5.png');
-    this.load.image('trampoline_game_jump_button', 'assets/img/Trampoline/TrampolineG_JumpButton.png');  
-    //this.load.audio('bee_sound', 'assets/sounds/Tukes_bee_sfx.mp3');
-    this.load.image('trampoline_game_win', 'assets/img/Trampoline/SpJumpWin_bg.png');
-    this.load.image('trampoline_game_win_alien', 'assets/img/Trampoline/SpJumpWin_alien.png');
-    this.load.spritesheet('trampoline_game_win_glow', 'assets/img/Trampoline/SpJumpWin_sprite.png', 670, 688, 2);
-    this.load.image('trampoline_rbutton', 'assets/img/Trampoline/TrampolineG_RightButton.png');
-    this.load.image('trampoline_lbutton', 'assets/img/Trampoline/TrampolineG_LeftButton.png');
-    this.load.image('reflectors_icon', 'assets/img/Trampoline/SpaceJump_iconref.png');
-
-    // Beach game assets
-    this.load.image('beach_bg', 'assets/img/BeachGame/LifeSaver_bg.png');
-    this.load.image('beach_lsaver', 'assets/img/BeachGame/LifeSaver_orangething.png');
-    this.load.image('beach_alien1', 'assets/img/BeachGame/LifeSaver_bluealien.png');
-    this.load.image('beach_alien1_saver', 'assets/img/BeachGame/LifeSaver_bluealien_wear.png');
-    this.load.image('beach_alien2', 'assets/img/BeachGame/LifeSaver_pinkalien.png');
-    this.load.image('beach_alien2_saver', 'assets/img/BeachGame/LifeSaver_pinkalien_wear.png');
 
     // Space station assets
     this.load.spritesheet('spacest_alien', 'assets/img/SpaceStation/spacest_sprite.png', 350, 460, 10);
@@ -1642,7 +1592,6 @@ Preload.prototype = {
     this.load.image('spacest_floor', 'assets/img/SpaceStation/floor.png');
     this.load.audio('jee', 'assets/sounds/jee.wav');
     this.load.audio('noniin', 'assets/sounds/noniin.wav');
-
 
     // Space run assets
     this.load.image('spacerun_alien', 'assets/img/SpaceRun/spacerun_alien.png');
@@ -1671,9 +1620,9 @@ Preload.prototype = {
     this.load.audio('avaruusbiisi', 'assets/sounds/avaruusbiisi.wav');
     this.load.audio('heijastin', 'assets/sounds/heijastin.wav');
     this.load.image('spacerun_alien_hitbox', 'assets/img/SpaceRun/spacerun_alien_hitbox.png');
-
-
     this.load.image('spacerun_ground', 'assets/img/SpaceRun/spacerun_ground.png');
+    this.load.image('spacerun_win_alien', 'assets/img/SpaceRun/spacerun_win_alien.png');
+    this.load.image('spacerun_win_bg', 'assets/img/SpaceRun/spacerun_win_bg.png');
 
     // Lifejacket game assets
     this.load.spritesheet('lifejack_alien1', 'assets/img/LifeJacket/lifejack_alien1.png', 220, 450, 6);
@@ -1687,7 +1636,6 @@ Preload.prototype = {
     this.load.image('lifejacket_wave1', 'assets/img/LifeJacket/lifejacket_wave1.png');
     this.load.image('lifejacket_wave2', 'assets/img/LifeJacket/lifejacket_wave2.png');
     this.load.image('lifejack_boat', 'assets/img/LifeJacket/lifejack_boat-02.png');
-
     this.load.audio('hihna_kiinni', 'assets/sounds/hihna_kiinni.wav');
     this.load.audio('hihna_kiinni_noniin', 'assets/sounds/hinha_kiinni_noniin.wav');
 
@@ -1697,20 +1645,10 @@ Preload.prototype = {
 
     // Narrations
     this.load.audio('1_Intro', 'assets/sounds/1_Intro.wav');
-    this.load.audio('1_paljon_tekemista', 'assets/sounds/1_paljon_tekemista.wav');
     this.load.audio('2_pikilla_nalka', 'assets/sounds/2_pikilla_nalka.wav');
-    this.load.audio('3A_hyi_pahaa', 'assets/sounds/3A_hyi_pahaa.wav');
-    this.load.audio('3B_hyi_pahaa2', 'assets/sounds/3B_hyi_pahaa2.wav');
-    this.load.audio('4_nam', 'assets/sounds/4_nam.wav');
     this.load.audio('5_piki_on_syonyt_tarpeeksi', 'assets/sounds/5_piki_on_syonyt_tarpeeksi.wav');
-    this.load.audio('6_jotain_sopimatonta', 'assets/sounds/6_jotain_sopimatonta.wav');
     this.load.audio('7_pyoraretkelle', 'assets/sounds/7_pyoraretkelle.wav');
-    this.load.audio('8_auu1', 'assets/sounds/8_auu1.wav');
     this.load.audio('9_veneretkelle', 'assets/sounds/9_veneretkelle.wav');
-    this.load.audio('10_liian_iso', 'assets/sounds/10_liian_iso.wav');
-    this.load.audio('11_liian_pieni', 'assets/sounds/11_liian_pieni.wav');
-    this.load.audio('12_oikea_koko', 'assets/sounds/12_oikea_koko.wav');
-    this.load.audio('13_mita_viela', 'assets/sounds/13_mita_viela.wav');
   },
   create: function() {
     this.music = this.add.audio('bg_music');
@@ -1733,6 +1671,23 @@ Preload.prototype = {
 module.exports = Preload;
 
 },{}],32:[function(require,module,exports){
+'use strict';
+  function SpaceRunWin() {}
+  SpaceRunWin.prototype = {
+    create: function() {
+      this.add.sprite(0, 0, 'spacerun_win_bg');
+      this.add.sprite(180,0, 'spacerun_win_alien');
+      this.applauseSound = this.add.audio('applause_sound');
+      this.game.time.events.add(Phaser.Timer.SECOND * 3, this.startPlayground, this);
+      this.applauseSound.play();
+    },
+    startPlayground: function() {
+      this.game.state.start('playroom');
+    }
+  };
+module.exports = SpaceRunWin;
+
+},{}],33:[function(require,module,exports){
 'use strict';
 var spaceAlien = require('../prefabs/spaceAlien');  
 var reflector = require('../prefabs/reflector');
@@ -1933,11 +1888,8 @@ var jumpSoundPlaying = false;
           jumpSoundPlaying = false;
           this.game.state.start('playroom');
 
-          this.game.state.start('trampolineGameWin');
+          this.game.state.start('spaceRunWin');
          }
-
-
-
     },
     paused: function() {
     },
@@ -1957,7 +1909,7 @@ var jumpSoundPlaying = false;
   };
 module.exports = SpaceScene;
 
-},{"../prefabs/badSpaceObject":5,"../prefabs/reflector":15,"../prefabs/spaceAlien":16}],33:[function(require,module,exports){
+},{"../prefabs/badSpaceObject":5,"../prefabs/reflector":15,"../prefabs/spaceAlien":16}],34:[function(require,module,exports){
 'use strict';
 var stationAlien = require('../prefabs/stationAlien');  
 var goodStationObject = require('../prefabs/goodStationObject');
@@ -1971,8 +1923,6 @@ var soundCooldown = 0;
   function SpaceStation() {}
   SpaceStation.prototype = {
     preload: function() {
-      // Override this method to add some load operations. 
-      // If you need to use the loader, you may need to use them here.
     },
     create: function() {
       this.game.sound.stopAll();
@@ -2080,6 +2030,8 @@ var soundCooldown = 0;
           }
             this.badStationObject.inputEnabled = true;
             this.badStationObject.input.enableDrag(true);
+            this.badStationObject.events.onDragStart.add(this.disableBadObjectGravity, this);
+            this.badStationObject.events.onDragStop.add(this.enableBadObjectGravity, this);
 
             badObjectGroup.add(this.badStationObject);
         }
@@ -2113,6 +2065,8 @@ var soundCooldown = 0;
           this.game.add.existing(this.goodStationObject);
           this.goodStationObject.inputEnabled = true;
           this.goodStationObject.input.enableDrag(true);
+          this.goodStationObject.events.onDragStart.add(this.disableGoodObjectGravity, this);
+          this.goodStationObject.events.onDragStop.add(this.enableGoodObjectGravity, this);
 
           var rand = this.game.rnd.integerInRange(1, 2);
 
@@ -2237,15 +2191,25 @@ var soundCooldown = 0;
     spaceSceneInstruction: function() {
       this.add.sprite(0, 0, 'spacerun_instruction');
     },
+    disableGoodObjectGravity: function(goodStationObject) {
+        goodStationObject.body.allowGravity = false;
+        goodStationObject.body.velocity.y = 0;
+    },
+    disableBadObjectGravity: function(badStationObject) {
+        badStationObject.body.allowGravity = false;
+        badStationObject.body.velocity.y = 0;
+    },
+    enableGoodObjectGravity: function(goodStationObject) {
+      goodStationObject.body.allowGravity = true;
+    },
+    enableBadObjectGravity: function(badStationObject) {
+        badStationObject.body.allowGravity = true;
+    },
     paused: function() {
-      // This method will be called when game paused.
     },
     render: function() {
-      // Put render operations here.
     },
     shutdown: function() {
-      // This method will be called when the state is shut down 
-      // (i.e. you switch to another state from this one).
     },
     startPlayroom: function() {
 
@@ -2254,16 +2218,31 @@ var soundCooldown = 0;
       this.bgmusic.play('',0,1,true);
 
       this.game.state.start('playroom');
-
-
     }
   };
 module.exports = SpaceStation;
 
-},{"../prefabs/badStationObject":6,"../prefabs/floor":9,"../prefabs/goodStationObject":12,"../prefabs/stationAlien":17}],34:[function(require,module,exports){
+},{"../prefabs/badStationObject":6,"../prefabs/floor":9,"../prefabs/goodStationObject":12,"../prefabs/stationAlien":17}],35:[function(require,module,exports){
 'use strict';
   function Trampoline() {}
   Trampoline.prototype = {
+    preload: function(){
+      this.load.image('trampoline_game_bg', 'assets/img//Trampoline/SpaceJump_bg.png');
+      this.load.image('trampoline_game_alien', 'assets/img/Trampoline/SpaceJump_alien.png');
+      this.load.image('trampoline_game_bee', 'assets/img/Trampoline/TrampolineG_Bee.png');
+      this.load.image('trampoline_game_bear_ref', 'assets/img/Trampoline/SpaceJump_ref1.png');
+      this.load.image('trampoline_game_heart_ref', 'assets/img/Trampoline/SpaceJump_ref2.png');
+      this.load.image('trampoline_game_two_ref', 'assets/img/Trampoline/SpaceJump_ref3.png');
+      this.load.image('trampoline_game_dog_ref', 'assets/img/Trampoline/SpaceJump_ref4.png');
+      this.load.image('trampoline_game_star_ref', 'assets/img/Trampoline/SpaceJump_ref5.png');
+      this.load.image('trampoline_game_jump_button', 'assets/img/Trampoline/TrampolineG_JumpButton.png');  
+      this.load.image('trampoline_game_win', 'assets/img/Trampoline/SpJumpWin_bg.png');
+      this.load.image('trampoline_game_win_alien', 'assets/img/Trampoline/SpJumpWin_alien.png');
+      this.load.spritesheet('trampoline_game_win_glow', 'assets/img/Trampoline/SpJumpWin_sprite.png', 670, 688, 2);
+      this.load.image('trampoline_rbutton', 'assets/img/Trampoline/TrampolineG_RightButton.png');
+      this.load.image('trampoline_lbutton', 'assets/img/Trampoline/TrampolineG_LeftButton.png');
+      this.load.image('reflectors_icon', 'assets/img/Trampoline/SpaceJump_iconref.png');
+    },
     create: function() {
       this.add.sprite(0, 0, 'trampoline_game_bg');
       this.bear_ref = this.add.sprite(400, 140, 'trampoline_game_bear_ref');
@@ -2375,7 +2354,7 @@ module.exports = SpaceStation;
   };
 module.exports = Trampoline;
 
-},{}],35:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 'use strict';
   function TrampolineCutscene() {}
   TrampolineCutscene.prototype = {
@@ -2403,23 +2382,5 @@ module.exports = Trampoline;
     }
   };
 module.exports = TrampolineCutscene;
-
-},{}],36:[function(require,module,exports){
-'use strict';
-  function TrampolineGameWin() {}
-  TrampolineGameWin.prototype = {
-    create: function() {
-      this.add.sprite(0, 0, 'trampoline_game_win');
-      //this.add.sprite(180,0, 'trampoline_game_win_glow');      
-      this.add.sprite(180,0, 'trampoline_game_win_alien');
-      this.applauseSound = this.add.audio('applause_sound');
-      this.game.time.events.add(Phaser.Timer.SECOND * 3, this.startPlayground, this);
-      this.applauseSound.play();
-    },
-    startPlayground: function() {
-      this.game.state.start('playroom');
-    }
-  };
-module.exports = TrampolineGameWin;
 
 },{}]},{},[1])
