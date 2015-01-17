@@ -343,7 +343,7 @@ var Lifejacket = function(game, x, y, sprite, frame) {
   Phaser.Sprite.call(this, game, x, y, sprite, frame);
 
  	this.game.physics.arcade.enableBody(this);
-	this.body.allowGravity = false;
+	this.body.allowGravity = true;
 	this.body.collideWorldBounds = true;  
 	this.anchor.setTo(0.5, 0.5);
 
@@ -1078,6 +1078,7 @@ module.exports = GameOver;
 'use strict';
 var beachAlien = require('../prefabs/beachAlien');  
 var lifejacket = require('../prefabs/lifejacket');  
+var floor = require('../prefabs/floor');  
 
 var beachAlienGroup;
 var lifejacketGroup;
@@ -1099,12 +1100,14 @@ var startSmileCounter;
       startSmileCounter = false;
       lastScore = 0;
       this.game.physics.startSystem(Phaser.Physics.ARCADE);
+      this.game.physics.arcade.gravity.y = 400;
 
       this.beachBg = this.game.add.sprite(0, 0, 'lifejack_bg');
       this.backButton = this.add.button(899, 23, 'exit_btn' , this.startPlayroom, this);
       this.strapSound1 = this.add.audio('hihna_kiinni');
       this.strapSound2 = this.add.audio('hihna_kiinni_noniin');
-      
+      this.floor = new floor(this.game, 0, 680, 'spacest_floor');
+
       // Stop the game intro narration
       this.sound.remove(this.game.introNarration);
 
@@ -1115,7 +1118,7 @@ var startSmileCounter;
       beachAlienGroup = this.game.add.group();
       lifejacketGroup = this.game.add.group();
 
-      this.spawnLifejackets(250, 600);
+      this.spawnLifejackets(250, 577);
 
       this.spawnBeachAliens(200, 290);
 
@@ -1163,6 +1166,7 @@ var startSmileCounter;
         var array = [];
         var rand;
         var sprite = '';
+        var spawnCompensator = 0;
 
       for (var i=0; i < 3; i++){
         sprite ='';
@@ -1174,20 +1178,25 @@ var startSmileCounter;
         switch (rand){
           case 1:
           sprite = 'lifejack_jacket1';
+          spawnCompensator = 0;
             break;
           case 2:
           sprite = 'lifejack_jacket2';
+          spawnCompensator = 40;
             break;
           case 3:
           sprite = 'lifejack_jacket3';
+          spawnCompensator = 55;
             break;
         }
-
           array[i] = rand;
-          this.lifejacket = new lifejacket(this.game, x + (i*200), y, sprite);
+          this.lifejacket = new lifejacket(this.game, x + (i*230), y + spawnCompensator, sprite);
           this.lifejacket.name = sprite;
           this.lifejacket.inputEnabled = true;
           this.lifejacket.input.enableDrag(true);
+          this.lifejacket.events.onDragStart.add(this.enableLifejacketGravity, this);
+          this.lifejacket.events.onDragStop.add(this.disableLifejacketGravity, this);
+
           lifejacketGroup.add(this.lifejacket);
       }
 
@@ -1264,7 +1273,12 @@ var startSmileCounter;
             this.game.physics.arcade.overlap(beachAlien, lifejacket, this.alienDressed, null, this);
 
         }, this);
-    }, this);    
+    }, this);
+
+        // Collide the objects with invisible floor
+        lifejacketGroup.forEach(function(lifejacket){
+              this.game.physics.arcade.collide(lifejacket, this.floor);
+        }, this);    
 
       if (score > lastScore){
         lastScore++;
@@ -1334,6 +1348,13 @@ var startSmileCounter;
      startWinScreen: function(){
       this.game.state.start('lifejacketWin');
      },
+     enableLifejacketGravity : function(lifejacket){
+      lifejacket.body.allowGravity = false;
+      lifejacket.body.velocity.y = 0;
+     },
+     disableLifejacketGravity: function(lifejacket){
+      lifejacket.body.allowGravity = true;
+     },
 
     paused: function() {
       // This method will be called when game paused.
@@ -1349,7 +1370,7 @@ var startSmileCounter;
   };
 module.exports = Lifejacket;
 
-},{"../prefabs/beachAlien":7,"../prefabs/lifejacket":13}],27:[function(require,module,exports){
+},{"../prefabs/beachAlien":7,"../prefabs/floor":9,"../prefabs/lifejacket":13}],27:[function(require,module,exports){
 'use strict';
   function LifejacketWin() {}
   LifejacketWin.prototype = {
