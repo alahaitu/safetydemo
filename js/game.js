@@ -1528,7 +1528,7 @@ Preload.prototype = {
     // Shared assets
     this.load.image('exit_btn', 'assets/img/Shared/SpaceJump_home.png');
     this.load.audio('applause_sound', 'assets/sounds/applause.wav');
-    this.load.audio('bg_music', 'assets/sounds/tunnari-14-11-10.wav');
+    this.load.audio('bg_music', 'assets/sounds/tunnari-14-11-10.mp3');
 
     // Playroom assets
     this.load.image('playroom_bg', 'assets/img/Playroom/playr_bg.png');
@@ -1617,7 +1617,7 @@ Preload.prototype = {
     this.load.audio('sattuu_3', 'assets/sounds/sattuu_3.wav');
     this.load.spritesheet('spacerun_alienbike_sprite', 'assets/img/SpaceRun/spacerun_alienbike_sprite.png', 225, 285);
     this.load.audio('suihkumoottori', 'assets/sounds/suihkumoottori.wav');
-    this.load.audio('avaruusbiisi', 'assets/sounds/avaruusbiisi.wav');
+    this.load.audio('avaruusbiisi', 'assets/sounds/avaruusbiisi.mp3');
     this.load.audio('heijastin', 'assets/sounds/heijastin.wav');
     this.load.image('spacerun_alien_hitbox', 'assets/img/SpaceRun/spacerun_alien_hitbox.png');
     this.load.image('spacerun_ground', 'assets/img/SpaceRun/spacerun_ground.png');
