@@ -1548,7 +1548,7 @@ Preload.prototype = {
 
     // Shared assets
     this.load.image('exit_btn', 'assets/img/Shared/SpaceJump_home.png');
-    this.load.audio('applause_sound', 'assets/sounds/applause.wav');
+    this.load.audio('applause_sound', 'assets/sounds/applause.mp3');
     this.load.audio('bg_music', 'assets/sounds/tunnari-14-11-10.mp3');
 
     // Playroom assets
@@ -1564,14 +1564,14 @@ Preload.prototype = {
     this.load.image('eating_game_win', 'assets/img/EatingGame/kitchen_winscreen.png');
     this.load.image('eating_bg', 'assets/img/EatingGame/kitchen.png');
     this.load.image('eating_table', 'assets/img/EatingGame/EatingGame_kitchen_table.png');
-    this.load.audio('rousk1', 'assets/sounds/rousk01.wav');
-    this.load.audio('rousk2', 'assets/sounds/rousk02.wav');
-    this.load.audio('rousk3', 'assets/sounds/rousk03.wav');
-    this.load.audio('rousk4', 'assets/sounds/rousk04.wav');
-    this.load.audio('rousk5', 'assets/sounds/rousk05.wav');
-    this.load.audio('hyi_1', 'assets/sounds/hyi_1.wav');
-    this.load.audio('hyi_2', 'assets/sounds/hyi_2.wav');
-    this.load.audio('hyi_3', 'assets/sounds/hyi_3.wav');
+    this.load.audio('rousk1', 'assets/sounds/rousk01.mp3');
+    this.load.audio('rousk2', 'assets/sounds/rousk02.mp3');
+    this.load.audio('rousk3', 'assets/sounds/rousk03.mp3');
+    this.load.audio('rousk4', 'assets/sounds/rousk04.mp3');
+    this.load.audio('rousk5', 'assets/sounds/rousk05.mp3');
+    this.load.audio('hyi_1', 'assets/sounds/hyi_1.mp3');
+    this.load.audio('hyi_2', 'assets/sounds/hyi_2.mp3');
+    this.load.audio('hyi_3', 'assets/sounds/hyi_3.mp3');
     this.load.image('rectangle_hitbox', 'assets/img/EatingGame/rectangle_hitbox.png');
     
     // Good food
@@ -1608,11 +1608,11 @@ Preload.prototype = {
     this.load.image('spacest_ribbon', 'assets/img/SpaceStation/spacest_ribbon.png');
     this.load.image('spacest_watch', 'assets/img/SpaceStation/spacest_watch.png');
     this.load.image('spacest_flower', 'assets/img/SpaceStation/spacest_flower.png');
-    this.load.audio('ei_kay_1', 'assets/sounds/ei_kay_1.wav');
-    this.load.audio('ei_kay_2', 'assets/sounds/ei_kay_2.wav');
+    this.load.audio('ei_kay_1', 'assets/sounds/ei_kay_1.mp3');
+    this.load.audio('ei_kay_2', 'assets/sounds/ei_kay_2.mp3');
     this.load.image('spacest_floor', 'assets/img/SpaceStation/floor.png');
-    this.load.audio('jee', 'assets/sounds/jee.wav');
-    this.load.audio('noniin', 'assets/sounds/noniin.wav');
+    this.load.audio('jee', 'assets/sounds/jee.mp3');
+    this.load.audio('noniin', 'assets/sounds/noniin.mp3');
 
     // Space run assets
     this.load.image('spacerun_alien', 'assets/img/SpaceRun/spacerun_alien.png');
@@ -1630,16 +1630,15 @@ Preload.prototype = {
     this.load.image('spacerun_ref5', 'assets/img/SpaceRun/spacerun_ref5.png');
     this.load.image('spacerun_scoremetre', 'assets/img/SpaceRun/spacerun_scoremetre.png');
     this.load.image('spacerun_yellow', 'assets/img/SpaceRun/spacerun_yellow.png');
-    this.load.audio('plop_1', 'assets/sounds/plop_1.wav');
-    this.load.audio('putkea_alas_1', 'assets/sounds/putkea_alas_1.wav');
-    this.load.audio('putkea_alas_2', 'assets/sounds/putkea_alas_2.wav');
-    this.load.audio('sattuu_1', 'assets/sounds/sattuu_1.wav');
-    this.load.audio('sattuu_2', 'assets/sounds/sattuu_2.wav');
-    this.load.audio('sattuu_3', 'assets/sounds/sattuu_3.wav');
+    this.load.audio('putkea_alas_1', 'assets/sounds/putkea_alas_1.mp3');
+    this.load.audio('putkea_alas_2', 'assets/sounds/putkea_alas_2.mp3');
+    this.load.audio('sattuu_1', 'assets/sounds/sattuu_1.mp3');
+    this.load.audio('sattuu_2', 'assets/sounds/sattuu_2.mp3');
+    this.load.audio('sattuu_3', 'assets/sounds/sattuu_3.mp3');
     this.load.spritesheet('spacerun_alienbike_sprite', 'assets/img/SpaceRun/spacerun_alienbike_sprite.png', 225, 285);
-    this.load.audio('suihkumoottori', 'assets/sounds/suihkumoottori.wav');
+    this.load.audio('suihkumoottori', 'assets/sounds/suihkumoottori.mp3');
     this.load.audio('avaruusbiisi', 'assets/sounds/avaruusbiisi.mp3');
-    this.load.audio('heijastin', 'assets/sounds/heijastin.wav');
+    this.load.audio('heijastin', 'assets/sounds/heijastin.mp3');
     this.load.image('spacerun_alien_hitbox', 'assets/img/SpaceRun/spacerun_alien_hitbox.png');
     this.load.image('spacerun_ground', 'assets/img/SpaceRun/spacerun_ground.png');
     this.load.image('spacerun_win_alien', 'assets/img/SpaceRun/spacerun_win_alien.png');
@@ -1657,19 +1656,19 @@ Preload.prototype = {
     this.load.image('lifejacket_wave1', 'assets/img/LifeJacket/lifejacket_wave1.png');
     this.load.image('lifejacket_wave2', 'assets/img/LifeJacket/lifejacket_wave2.png');
     this.load.image('lifejack_boat', 'assets/img/LifeJacket/lifejack_boat-02.png');
-    this.load.audio('hihna_kiinni', 'assets/sounds/hihna_kiinni.wav');
-    this.load.audio('hihna_kiinni_noniin', 'assets/sounds/hinha_kiinni_noniin.wav');
+    this.load.audio('hihna_kiinni', 'assets/sounds/hihna_kiinni.mp3');
+    this.load.audio('hihna_kiinni_noniin', 'assets/sounds/hinha_kiinni_noniin.mp3');
 
     // Credits assets
     this.load.image('creditscr_bg', 'assets/img/Credit/creditscr_bg.png');
     this.load.image('creditscr_exit', 'assets/img/Credit/creditscr_exit.png');
 
     // Narrations
-    this.load.audio('1_Intro', 'assets/sounds/1_Intro.wav');
-    this.load.audio('2_pikilla_nalka', 'assets/sounds/2_pikilla_nalka.wav');
-    this.load.audio('5_piki_on_syonyt_tarpeeksi', 'assets/sounds/5_piki_on_syonyt_tarpeeksi.wav');
-    this.load.audio('7_pyoraretkelle', 'assets/sounds/7_pyoraretkelle.wav');
-    this.load.audio('9_veneretkelle', 'assets/sounds/9_veneretkelle.wav');
+    this.load.audio('1_Intro', 'assets/sounds/1_Intro.mp3');
+    this.load.audio('2_pikilla_nalka', 'assets/sounds/2_pikilla_nalka.mp3');
+    this.load.audio('5_piki_on_syonyt_tarpeeksi', 'assets/sounds/5_piki_on_syonyt_tarpeeksi.mp3');
+    this.load.audio('7_pyoraretkelle', 'assets/sounds/7_pyoraretkelle.mp3');
+    this.load.audio('9_veneretkelle', 'assets/sounds/9_veneretkelle.mp3');
   },
   create: function() {
     this.music = this.add.audio('bg_music');
