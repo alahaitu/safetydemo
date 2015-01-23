@@ -648,13 +648,17 @@ var score = 0;
 var goodGroup;
 var badGroup;
 var flyingGoodFoodGroup;
-var flyingBadFoodGroup
+var flyingBadFoodGroup;
+var previousGoodRandom;
+var previousBadRandom;
 
   function Eating() {}
   Eating.prototype = {
 
     create: function() {
         score = 0;
+        previousGoodRandom = 0;
+        previousBadRandom = 0;
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.physics.arcade.gravity.y = 500;
 
@@ -823,20 +827,37 @@ var flyingBadFoodGroup
 
         // Good object
         if (goodOrBad == 0) {
-            this.goodFood = new goodFood(this.game, -40, 520, 'eating_g' + this.game.rnd.integerInRange(1, 8));
+
+            var rand = previousGoodRandom;
+
+            while (rand == previousGoodRandom){
+              rand = this.game.rnd.integerInRange(1, 8);
+            }
+            previousGoodRandom = rand;
+
+            this.goodFood = new goodFood(this.game, -40, 520, 'eating_g' + rand);
             this.goodFood.inputEnabled = true;
             this.goodFood.events.onInputDown.add(this.addGoodFlying, this.goodFood);
-           goodGroup.add(this.goodFood);
+            goodGroup.add(this.goodFood);
         }
 
         // Bad object
         else if (goodOrBad == 1) {
-            this.badFood = new badFood(this.game, -40, 520, 'eating_b' + this.game.rnd.integerInRange(1, 6));
+
+            var rand = previousBadRandom;
+
+            while (rand == previousBadRandom){
+              rand = this.game.rnd.integerInRange(1, 6);
+            }
+            previousBadRandom = rand;
+
+            this.badFood = new badFood(this.game, -40, 520, 'eating_b' + rand);
             this.game.add.existing(this.badFood);
             this.badFood.inputEnabled = true;
             this.badFood.events.onInputDown.add(this.addBadFlying, this.badFood);
             badGroup.add(this.badFood);
         }
+
 
     },
     addGoodFlying: function(food){
