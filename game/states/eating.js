@@ -42,8 +42,9 @@ var previousBadRandom;
         // Stop the game intro narration
         this.sound.remove(this.game.introNarration);
 
-        // Intro narration for eating
+        // Narration
         this.intro = this.add.audio('2_pikilla_nalka');
+        this.winNarration = this.add.audio('5_piki_on_syonyt_tarpeeksi');
         this.intro.play('',0,1,false);
         
         this.alien = new alien(this.game, 760, 300, 'rectangle_hitbox');
@@ -72,7 +73,7 @@ var previousBadRandom;
      }, this);
 
       if (score > 7) {
-        this.game.time.events.add(Phaser.Timer.SECOND * 1, this.startWinScreen, this);
+        this.game.time.events.add(Phaser.Timer.SECOND * 1, this.gameOver, this);
         score = 0;
       }
     },
@@ -225,8 +226,15 @@ var previousBadRandom;
     addBadFlying: function(food){
        flyingBadFoodGroup.add(food);
     },
-    startWinScreen: function() {
-       this.game.state.start('eatingGameWin');
+
+    gameOver: function() {
+        this.game.time.events.add(Phaser.Timer.SECOND * 5, this.startPlayroom, this);
+        this.game.time.events.add(Phaser.Timer.SECOND * 1, this.startNarration, this);
+        this.objectGenerator.timer.remove();
+    },
+
+    startNarration: function() {
+      this.winNarration.play();
     },
 
     startPlayroom: function() {
