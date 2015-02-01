@@ -600,7 +600,7 @@ function Boot() {
 
 Boot.prototype = {
   preload: function() {
-    this.load.image('preloader', 'assets/preloader.gif');
+    this.load.image('preloader', 'assets/img/LoadScreen/loadscreen_bg.png');
    
     // Loading screen assets
     this.load.image('loading_bg', 'assets/img/LoadScreen/loadscreen_bg.png');
@@ -1605,18 +1605,17 @@ function Preload() {
 
 Preload.prototype = {
   preload: function() {
-    
+    this.game.stage.backgroundColor = '#bbf2d9';
     this.asset = this.add.sprite(this.width/2,this.height/2, 'preloader');
-    this.asset.anchor.setTo(0.5, 0.5);
+    this.asset.anchor.setTo(0.0, 0.0);
 
-    this.load_bg = this.game.add.sprite(0, 0, 'loading_bg');
+    //this.load_bg = this.game.add.sprite(0, 0, 'loading_bg');
     this.load_alien = this.game.add.sprite(380, 220, 'loading_alien');
     this.load_alien.animations.add('wavehand');
     this.load_alien.play('wavehand', 4, true);
 
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     this.load.setPreloadSprite(this.asset);
-
 
     // Shared assets
     this.load.image('exit_btn', 'assets/img/Shared/SpaceJump_home.png');
@@ -1857,7 +1856,7 @@ var jumpSoundPlaying = false;
           sprite = 'spacerun_ref5';
             break;
         }
-          this.reflector = new reflector(this.game, 1000, this.game.rnd.integerInRange(0, 500), sprite);
+          this.reflector = new reflector(this.game, 1080, this.game.rnd.integerInRange(0, 500), sprite);
           reflectorGroup.add(this.reflector);
   },
 
