@@ -233,12 +233,11 @@ var gameOver;
 
     endGame: function() {
         gameOver = true;
-        this.game.time.events.add(Phaser.Timer.SECOND * 5, this.startPlayroom, this);
-        this.game.time.events.add(Phaser.Timer.SECOND * 1, this.startNarration, this);
+        this.game.time.events.add(Phaser.Timer.SECOND * 1, this.startWinScreen, this);
     },
 
-    startNarration: function() {
-      this.winNarration.play();
+    startWinScreen: function() {
+        this.game.state.start('eatingGameWin');
     },
 
     startPlayroom: function() {
