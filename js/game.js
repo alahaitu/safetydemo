@@ -705,7 +705,7 @@ var gameOver;
 
         // Graphics
         this.eating_background = this.game.add.sprite(0, 0, 'eating_bg');
-        this.alienSprite = this.game.add.sprite(560,80, 'eating_alien_gf');
+        this.alienSprite = this.game.add.sprite(405,59, 'eating_alien_gf'); // 560,80
         this.alienSprite.animations.add('eat');
         this.table = new table(this.game, 0, 492, 'eating_table');
         this.game.add.existing(this.table);
@@ -1645,7 +1645,7 @@ Preload.prototype = {
     this.load.image('rectangle_hitbox', 'assets/img/EatingGame/rectangle_hitbox.png');
     
     // Good food
-    this.load.spritesheet('eating_alien_gf', 'assets/img/EatingGame/EatingGame_good_food_smap.png', 383, 530, 9);
+    this.load.spritesheet('eating_alien_gf', 'assets/img/EatingGame/EatingGame_good_food_smap.png', 618, 630, 7);//383, 530, 9);
     this.load.image('eating_g1', 'assets/img/EatingGame/EatingGame_1.png');
     this.load.image('eating_g2', 'assets/img/EatingGame/EatingGame_2.png');
     this.load.image('eating_g3', 'assets/img/EatingGame/EatingGame_3.png');
@@ -1656,7 +1656,7 @@ Preload.prototype = {
     this.load.image('eating_g8', 'assets/img/EatingGame/EatingGame_8.png');    
 
     // Bad good
-    this.load.spritesheet('eating_alien_bf', 'assets/img/EatingGame/EatingGame_bad_food_smap.png', 435, 530, 3);
+    this.load.spritesheet('eating_alien_bf', 'assets/img/EatingGame/EatingGame_bad_food_smap.png', 620, 630, 9); //435, 530, 3);
     this.load.image('eating_b1', 'assets/img/EatingGame/EatingGame_X1.png');
     this.load.image('eating_b2', 'assets/img/EatingGame/EatingGame_X2.png');
     this.load.image('eating_b3', 'assets/img/EatingGame/EatingGame_X3.png');
