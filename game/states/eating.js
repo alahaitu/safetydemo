@@ -25,7 +25,7 @@ var gameOver;
 
         // Graphics
         this.eating_background = this.game.add.sprite(0, 0, 'eating_bg');
-        this.alienSprite = this.game.add.sprite(560,80, 'eating_alien_gf');
+        this.alienSprite = this.game.add.sprite(405,59, 'eating_alien_gf'); // 560,80
         this.alienSprite.animations.add('eat');
         this.table = new table(this.game, 0, 492, 'eating_table');
         this.game.add.existing(this.table);
