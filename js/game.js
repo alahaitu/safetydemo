@@ -1631,8 +1631,8 @@ Preload.prototype = {
     this.load.spritesheet('playr_sprite_wave', 'assets/img/Playroom/playr_sprite_wave.png', 360, 480, 14);
 
     // Eating game assets
-    this.load.image('eating_game_win', 'assets/img/EatingGame/kitchen_winscreen.png');
-    this.load.image('eating_bg', 'assets/img/EatingGame/kitchen.png');
+    this.load.image('eating_game_win', 'assets/img/EatingGame/kitchen_winscreen.jpg');
+    this.load.image('eating_bg', 'assets/img/EatingGame/kitchen.jpg');
     this.load.image('eating_table', 'assets/img/EatingGame/EatingGame_kitchen_table.png');
     this.load.audio('rousk1', 'assets/sounds/rousk01.mp3');
     this.load.audio('rousk2', 'assets/sounds/rousk02.mp3');
@@ -1667,7 +1667,7 @@ Preload.prototype = {
     // Space station assets
     this.load.spritesheet('spacest_alien', 'assets/img/SpaceStation/spacest_sprite.png', 350, 460, 10);
     this.load.image('spacest_alienhitbox', 'assets/img/SpaceStation/alienhitbox.png');
-    this.load.image('spacest_background', 'assets/img/SpaceStation/avaruusasema_bg.png');
+    this.load.image('spacest_background', 'assets/img/SpaceStation/avaruusasema_bg.jpg');
     this.load.image('spacest_crown', 'assets/img/SpaceStation/spacest_crown.png');
     this.load.image('spacest_hat', 'assets/img/SpaceStation/spacest_hat.png');
     this.load.image('spacest_helmet', 'assets/img/SpaceStation/spacest_helmet.png');
@@ -1689,7 +1689,7 @@ Preload.prototype = {
     this.load.image('spacerun_bg', 'assets/img/SpaceRun/spacerun_bg.png');
     this.load.image('spacerun_car', 'assets/img/SpaceRun/spacerun_car.png');
     this.load.image('spacerun_iconref', 'assets/img/SpaceRun/spacerun_iconref.png');
-    this.load.image('spacerun_instruction', 'assets/img/SpaceRun/spacerun_instruction.png');
+    this.load.image('spacerun_instruction', 'assets/img/SpaceRun/spacerun_instruction.jpg');
     this.load.image('spacerun_meteorite', 'assets/img/SpaceRun/spacerun_meteorite.png');
     this.load.image('spacerun_meteorite_small', 'assets/img/SpaceRun/spacerun_meteorite_small.png');
     this.load.image('spacerun_meteorite_medium', 'assets/img/SpaceRun/spacerun_meteorite_medium.png');
@@ -1721,7 +1721,7 @@ Preload.prototype = {
     this.load.image('lifejack_jacket1', 'assets/img/LifeJacket/lifejack_jacket1.png');
     this.load.image('lifejack_jacket2', 'assets/img/LifeJacket/lifejack_jacket2.png');
     this.load.image('lifejack_jacket3', 'assets/img/LifeJacket/lifejack_jacket3.png');
-    this.load.image('lifejack_bg', 'assets/img/LifeJacket/lifejack_bg.png');
+    this.load.image('lifejack_bg', 'assets/img/LifeJacket/lifejack_bg.jpg');
     this.load.image('lifejacket_bgwin', 'assets/img/LifeJacket/lifejacket_bgwin.png');
     this.load.image('lifejacket_wave1', 'assets/img/LifeJacket/lifejacket_wave1.png');
     this.load.image('lifejacket_wave2', 'assets/img/LifeJacket/lifejacket_wave2.png');
@@ -1730,7 +1730,7 @@ Preload.prototype = {
     this.load.audio('hihna_kiinni_noniin', 'assets/sounds/hinha_kiinni_noniin.mp3');
 
     // Credits assets
-    this.load.image('creditscr_bg', 'assets/img/Credit/creditscr_bg.png');
+    this.load.image('creditscr_bg', 'assets/img/Credit/creditscr_bg.jpg');
     this.load.image('creditscr_exit', 'assets/img/Credit/creditscr_exit.png');
 
     // Narrations
