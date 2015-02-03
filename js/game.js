@@ -627,9 +627,9 @@ Boot.prototype = {
         this.scale.minHeight = 322.5;
         this.scale.maxWidth = 1024;
         this.scale.maxHeight = 688;
-        /*
         this.scale.pageAlignHorizontally = true;
         this.scale.pageAlignVertically = true;
+        /*
         this.scale.forceOrientation(true, false);
         this.scale.hasResized.add(this.gameResized, this);
         this.scale.enterIncorrectOrientation.add(this.enterIncorrectOrientation, this);
