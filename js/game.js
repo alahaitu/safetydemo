@@ -621,19 +621,20 @@ Boot.prototype = {
         this.scale.setScreenSize(true);
     }
     else
-    {/*
+    {
         this.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
         this.scale.minWidth = 480;
         this.scale.minHeight = 322.5;
         this.scale.maxWidth = 1024;
         this.scale.maxHeight = 688;
+        /*
         this.scale.pageAlignHorizontally = true;
         this.scale.pageAlignVertically = true;
         this.scale.forceOrientation(true, false);
         this.scale.hasResized.add(this.gameResized, this);
         this.scale.enterIncorrectOrientation.add(this.enterIncorrectOrientation, this);
-        this.scale.leaveIncorrectOrientation.add(this.leaveIncorrectOrientation, this);
-        this.scale.setScreenSize(true);*/
+        this.scale.leaveIncorrectOrientation.add(this.leaveIncorrectOrientation, this);*/
+        this.scale.setScreenSize(true);
     }
 
     this.game.state.start('preload');
