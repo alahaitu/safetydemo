@@ -14,7 +14,6 @@ Boot.prototype = {
   },
   create: function() {
     this.game.input.maxPointers = 1;
-    /*
     this.stage.disableVisibilityChange = true;
     if (this.game.device.desktop)
     {
@@ -42,7 +41,7 @@ Boot.prototype = {
         this.scale.leaveIncorrectOrientation.add(this.leaveIncorrectOrientation, this);
         this.scale.setScreenSize(true);
     }
-*/
+
     this.game.state.start('preload');
   },
   gameResized: function (width, height) {
