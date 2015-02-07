@@ -1685,7 +1685,6 @@ Preload.prototype = {
     this.load.audio('noniin', 'assets/sounds/noniin.mp3');
 
     // Space run assets
-    this.load.image('spacerun_alien', 'assets/img/SpaceRun/spacerun_alien.png');
     this.load.image('spacerun_bg', 'assets/img/SpaceRun/spacerun_bg.png');
     this.load.image('spacerun_car', 'assets/img/SpaceRun/spacerun_car.png');
     this.load.image('spacerun_iconref', 'assets/img/SpaceRun/spacerun_iconref.png');
