@@ -13,6 +13,7 @@ var soundCooldown = 0;
     preload: function() {
     },
     create: function() {
+      this.sound.remove(this.game.introNarration);
       this.game.sound.stopAll();
       this.music = this.add.audio('avaruusbiisi');
       this.music.play('',0,1,true);
