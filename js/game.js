@@ -1854,7 +1854,7 @@ var jumpSoundPlaying = false;
           sprite = 'spacerun_ref5';
             break;
         }
-          this.reflector = new reflector(this.game, 1080, this.game.rnd.integerInRange(0, 500), sprite);
+          this.reflector = new reflector(this.game, 1080, this.game.rnd.integerInRange(100, 500), sprite);
           reflectorGroup.add(this.reflector);
   },
 
@@ -1878,7 +1878,7 @@ var jumpSoundPlaying = false;
           sprite = 'spacerun_car';
             break;
         }
-          this.badSpaceObject = new badSpaceObject(this.game, 1000, this.game.rnd.integerInRange(0, 500), sprite);
+          this.badSpaceObject = new badSpaceObject(this.game, 1075, this.game.rnd.integerInRange(150, 500), sprite);
           badObjectGroup.add(this.badSpaceObject);
   },
 
@@ -2014,6 +2014,7 @@ var soundCooldown = 0;
     preload: function() {
     },
     create: function() {
+      this.sound.remove(this.game.introNarration);
       this.game.sound.stopAll();
       this.music = this.add.audio('avaruusbiisi');
       this.music.play('',0,1,true);
