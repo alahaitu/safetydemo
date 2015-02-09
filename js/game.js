@@ -609,9 +609,10 @@ Boot.prototype = {
   create: function() {
     this.game.input.maxPointers = 1;
     this.stage.disableVisibilityChange = true;
+
     if (this.game.device.desktop)
     {
-        this.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
+        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         this.scale.minWidth = 480;
         this.scale.minHeight = 322.5;
         this.scale.maxWidth = 1024;
@@ -622,7 +623,7 @@ Boot.prototype = {
     }
     else
     {
-        this.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
+        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         this.scale.maxWidth = 1024;
         this.scale.maxHeight = 688;
         this.scale.pageAlignHorizontally = true;
