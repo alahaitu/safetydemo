@@ -624,7 +624,7 @@ Boot.prototype = {
     {
         this.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
         this.scale.minWidth = 480;
-        this.scale.minHeight = 322.5;
+        this.scale.minHeight = 260;
         this.scale.maxWidth = 1024;
         this.scale.maxHeight = 688;
         this.scale.pageAlignHorizontally = true;
