@@ -68,7 +68,7 @@ Preload.prototype = {
     this.load.image('eating_b6', 'assets/img/EatingGame/EatingGame_X6.png');
 
     // Space station assets
-    this.load.spritesheet('spacest_alien', 'assets/img/SpaceStation/spacest_sprite.png', 350, 460, 10);
+    this.load.spritesheet('spacest_alien', 'assets/img/SpaceStation/spacest_sprite.png', 350, 460, 7);
     this.load.image('spacest_alienhitbox', 'assets/img/SpaceStation/alienhitbox.png');
     this.load.image('spacest_background', 'assets/img/SpaceStation/avaruusasema_bg.jpg');
     this.load.image('spacest_crown', 'assets/img/SpaceStation/spacest_crown.png');
