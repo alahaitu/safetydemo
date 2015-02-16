@@ -6,11 +6,13 @@ function Boot() {
 
 Boot.prototype = {
   preload: function() {
+    this.game.stage.backgroundColor = '#ffffff';
+
     this.load.image('preloader', 'assets/img/LoadScreen/loadscreen_bg.png');
-   
     // Loading screen assets
     this.load.image('loading_bg', 'assets/img/LoadScreen/loadscreen_bg.png');
     this.load.spritesheet('loading_alien', 'assets/img/LoadScreen/loadscreen_aliensprite.png', 260, 350, 4);
+
   },
   create: function() {
     this.game.input.maxPointers = 1;
