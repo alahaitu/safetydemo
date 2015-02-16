@@ -6,29 +6,22 @@ window.onload = function () {
   var game = new Phaser.Game(1024, 688, Phaser.AUTO, 'safety-demo');
 
   // Game States
-  game.state.add('beachScene', require('./states/beachScene'));
   game.state.add('boot', require('./states/boot'));
   game.state.add('credits', require('./states/credits'));
   game.state.add('eating', require('./states/eating'));
   game.state.add('eatingGameWin', require('./states/eatingGameWin'));
-  game.state.add('eatingScene', require('./states/eatingScene'));
-  game.state.add('gameover', require('./states/gameover'));
   game.state.add('lifejacket', require('./states/lifejacket'));
   game.state.add('lifejacketWin', require('./states/lifejacketWin'));
-  game.state.add('menu', require('./states/menu'));
-  game.state.add('play', require('./states/play'));
   game.state.add('playroom', require('./states/playroom'));
   game.state.add('preload', require('./states/preload'));
   game.state.add('spaceRunWin', require('./states/spaceRunWin'));
   game.state.add('spaceScene', require('./states/spaceScene'));
   game.state.add('spaceStation', require('./states/spaceStation'));
-  game.state.add('trampoline', require('./states/trampoline'));
-  game.state.add('trampolineCutscene', require('./states/trampolineCutscene'));
   
 
   game.state.start('boot');
 };
-},{"./states/beachScene":19,"./states/boot":20,"./states/credits":21,"./states/eating":22,"./states/eatingGameWin":23,"./states/eatingScene":24,"./states/gameover":25,"./states/lifejacket":26,"./states/lifejacketWin":27,"./states/menu":28,"./states/play":29,"./states/playroom":30,"./states/preload":31,"./states/spaceRunWin":32,"./states/spaceScene":33,"./states/spaceStation":34,"./states/trampoline":35,"./states/trampolineCutscene":36}],2:[function(require,module,exports){
+},{"./states/boot":15,"./states/credits":16,"./states/eating":17,"./states/eatingGameWin":18,"./states/lifejacket":19,"./states/lifejacketWin":20,"./states/playroom":21,"./states/preload":22,"./states/spaceRunWin":23,"./states/spaceScene":24,"./states/spaceStation":25}],2:[function(require,module,exports){
 'use strict';
 
 var Alien = function(game, x, y, sprite, frame) {
@@ -52,40 +45,6 @@ Alien.prototype.update = function() {
 module.exports = Alien;
 
 },{}],3:[function(require,module,exports){
-'use strict';
-
-var BadEatObject = function(game, x, y, sprite, frame) {
-	Phaser.Sprite.call(this, game, x, y, sprite, frame);
-
-	this.game.physics.arcade.enableBody(this);
-	this.body.allowGravity = false;
-  this.body.velocity.x = 130;
-
-	this.checkWorldBounds = true;	
-	this.outOfBoundsKill = true;
-};
-
-BadEatObject.prototype = Object.create(Phaser.Sprite.prototype);
-BadEatObject.prototype.constructor = BadEatObject;
-BadEatObject.prototype.create = function(){;}
-BadEatObject.prototype.update = function() {
-  
-  // write your prefab's specific update code here
-  
-},
-
-BadEatObject.prototype.drop = function(){
-	this.body.allowGravity = true;
-	this.body.velocity.y = -200;
-	this.body.velocity.x = 50;
-	this.inputEnabled = false;
-	//this.popSound.play();
-	console.log("Bad food dropped.");
-};
-
-module.exports = BadEatObject;
-
-},{}],4:[function(require,module,exports){
 'use strict';
 
 var BadFood = function(game, x, y, sprite, frame) {
@@ -112,7 +71,7 @@ BadFood.prototype.update = function() {
 
 module.exports = BadFood;
 
-},{}],5:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 'use strict';
 
 var BadSpaceObject = function(game, x, y, sprite, frame) {
@@ -159,7 +118,7 @@ BadSpaceObject.prototype.update = function() {
 
 module.exports = BadSpaceObject;
 
-},{}],6:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 'use strict';
 
 var BadStationObject = function(game, x, y, sprite, frame) {
@@ -182,7 +141,7 @@ BadStationObject.prototype.update = function() {
 
 module.exports = BadStationObject;
 
-},{}],7:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 var BeachAlien = function(game, x, y, sprite, frame) {
@@ -208,28 +167,7 @@ BeachAlien.prototype.update = function() {
 
 module.exports = BeachAlien;
 
-},{}],8:[function(require,module,exports){
-'use strict';
-
-var DrowningAlien = function(game, x, y, sprite, frame) {
-  Phaser.Sprite.call(this, game, x, y, sprite, frame);
-
- 	this.game.physics.arcade.enableBody(this);
-	this.body.allowGravity = false;
-
-	this.checkWorldBounds = true;	
-	this.outOfBoundsKill = true;
-};
-
-DrowningAlien.prototype = Object.create(Phaser.Sprite.prototype);
-DrowningAlien.prototype.constructor = DrowningAlien;
-
-DrowningAlien.prototype.update = function() {
-};
-
-module.exports = DrowningAlien;
-
-},{}],9:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 'use strict';
 
 var Floor = function(game, x, y, sprite, frame) {
@@ -251,42 +189,7 @@ Floor.prototype.update = function() {
 
 module.exports = Floor;
 
-},{}],10:[function(require,module,exports){
-'use strict';
-
-var GoodEatObject = function(game, x, y, sprite, frame) {
-	Phaser.Sprite.call(this, game, x, y, sprite, frame);
-
- 	this.game.physics.arcade.enableBody(this);
-	this.body.allowGravity = false;
- 	this.body.velocity.x = 130;
-
-	this.checkWorldBounds = true;	
-	this.outOfBoundsKill = true;
-
-};
-
-GoodEatObject.prototype = Object.create(Phaser.Sprite.prototype);
-GoodEatObject.prototype.constructor = GoodEatObject;
-GoodEatObject.prototype.create = function(){}
-GoodEatObject.prototype.update = function() {
-  
-  // write your prefab's specific update code here 
-  
-},
-
-GoodEatObject.prototype.drop = function(){
-	this.body.allowGravity = true;
-	this.body.velocity.y = -200;
-	this.body.velocity.x = 50;
-	this.inputEnabled = false;
-	//this.popSound.play();
-	console.log("Good food dropped.");
-};
-
-module.exports = GoodEatObject;
-
-},{}],11:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 
 var GoodFood = function(game, x, y, sprite, frame) {
@@ -313,7 +216,7 @@ GoodFood.prototype.update = function() {
 
 module.exports = GoodFood;
 
-},{}],12:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 
 var GoodStationObject = function(game, x, y, sprite, frame) {
@@ -336,7 +239,7 @@ GoodStationObject.prototype.update = function() {
 
 module.exports = GoodStationObject;
 
-},{}],13:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 'use strict';
 
 var Lifejacket = function(game, x, y, sprite, frame) {
@@ -360,29 +263,7 @@ Lifejacket.prototype.update = function() {
 
 module.exports = Lifejacket;
 
-},{}],14:[function(require,module,exports){
-'use strict';
-
-var Lifesaver = function(game, x, y, sprite, frame) {
-  Phaser.Sprite.call(this, game, x, y, sprite, frame);
-
- 	this.game.physics.arcade.enableBody(this);
-	this.body.allowGravity = false;
-	this.body.collideWorldBounds = true;  
-};
-
-Lifesaver.prototype = Object.create(Phaser.Sprite.prototype);
-Lifesaver.prototype.constructor = Lifesaver;
-
-Lifesaver.prototype.update = function() {
-  
-  // write your prefab's specific update code here
-  
-};
-
-module.exports = Lifesaver;
-
-},{}],15:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 var Reflector = function(game, x, y, sprite, frame) {
@@ -424,7 +305,7 @@ Reflector.prototype.update = function() {
 
 module.exports = Reflector;
 
-},{}],16:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 var SpaceAlien = function(game, x, y, sprite, frame) {
@@ -455,7 +336,7 @@ SpaceAlien.prototype.up = function() {
 
 module.exports = SpaceAlien;
 
-},{}],17:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 var StationAlien = function(game, x, y, sprite, frame) {
@@ -478,7 +359,7 @@ StationAlien.prototype.update = function() {
 
 module.exports = StationAlien;
 
-},{}],18:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 var Table = function(game, x, y, sprite, frame) {
@@ -501,97 +382,7 @@ Table.prototype.update = function() {
 
 module.exports = Table;
 
-},{}],19:[function(require,module,exports){
-'use strict';
-var drowningAlien = require('../prefabs/drowningAlien');  
-var lifesaver = require('../prefabs/lifesaver');
-
-var drowningAlienGroup;
-
-  function BeachScene() {}
-  BeachScene.prototype = {
-    create: function() {
-      this.game.physics.startSystem(Phaser.Physics.ARCADE);
-      this.beachBg = this.game.add.sprite(0, 0, 'beach_bg');
-      this.backButton = this.add.button(899, 23, 'exit_btn' , this.exitScene, this);
-
-      drowningAlienGroup = this.game.add.group();
-
-      this.lifesaver = new lifesaver(this.game, this.game.width/2, 450, 'beach_lsaver');
-      this.game.add.existing(this.lifesaver);
-      this.lifesaver.inputEnabled = true;
-      this.lifesaver.input.enableDrag(true);
-
-      this.spawnDrowningAliens(150, 100);
-
-    },
-    update: function() {
-
-        drowningAlienGroup.forEach(function(drowningAlien){
-              this.game.physics.arcade.overlap(drowningAlien, this.lifesaver, this.alienSaved, null, this);
-
-              if (drowningAlien && drowningAlien.body.y > 450 ){
-                this.spawnNewLifesaver(drowningAlien.body.x, drowningAlien.body.y);
-                drowningAlien.destroy();
-              }
-
-        }, this);
-
-    },
-    spawnDrowningAliens: function(x, y) {
-
-      for (var i=0; i < 3; i++){
-        var sprite ='';
-        var rand = this.game.rnd.integerInRange(1, 2);
-        switch (rand){
-          case 1:
-          sprite = 'beach_alien1';
-            break;
-          case 2:
-          sprite = 'beach_alien2';
-            break;
-        }
-
-          this.drowningAlien = new drowningAlien(this.game, x + (i*300), y + this.game.rnd.integerInRange(-100, 100), sprite);
-          drowningAlienGroup.add(this.drowningAlien);
-      }
-
-    },
-
-    alienSaved: function(alien) {
-          alien.body.velocity.y = 150;
-          this.lifesaver.destroy();
-    },
-
-    spawnNewLifesaver: function(x, y){
-      this.lifesaver = new lifesaver(this.game, x, y, 'beach_lsaver');
-      this.game.add.existing(this.lifesaver);
-      this.lifesaver.inputEnabled = true;
-      this.lifesaver.input.enableDrag(true);
-
-    },
-
-    alien1Saved: function() {
-      console.log("Alien 1 saved.");
-    },
-    alien2Saved: function() {
-      console.log("Alien 2 saved.");
-    },
-    startDrag: function(sprite, pointer) {
-      this.lifesaver.body.moves = false;
-      console.log("Drag started.");
-    },
-    stopStop: function(sprite, pointer) {
-      this.lifesaver.body.moves = true;
-      console.log("Drag stopped.");
-    },
-    exitScene: function() {
-      this.game.state.start('playroom');
-    }
-  };
-module.exports = BeachScene;
-
-},{"../prefabs/drowningAlien":8,"../prefabs/lifesaver":14}],20:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 
 'use strict';
 
@@ -600,11 +391,13 @@ function Boot() {
 
 Boot.prototype = {
   preload: function() {
+    this.game.stage.backgroundColor = '#ffffff';
+
     this.load.image('preloader', 'assets/img/LoadScreen/loadscreen_bg.png');
-   
     // Loading screen assets
     this.load.image('loading_bg', 'assets/img/LoadScreen/loadscreen_bg.png');
     this.load.spritesheet('loading_alien', 'assets/img/LoadScreen/loadscreen_aliensprite.png', 260, 350, 4);
+
   },
   create: function() {
     this.game.input.maxPointers = 1;
@@ -623,7 +416,7 @@ Boot.prototype = {
 
 module.exports = Boot;
 
-},{}],21:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 'use strict';
   function Credits() {}
   Credits.prototype = {
@@ -646,7 +439,7 @@ module.exports = Boot;
   };
 module.exports = Credits;
 
-},{}],22:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 var goodFood = require('../prefabs/goodFood');  
 var badFood = require('../prefabs/badFood');  
@@ -898,7 +691,7 @@ var gameOver;
   };
 module.exports = Eating;
 
-},{"../prefabs/alien":2,"../prefabs/badFood":4,"../prefabs/goodFood":11,"../prefabs/table":18}],23:[function(require,module,exports){
+},{"../prefabs/alien":2,"../prefabs/badFood":3,"../prefabs/goodFood":8,"../prefabs/table":14}],18:[function(require,module,exports){
 'use strict';
   function EatingGameWin() {}
   EatingGameWin.prototype = {
@@ -940,181 +733,7 @@ module.exports = Eating;
   };
 module.exports = EatingGameWin;
 
-},{}],24:[function(require,module,exports){
-'use strict';
-var goodEatObject = require('../prefabs/goodEatObject');  
-var badEatObject = require('../prefabs/badEatObject');  
-var alien = require('../prefabs/alien');  
-var table = require('../prefabs/table');  
-var lastSpawn = null;
-
-  function EatingScene() {}
-  EatingScene.prototype = {
-
-    create: function() {
-        this.game.physics.startSystem(Phaser.Physics.ARCADE);
-        this.game.physics.arcade.gravity.y = 500;
-
-        // Graphics
-        this.scoreMeter = this.game.add.sprite(119, 38, 'score_meter');
-        this.pointer = this.game.add.sprite(114, 21, 'score_pointer');
-        this.add.sprite(40, 35, 'score_basket');
-        this.eating_background = this.game.add.sprite(0, 0, 'eating_bg');
-        this.alienSprite = this.game.add.sprite(560,80, 'eating_alien_gf');
-        this.alienSprite.animations.add('eat');
-        this.table = new table(this.game, 0, 492, 'eating_table');
-        this.game.add.existing(this.table);
-        this.backButton = this.add.button(899, 23, 'exit_btn' , this.startPlayroom, this);
-        
-        // Sounds
-        this.eatingSoundGood1 = this.add.audio('rousk1');
-        this.eatingSoundGood2 = this.add.audio('rousk2');
-        this.eatingSoundGood3 = this.add.audio('rousk3');
-        this.eatingSoundGood4 = this.add.audio('rousk4');
-        this.eatingSoundGood5 = this.add.audio('rousk5');
-        this.eatingSoundBad1 = this.add.audio('hyi_1');
-        this.eatingSoundBad2 = this.add.audio('hyi_2');
-        this.eatingSoundBad3 = this.add.audio('hyi_3');
-        this.eatingSoundSurprised1 = this.add.audio('hammastys_1');
-        this.eatingSoundSurprised2 = this.add.audio('hammastys_2');
-        this.eatingSoundSurprised3 = this.add.audio('hammastys_3');
-
-        this.alien = new alien(this.game, 820, 520, 'transparentRectangle');
-        this.game.add.existing(this.alien);
-
-        this.objectGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 3.3, this.generateObjects, this);
-
-        this.objectGenerator.timer.start();
-
-    },
-    update: function() {
-          this.game.physics.arcade.collide(this.alien, this.goodEatObject, this.goodCollision, null, this);
-          this.game.physics.arcade.collide(this.alien, this.badEatObject, this.badCollision, null, this);
-
-          if (this.pointer.x > 650) {
-           this.game.state.start('eatingGameWin');
-          }
-    },
-
-    goodCollision: function(){
-      this.goodEatObject.destroy();
-      if (this.pointer.x < this.scoreMeter.width + this.scoreMeter.x - 90){
-        this.pointer.x = this.pointer.x + 90; // 28
-      }
-      this.alienSprite.loadTexture('eating_alien_gf');
-      this.alienSprite.play('eat', 8, false);
-      this.randomEatingSoundGood();
-
-    },
-    badCollision: function(){
-      this.badEatObject.destroy();
-      if (this.pointer.x > this.scoreMeter.x){
-        this.pointer.x = this.pointer.x - 90;
-      }
-      this.alienSprite.loadTexture('eating_alien_bf');
-      this.alienSprite.play('eat', 8, false);
-      this.randomEatingSoundBad();
-
-    },
-
-    randomEatingSoundGood: function(){
-        var rand = this.game.rnd.integerInRange(1, 5);
-
-        switch (rand){
-          case 1:
-            this.eatingSoundGood1.play();
-            break;
-          case 2:
-            this.eatingSoundGood2.play();
-            break;
-          case 3:
-            this.eatingSoundGood3.play();
-            break;
-          case 4:
-            this.eatingSoundGood4.play();
-            break;
-          case 5:
-            this.eatingSoundGood5.play();
-            break;
-        }
-    },
-    randomEatingSoundBad: function(){
-        var rand = this.game.rnd.integerInRange(1, 3);
-
-        switch (rand){
-          case 1:
-            this.eatingSoundBad1.play();
-            break;
-          case 2:
-            this.eatingSoundBad2.play();
-            break;
-          case 3:
-            this.eatingSoundBad3.play();
-            break;
-        }
-    },
-    generateObjects: function() {
-
-        //var goodOrBad = this.game.rnd.integerInRange(0,1);
-
-        // Good object
-        if (lastSpawn != "good") {
-            this.goodEatObject = new goodEatObject(this.game, -40, 520, 'eating_g' + this.game.rnd.integerInRange(1, 8));
-            this.game.add.existing(this.goodEatObject);
-            this.goodEatObject.anchor.setTo(0.5,0.5);
-            this.goodEatObject.inputEnabled = true;
-            this.goodEatObject.events.onInputDown.add(this.goodEatObject.drop, this.goodEatObject);
-            console.log("Good food generated.")
-            lastSpawn = "good";
-        }
-
-        // Bad object
-        else if (lastSpawn != "bad") {
-            this.badEatObject = new badEatObject(this.game, -40, 520, 'eating_b' + this.game.rnd.integerInRange(1, 6));
-            this.game.add.existing(this.badEatObject);
-            this.badEatObject.anchor.setTo(0.5,0.5)
-            this.badEatObject.inputEnabled = true;
-            this.badEatObject.events.onInputDown.add(this.badEatObject.drop, this.badEatObject);
-            console.log("Bad food generated.")
-            lastSpawn = "bad";
-        }
-
-    },
-    startPlayroom: function() {
-      this.game.state.start('playroom');
-    }
-  };
-module.exports = EatingScene;
-
-},{"../prefabs/alien":2,"../prefabs/badEatObject":3,"../prefabs/goodEatObject":10,"../prefabs/table":18}],25:[function(require,module,exports){
-
-'use strict';
-function GameOver() {}
-
-GameOver.prototype = {
-  preload: function () {
-
-  },
-  create: function () {
-    var style = { font: '65px Arial', fill: '#ffffff', align: 'center'};
-    this.titleText = this.game.add.text(this.game.world.centerX,100, 'Game Over!', style);
-    this.titleText.anchor.setTo(0.5, 0.5);
-
-    this.congratsText = this.game.add.text(this.game.world.centerX, 200, 'You Win!', { font: '32px Arial', fill: '#ffffff', align: 'center'});
-    this.congratsText.anchor.setTo(0.5, 0.5);
-
-    this.instructionText = this.game.add.text(this.game.world.centerX, 300, 'Click To Play Again', { font: '16px Arial', fill: '#ffffff', align: 'center'});
-    this.instructionText.anchor.setTo(0.5, 0.5);
-  },
-  update: function () {
-    if(this.game.input.activePointer.justPressed()) {
-      this.game.state.start('play');
-    }
-  }
-};
-module.exports = GameOver;
-
-},{}],26:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 'use strict';
 var beachAlien = require('../prefabs/beachAlien');  
 var lifejacket = require('../prefabs/lifejacket');  
@@ -1410,7 +1029,7 @@ var startSmileCounter;
   };
 module.exports = Lifejacket;
 
-},{"../prefabs/beachAlien":7,"../prefabs/floor":9,"../prefabs/lifejacket":13}],27:[function(require,module,exports){
+},{"../prefabs/beachAlien":6,"../prefabs/floor":7,"../prefabs/lifejacket":10}],20:[function(require,module,exports){
 'use strict';
   function LifejacketWin() {}
   LifejacketWin.prototype = {
@@ -1464,66 +1083,7 @@ module.exports = Lifejacket;
   };
 module.exports = LifejacketWin;
 
-},{}],28:[function(require,module,exports){
-
-'use strict';
-function Menu() {}
-
-Menu.prototype = {
-  preload: function() {
-
-  },
-  create: function() {
-    var style = { font: '65px Arial', fill: '#ffffff', align: 'center'};
-    this.sprite = this.game.add.sprite(this.game.world.centerX, 138, 'yeoman');
-    this.sprite.anchor.setTo(0.5, 0.5);
-
-    this.titleText = this.game.add.text(this.game.world.centerX, 300, '\'Allo, \'Allo!', style);
-    this.titleText.anchor.setTo(0.5, 0.5);
-
-    this.instructionsText = this.game.add.text(this.game.world.centerX, 400, 'Click anywhere to play "Click The Yeoman Logo"', { font: '16px Arial', fill: '#ffffff', align: 'center'});
-    this.instructionsText.anchor.setTo(0.5, 0.5);
-
-    this.sprite.angle = -20;
-    this.game.add.tween(this.sprite).to({angle: 20}, 1000, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
-  },
-  update: function() {
-    if(this.game.input.activePointer.justPressed()) {
-      this.game.state.start('play');
-    }
-  }
-};
-
-module.exports = Menu;
-
-},{}],29:[function(require,module,exports){
-
-  'use strict';
-  function Play() {}
-  Play.prototype = {
-    create: function() {
-      this.game.physics.startSystem(Phaser.Physics.ARCADE);
-      this.sprite = this.game.add.sprite(this.game.width/2, this.game.height/2, 'yeoman');
-      this.sprite.inputEnabled = true;
-      
-      this.game.physics.arcade.enable(this.sprite);
-      this.sprite.body.collideWorldBounds = true;
-      this.sprite.body.bounce.setTo(1,1);
-      this.sprite.body.velocity.x = this.game.rnd.integerInRange(-500,500);
-      this.sprite.body.velocity.y = this.game.rnd.integerInRange(-500,500);
-
-      this.sprite.events.onInputDown.add(this.clickListener, this);
-    },
-    update: function() {
-
-    },
-    clickListener: function() {
-      this.game.state.start('gameover');
-    }
-  };
-  
-  module.exports = Play;
-},{}],30:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 'use strict';
   function Playroom() {}
   Playroom.prototype = {
@@ -1563,7 +1123,7 @@ module.exports = Menu;
   };
 module.exports = Playroom;
 
-},{}],31:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 
 'use strict';
 function Preload() {
@@ -1728,7 +1288,7 @@ Preload.prototype = {
 
 module.exports = Preload;
 
-},{}],32:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 'use strict';
   function SpaceRunWin() {}
   SpaceRunWin.prototype = {
@@ -1745,7 +1305,7 @@ module.exports = Preload;
   };
 module.exports = SpaceRunWin;
 
-},{}],33:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 'use strict';
 var spaceAlien = require('../prefabs/spaceAlien');  
 var reflector = require('../prefabs/reflector');
@@ -1967,7 +1527,7 @@ var jumpSoundPlaying = false;
   };
 module.exports = SpaceScene;
 
-},{"../prefabs/badSpaceObject":5,"../prefabs/reflector":15,"../prefabs/spaceAlien":16}],34:[function(require,module,exports){
+},{"../prefabs/badSpaceObject":4,"../prefabs/reflector":11,"../prefabs/spaceAlien":12}],25:[function(require,module,exports){
 'use strict';
 var stationAlien = require('../prefabs/stationAlien');  
 var goodStationObject = require('../prefabs/goodStationObject');
@@ -2281,165 +1841,4 @@ var soundCooldown = 0;
   };
 module.exports = SpaceStation;
 
-},{"../prefabs/badStationObject":6,"../prefabs/floor":9,"../prefabs/goodStationObject":12,"../prefabs/stationAlien":17}],35:[function(require,module,exports){
-'use strict';
-  function Trampoline() {}
-  Trampoline.prototype = {
-    preload: function(){
-      this.load.image('trampoline_game_bg', 'assets/img//Trampoline/SpaceJump_bg.png');
-      this.load.image('trampoline_game_alien', 'assets/img/Trampoline/SpaceJump_alien.png');
-      this.load.image('trampoline_game_bee', 'assets/img/Trampoline/TrampolineG_Bee.png');
-      this.load.image('trampoline_game_bear_ref', 'assets/img/Trampoline/SpaceJump_ref1.png');
-      this.load.image('trampoline_game_heart_ref', 'assets/img/Trampoline/SpaceJump_ref2.png');
-      this.load.image('trampoline_game_two_ref', 'assets/img/Trampoline/SpaceJump_ref3.png');
-      this.load.image('trampoline_game_dog_ref', 'assets/img/Trampoline/SpaceJump_ref4.png');
-      this.load.image('trampoline_game_star_ref', 'assets/img/Trampoline/SpaceJump_ref5.png');
-      this.load.image('trampoline_game_jump_button', 'assets/img/Trampoline/TrampolineG_JumpButton.png');  
-      this.load.image('trampoline_game_win', 'assets/img/Trampoline/SpJumpWin_bg.png');
-      this.load.image('trampoline_game_win_alien', 'assets/img/Trampoline/SpJumpWin_alien.png');
-      this.load.spritesheet('trampoline_game_win_glow', 'assets/img/Trampoline/SpJumpWin_sprite.png', 670, 688, 2);
-      this.load.image('trampoline_rbutton', 'assets/img/Trampoline/TrampolineG_RightButton.png');
-      this.load.image('trampoline_lbutton', 'assets/img/Trampoline/TrampolineG_LeftButton.png');
-      this.load.image('reflectors_icon', 'assets/img/Trampoline/SpaceJump_iconref.png');
-    },
-    create: function() {
-      this.add.sprite(0, 0, 'trampoline_game_bg');
-      this.bear_ref = this.add.sprite(400, 140, 'trampoline_game_bear_ref');
-      this.heart_ref = this.add.sprite(600, 140, 'trampoline_game_heart_ref');
-      this.two_ref = this.add.sprite(800, 140, 'trampoline_game_two_ref');
-      this.player = this.add.sprite(426, 502, 'trampoline_game_alien');
-      this.bee = this.add.sprite(1024, 80, 'trampoline_game_bee');
-      this.add.sprite(119, 38, 'score_meter');
-      this.scorePointer = this.add.sprite(114, 21, 'score_pointer');
-      this.add.sprite(40, 35, 'reflectors_icon');
-      this.add.button(850, 535, 'trampoline_game_jump_button', this.playerJump, this);
-      this.add.button(25, 535, 'trampoline_lbutton', this.playerLeft, this);
-      this.add.button(220, 535, 'trampoline_rbutton', this.playerRight, this);
-      this.add.button(899, 23, 'exit_btn', this.exitScene, this);    
-
-      //this.beeSound = this.add.audio('bee_sound');
-      this.popSound = this.add.audio('helmet_on_sound');
-
-      this.game.physics.startSystem(Phaser.Physics.ARCADE);
-      this.game.physics.enable([this.player, this.bee, this.bear_ref, this.heart_ref, this.two_ref]);
-      this.player.body.velocity.setTo(200, 200);
-      this.player.body.collideWorldBounds = true;
-      this.player.body.bounce.set(0.8);
-      this.player.body.gravity.set(0, 180);
-
-      this.player.body.immovable = true;
-      this.bee.body.immovable = true;
-
-      this.randomX = this.game.rnd.integerInRange(0, 1024-this.bear_ref.body.width);
-      this.randomY = this.game.rnd.integerInRange(140, 400);
-      this.player.alpha = 0.2;
-    },
-    update: function() {
-      /*if (this.bee.x > 0-this.bee.width) {
-        this.bee.x -= 3;
-      }
-      else {
-        this.game.time.events.add(Phaser.Timer.SECOND * this.game.rnd.integerInRange(0.5, 1.5), this.resetBee, this);
-      }*/
-
-      this.game.physics.arcade.collide(this.player, this.bee, this.beeCollision, null, this);
-      this.game.physics.arcade.collide(this.player, this.bear_ref, this.pickBear, null, this);
-      this.game.physics.arcade.collide(this.player, this.heart_ref, this.pickHeart, null, this);
-      this.game.physics.arcade.collide(this.player, this.two_ref, this.pickTwo, null, this);
-
-      if (this.scorePointer.x > 672) {
-         this.game.state.start('trampolineGameWin');
-      }
-
-    },
-    pickBear: function() {
-      this.popSound.play();
-      this.scorePointer.x += 28;
-      this.bear_ref.kill();
-      this.game.time.events.add(Phaser.Timer.SECOND * 3, this.resetBear, this);
-      if (this.player.alpha < 1){
-        this.player.alpha = this.player.alpha  + 0.05;
-      }
-    },
-    pickHeart: function() {
-      this.popSound.play();
-      this.scorePointer.x += 28;
-      this.heart_ref.kill();
-      this.game.time.events.add(Phaser.Timer.SECOND * 3, this.resetHeart, this);
-      if (this.player.alpha < 1){
-        this.player.alpha = this.player.alpha  + 0.05;
-      }
-    },
-    pickTwo: function() {
-      this.popSound.play();
-      this.scorePointer.x += 28;
-      this.two_ref.kill();
-      this.game.time.events.add(Phaser.Timer.SECOND * 3, this.resetTwo, this);
-      if (this.player.alpha < 1){
-        this.player.alpha = this.player.alpha  + 0.05;
-      }
-    },
-    resetBear: function() {
-      this.bear_ref.reset(this.game.rnd.integerInRange(0, 1024-this.bear_ref.body.width), 140);
-    },
-    resetHeart: function() {
-      this.heart_ref.reset(this.game.rnd.integerInRange(0, 1024-this.heart_ref.body.width), 140);
-    },
-    resetTwo: function() {
-      this.two_ref.reset(this.game.rnd.integerInRange(0, 1024-this.two_ref.body.width), 140);
-    },
-    beeCollision: function() {
-      console.log("sting!");
-      //this.beeSound.play();
-    },
-    resetBee: function() {
-      this.bee.reset(1024, this.game.rnd.integerInRange(100, 400));
-      //this.beeSound.play();
-    },
-    playerJump: function() {
-      this.player.body.velocity.y = 600;
-    },
-    playerLeft: function() {
-      if (this.player.body.velocity.x > 0)
-        this.player.body.velocity.x = -(this.player.body.velocity.x)
-    },
-    playerRight: function() {
-      if (this.player.body.velocity.x < 0)
-      this.player.body.velocity.x = -(this.player.body.velocity.x);
-    },
-    exitScene: function() {
-      this.game.state.start('playroom');
-    }
-  };
-module.exports = Trampoline;
-
-},{}],36:[function(require,module,exports){
-'use strict';
-  function TrampolineCutscene() {}
-  TrampolineCutscene.prototype = {
-    create: function() {
-      this.add.sprite(0, 0, 'trampoline_bg');
-      this.add.sprite(93, 110, 'trampoline_back');
-      this.jumping = this.add.sprite(250, 0, 'trampoline_jumping', 1);
-      this.add.sprite(93, 100, 'trampoline_front');
-      this.add.button(850, 600, 'fwd_button', this.startTrampoline, this);
-      this.game.time.events.add(Phaser.Timer.SECOND * 0.5, this.trampolineKidSay, this);
-
-      this.trampolineKidSound = this.add.audio('youre_next_fi');
-
-      this.jumpingAnim = this.jumping.animations.add('jumps');
-      this.jumpingAnimation();
-    },
-    trampolineKidSay: function() {
-      this.trampolineKidSound.play();
-    },
-    jumpingAnimation: function(){
-      this.jumpingAnim.play(16, true);
-    },
-    startTrampoline: function() {
-      this.game.state.start('trampoline');
-    }
-  };
-module.exports = TrampolineCutscene;
-
-},{}]},{},[1])
+},{"../prefabs/badStationObject":5,"../prefabs/floor":7,"../prefabs/goodStationObject":9,"../prefabs/stationAlien":13}]},{},[1])
